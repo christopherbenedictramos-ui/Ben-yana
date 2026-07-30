@@ -1,7 +1,5 @@
 /* =====================================================
-   BIRTHDAY EXPERIENCE WEBSITE
-   SCRIPT ENGINE
-   FULL VERSION
+   HAPPY BIRTHDAY EXPERIENCE ENGINE
 ===================================================== */
 
 
@@ -10,18 +8,71 @@ document.addEventListener(
 ()=>{
 
 
-/* ===========================================
-LOADING SCREEN
-=========================================== */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
 
 const loading =
-document.getElementById("loading-screen");
+document.getElementById(
+"loading-screen"
+);
+
+
+const intro =
+document.getElementById(
+"giftIntro"
+);
+
+
+const gift =
+document.getElementById(
+"introGift"
+);
 
 
 const main =
-document.getElementById("main-content");
+document.getElementById(
+"main-content"
+);
 
+
+const hero =
+document.getElementById(
+"hero"
+);
+
+
+const bgMusic =
+document.getElementById(
+"bgMusic"
+);
+
+
+
+
+/* =====================================================
+   INITIAL STATE
+===================================================== */
+
+
+// lock page scrolling
+
+document.body.style.overflow =
+"hidden";
+
+
+// hide main content
+
+main.classList.remove(
+"active"
+);
+
+
+
+/* =====================================================
+   LOADING SCREEN
+===================================================== */
 
 
 setTimeout(()=>{
@@ -29,17 +80,14 @@ setTimeout(()=>{
 
 if(loading){
 
+
 loading.style.opacity="0";
 
 
 setTimeout(()=>{
 
+
 loading.style.display="none";
-
-
-if(main){
-main.classList.remove("hidden");
-}
 
 
 },1000);
@@ -48,71 +96,151 @@ main.classList.remove("hidden");
 }
 
 
-
-},3000);
-
+},2000);
 
 
 
 
 
 
-/* ===========================================
-CREATE FLOATING PARTICLES
-=========================================== */
+
+/* =====================================================
+   GIFT OPENING
+===================================================== */
 
 
-const particleContainer =
-document.getElementById("particles");
+if(gift){
+
+
+gift.addEventListener(
+"click",
+()=>{
+
+
+// prevent double click
+
+gift.style.pointerEvents =
+"none";
 
 
 
-if(particleContainer){
+// add animation
+
+gift.classList.add(
+"gift-open"
+);
 
 
-for(let i=0;i<80;i++){
 
 
-let particle =
-document.createElement("div");
+// confetti
+
+if(window.confetti){
 
 
-particle.className="particle";
+confetti({
+
+particleCount:250,
+
+spread:120,
+
+origin:{
+y:.6
+}
+
+});
 
 
-particle.style.left =
-Math.random()*100+"%";
+}
 
 
-particle.style.animationDuration =
-(5+Math.random()*10)+"s";
 
 
-particle.style.animationDelay =
-Math.random()*10+"s";
+
+// play music
+
+if(bgMusic){
 
 
-let size =
-Math.random()*5+2;
+bgMusic.volume=.35;
 
 
-particle.style.width =
-size+"px";
+bgMusic.play()
+.catch(()=>{});
 
 
-particle.style.height =
-size+"px";
+}
 
 
-particleContainer.appendChild(
-particle
+
+
+
+
+
+setTimeout(()=>{
+
+
+
+// remove intro screen
+
+intro.classList.add(
+"hide"
+);
+
+
+
+// unlock scrolling
+
+document.body.style.overflow =
+"auto";
+
+
+
+// show website
+
+main.classList.add(
+"active"
+);
+
+
+
+// hero animation
+
+gsap.fromTo(
+
+hero,
+
+{
+opacity:0,
+y:100
+},
+
+{
+opacity:1,
+y:0,
+duration:1.5,
+ease:"power3.out"
+}
+
+
+);
+
+
+
+},1400);
+
+
+
+
+
+}
+
 );
 
 
 }
 
 
-}
 
 
 
@@ -120,14 +248,15 @@ particle
 
 
 
-
-/* ===========================================
-BEGIN BUTTON
-=========================================== */
+/* =====================================================
+   BEGIN JOURNEY
+===================================================== */
 
 
 const begin =
-document.getElementById("beginBtn");
+document.getElementById(
+"beginBtn"
+);
 
 
 
@@ -139,9 +268,43 @@ begin.addEventListener(
 ()=>{
 
 
-document
-.querySelector(".story")
-.scrollIntoView({
+const story =
+document.querySelector(
+".story"
+);
+
+
+
+if(story){
+
+
+story.classList.remove(
+"hidden-section"
+);
+
+
+
+gsap.fromTo(
+
+story,
+
+{
+opacity:0,
+y:80
+},
+
+{
+opacity:1,
+y:0,
+duration:1
+
+}
+
+);
+
+
+
+story.scrollIntoView({
 
 behavior:"smooth"
 
@@ -149,31 +312,16 @@ behavior:"smooth"
 
 
 
-startMusic();
-
-
-startTyping();
+startStoryTyping();
 
 
 
-confetti({
-
-
-particleCount:150,
-
-spread:100,
-
-origin:{
-y:.6
 }
 
 
-});
+}
 
-
-
-});
-
+);
 
 
 }
@@ -186,58 +334,13 @@ y:.6
 
 
 
-/* ===========================================
-BACKGROUND MUSIC
-=========================================== */
+
+/* =====================================================
+   STORY TYPEWRITER
+===================================================== */
 
 
-const music =
-document.getElementById("bgMusic");
-
-
-let playing=false;
-
-
-
-function startMusic(){
-
-
-if(!music)
-return;
-
-
-
-if(!playing){
-
-
-music.volume=.35;
-
-
-music.play()
-.catch(()=>{});
-
-
-playing=true;
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-/* ===========================================
-STORY TYPEWRITER
-=========================================== */
-
-
-function startTyping(){
+function startStoryTyping(){
 
 
 const text =
@@ -247,102 +350,116 @@ document.getElementById(
 
 
 
-if(!text)
-return;
+if(!text)return;
 
 
 
-const message = `
+const message =
 
-Today is not just another ordinary day...
+`Today is not just another ordinary day...
 
 Today is a celebration of someone truly special.
 
-Someone whose presence brings warmth, happiness, and beautiful moments that are worth remembering.
+Someone whose smile, kindness, and presence bring happiness to the people around her.
 
-Your kindness, your smile, and the little things you do make the world a little brighter.
+You deserve to be appreciated, celebrated, and reminded how amazing you are.
 
-You deserve to be appreciated, celebrated, and reminded of how amazing you truly are.
+Happy Birthday, Yana-boo 🌷
 
-So I created something special...
-
-A little surprise made with love, just for you. 🌷
-
-
+I hope you like it
 `;
 
 
-
-let index=0;
 
 
 text.innerHTML="";
 
 
+let i=0;
 
-let timer =
-setInterval(()=>{
+
+
+let timer=setInterval(()=>{
 
 
 text.innerHTML +=
-message[index];
+message[i];
 
 
-index++;
+i++;
 
 
-if(index>=message.length){
+
+if(i>=message.length){
+
 
 clearInterval(timer);
 
-}
-
-
-
-},45);
-
-
 
 }
 
 
 
+},40);
+
+
+
+}
 
 
 
 
 
 
-/* ===========================================
-SCROLL REVEAL
-=========================================== */
 
 
-const sections =
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+
+const hiddenSections =
 document.querySelectorAll(
 ".hidden-section"
 );
 
 
 
-function reveal(){
+const observer =
+new IntersectionObserver(
+
+(entries)=>{
 
 
-sections.forEach(section=>{
+entries.forEach(
+(entry)=>{
 
 
-let position =
-section.getBoundingClientRect()
-.top;
+if(entry.isIntersecting){
+
+
+entry.target.classList.remove(
+"hidden-section"
+);
 
 
 
-if(position <
-window.innerHeight-100){
+gsap.fromTo(
 
+entry.target,
 
-section.classList.add(
-"show"
+{
+opacity:0,
+y:80
+},
+
+{
+opacity:1,
+y:0,
+duration:1
+
+}
+
 );
 
 
@@ -352,17 +469,25 @@ section.classList.add(
 });
 
 
+},
+
+{
+threshold:.2
+
 }
 
-
-
-window.addEventListener(
-"scroll",
-reveal
 );
 
 
-reveal();
+
+hiddenSections.forEach(
+(section)=>{
+
+observer.observe(section);
+
+}
+
+);
 
 
 
@@ -371,35 +496,30 @@ reveal();
 
 
 
-/* ===========================================
-REASONS SYSTEM
-=========================================== */
+
+
+/* =====================================================
+   REASONS
+===================================================== */
 
 
 const reasons=[
 
 
-"Your smile can brighten anyone's day.",
+"Your kindness makes every moment brighter 🌸",
 
-"Your kindness makes people feel special.",
 
-"You always try your best.",
+"Your smile brings happiness to others 💗",
 
-"You make ordinary moments memorable.",
 
-"You inspire people around you.",
+"You create beautiful memories without even trying 🌷",
 
-"You deserve all the happiness in the world.",
 
-"Your personality is truly unique.",
+"You deserve all the love and happiness in the world ✨",
 
-"You make life more beautiful.",
 
-"You are someone worth celebrating.",
+"You are someone truly special ❤️"
 
-"You are simply amazing ❤️",
-
-"YOU ARE MY YANA-BOOOOO"
 
 ];
 
@@ -415,7 +535,6 @@ document.getElementById(
 );
 
 
-
 const nextReason =
 document.getElementById(
 "nextReason"
@@ -423,127 +542,45 @@ document.getElementById(
 
 
 
-
 if(nextReason){
 
 
-nextReason.addEventListener(
-"click",
-()=>{
+nextReason.onclick=()=>{
 
 
 reasonIndex++;
 
 
-if(reasonIndex>=reasons.length){
+if(reasonIndex>=reasons.length)
 
 reasonIndex=0;
 
-}
-
-
-
-reasonBox.style.opacity=0;
-
-
-
-setTimeout(()=>{
 
 
 reasonBox.innerHTML =
 reasons[reasonIndex];
 
 
-reasonBox.style.opacity=1;
 
+gsap.from(
 
+reasonBox,
 
-},300);
-
-
-
-});
-
+{
+opacity:0,
+scale:.8,
+duration:.5
 
 }
 
-
-
-
-
-
-
-
-/* ===========================================
-PHOTO LIGHTBOX FIXED
-=========================================== */
-
-
-const images =
-document.querySelectorAll(
-".memory-gallery img"
 );
 
-
-
-images.forEach(img=>{
-
-
-img.addEventListener(
-"click",
-()=>{
-
-
-let box =
-document.createElement(
-"div"
-);
-
-
-
-box.className=
-"lightbox active";
-
-
-
-let picture =
-document.createElement(
-"img"
-);
-
-
-
-picture.src =
-img.src;
-
-
-
-box.appendChild(
-picture
-);
-
-
-
-document.body.appendChild(
-box
-);
-
-
-
-box.onclick=()=>{
-
-
-box.remove();
 
 
 };
 
 
-
-});
-
-
-});
+}
 
 
 
@@ -553,43 +590,46 @@ box.remove();
 
 
 
-/* ===========================================
-CAKE BUTTON
-=========================================== */
+
+/* =====================================================
+   CAKE BUTTON
+===================================================== */
 
 
-const cakeButton =
-document.querySelector(
-".cake button"
+const cakeBtn =
+document.getElementById(
+"cakeBtn"
 );
 
 
 
-if(cakeButton){
+if(cakeBtn){
 
 
-cakeButton.addEventListener(
-"click",
-()=>{
+cakeBtn.onclick=()=>{
+
+
+cakeBtn.innerHTML =
+"✨ Wish Made ✨";
+
+
+
+if(window.confetti){
 
 
 confetti({
 
+particleCount:120,
 
-particleCount:300,
+spread:100
 
-spread:160,
+});
 
-origin:{
-y:.5
+
 }
 
 
-});
-
-
-
-});
+};
 
 
 }
@@ -602,252 +642,145 @@ y:.5
 
 
 
-/* ===========================================
-OPEN LETTER SURPRISE
-=========================================== */
 
-
-/* ===========================================
-OPEN LETTER MODAL
-=========================================== */
+/* =====================================================
+   LETTER SYSTEM
+===================================================== */
 
 
 const letterBtn =
-document.getElementById("letterBtn");
+document.getElementById(
+"letterBtn"
+);
 
 
-const letterModal =
-document.getElementById("letterModal");
+const modal =
+document.getElementById(
+"letterModal"
+);
 
 
-const closeLetter =
-document.getElementById("closeLetter");
-
-
-const letterTyping =
-document.getElementById("letterTyping");
+const close =
+document.getElementById(
+"closeLetter"
+);
 
 
 
 if(letterBtn){
 
 
-letterBtn.addEventListener(
-"click",
-()=>{
+letterBtn.onclick=()=>{
 
 
-letterModal.classList.add("show");
+modal.style.display =
+"flex";
 
 
-letterTyping.innerHTML="";
+typeLetter();
 
 
-const message = `
-
-To my Yana🌷
-
-Today is not just another ordinary day...
-
-Today is a celebration of someone who holds a very special place in my heart.
-
-A day to appreciate you, to celebrate you, and to remind you of how truly wonderful you are.
-
-Sometimes, we forget to tell the people who matter most how much they mean to us. So today, I want you to know that your presence is something I deeply appreciate. You have a way of bringing warmth and happiness into the lives of the people around you, often without even realizing it.
-
-Your smile has the power to brighten moments. Your kindness makes people feel comfortable and valued. Your little gestures, your laughter, and the simple things you do create memories that become unforgettable.
-
-I hope you always see yourself the way others see you — someone beautiful, caring, and deserving of all the happiness life has to offer.
-
-Thank you for being the amazing person that you are. Thank you for the moments we have shared, the memories we have created, and the happiness you have brought into my life. Every conversation, every laugh, and every little moment becomes something worth remembering because it happened with you.
-
-Please never forget that you are appreciated more than words can explain. You are someone who deserves to be celebrated, not only on your birthday but every single day.
-
-I hope this new chapter of your life brings you endless smiles, new adventures, success in everything you do, and countless reasons to be happy. May you continue to grow, dream, and become the best version of yourself while always remembering how special you are.
-
-So I created this little surprise for you...
-
-Not because I needed a special occasion to remind you how amazing you are, but because you deserve moments that make you feel loved, valued, and remembered.
-
-This little letter carries my warmest wishes, my appreciation, and a simple reminder:
-
-You are someone truly special, and I hope you never forget that.
-
-Happy Birthday, Yana 🌷❤️
+};
 
 
+}
+
+
+
+
+
+if(close){
+
+
+close.onclick=()=>{
+
+
+modal.style.display =
+"none";
+
+
+};
+
+
+}
+
+
+
+
+
+
+
+function typeLetter(){
+
+
+const box =
+document.getElementById(
+"letterTyping"
+);
+
+
+
+if(!box)return;
+
+
+
+const message =
+
+`My Yana-boo 🌷
+
+Happy Birthday, my Allana Marie! ❤️
+
+On your special day, I want you to know how truly grateful I am to have you in my life. Through all the moments when I struggled to show you the love, attention, and reassurance you deserve, you still chose to stay. I know there were times when my shortcomings may have made things harder, but your patience, understanding, and unwavering presence have meant more to me than words could ever explain.
+
+I want you to know that I will always strive to become a better person, not because I have to, but because you inspire me to grow. You make me want to love better, understand you more, and continue building a stronger and happier “us” together.
+
+As you celebrate another year of your life, my wish for you is to always be surrounded by happiness, love, and people who appreciate the amazing person you are. I hope you continue to chase your dreams, achieve everything your heart desires, and never forget how special and valuable you are. May every challenge you face make you stronger, every moment bring you joy, and every day remind you of how loved you are.
+
+I’m beyond grateful for you, my Allana Marie. Thank you for choosing me, for believing in me, and for staying by my side through my best moments and my imperfections. Having you in my life is one of the greatest blessings I could ever ask for, and I promise to keep doing my best to give you the love, care, and appreciation you deserve.
+
+Thank you for all the beautiful memories, the smiles, the laughter, and every wonderful moment we’ve shared. I look forward to creating even more memories with you.
+
+I love you more than words can express, and I always will.
+
+Happy Birthday once again, my boo!!!! May your day be as beautiful, genuine, and wonderful as the person you are.❤️
 
 `;
 
 
 
-let index=0;
+box.innerHTML="";
 
 
-
-function write(){
-
-
-if(index < message.length){
+let i=0;
 
 
-letterTyping.innerHTML +=
-message.charAt(index);
+let timer=setInterval(()=>{
 
 
-index++;
+box.innerHTML +=
+message[i];
 
 
-setTimeout(write,45);
+i++;
 
 
-}
+if(i>=message.length){
 
 
-}
-
-
-
-setTimeout(
-write,
-800
-);
-
-
-
-});
-
+clearInterval(timer);
 
 
 }
 
 
 
+},45);
 
-if(closeLetter){
-
-
-closeLetter.addEventListener(
-"click",
-()=>{
-
-
-letterModal.classList.remove("show");
-
-
-});
 
 
 }
 
 
-
-
-if(letterModal){
-
-
-letterModal.addEventListener(
-"click",
-(e)=>{
-
-
-if(e.target === letterModal){
-
-
-letterModal.classList.remove("show");
-
-
-}
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===========================================
-CURSOR GLOW
-=========================================== */
-
-
-let glow =
-document.createElement(
-"div"
-);
-
-
-
-glow.className =
-"cursor-glow";
-
-
-
-document.body.appendChild(
-glow
-);
-
-
-
-
-document.addEventListener(
-"mousemove",
-(e)=>{
-
-
-glow.style.left =
-e.clientX+"px";
-
-
-glow.style.top =
-e.clientY+"px";
-
-
-
-});
-
-
-
-
-
-
-
-
-/* ===========================================
-GSAP HERO ANIMATION
-=========================================== */
-
-
-if(window.gsap){
-
-
-gsap.from(
-".hero-card",
-{
-
-
-opacity:0,
-
-y:80,
-
-duration:2,
-
-ease:"power4.out"
-
-
-}
-
-);
-
-
-}
 
 
 
