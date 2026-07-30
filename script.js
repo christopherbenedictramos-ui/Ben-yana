@@ -673,9 +673,9 @@ if(letterBtn){
 letterBtn.onclick=()=>{
 
 
-modal.style.display =
-"flex";
+modal.style.display = "flex";
 
+document.body.style.overflow = "hidden";
 
 typeLetter();
 
@@ -695,9 +695,9 @@ if(close){
 close.onclick=()=>{
 
 
-modal.style.display =
-"none";
+modal.style.display = "none";
 
+document.body.style.overflow = "auto";
 
 };
 
