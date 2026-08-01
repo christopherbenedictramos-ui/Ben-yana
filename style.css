@@ -1,39 +1,31 @@
 /* =====================================================
    PINK TULIP BIRTHDAY EXPERIENCE
-   PREMIUM STYLE SYSTEM
+   CLEAN PREMIUM CSS
+   PART 1
 ===================================================== */
 
 
 /* =====================================================
-   1. GLOBAL RESET
+   GLOBAL RESET
 ===================================================== */
 
-
 *{
-
     margin:0;
     padding:0;
     box-sizing:border-box;
-
 }
-
 
 
 html{
-
     scroll-behavior:smooth;
-
 }
-
 
 
 body{
 
     min-height:100vh;
 
-    font-family:
-    'Poppins',
-    sans-serif;
+    font-family:'Poppins',sans-serif;
 
     color:#5a2845;
 
@@ -42,65 +34,41 @@ body{
 }
 
 
-
 a{
-
     text-decoration:none;
-
     color:inherit;
-
 }
-
 
 
 h1,
 h2,
 h3{
 
-    font-family:
-    'Playfair Display',
-    serif;
+    font-family:'Playfair Display',serif;
 
 }
 
 
 
-
-
 /* =====================================================
-   THEME VARIABLES
+   VARIABLES
 ===================================================== */
-
 
 :root{
 
+    --pink:#ff7eb3;
 
-    --pink:
-    #ff7eb3;
+    --light-pink:#ffd6e7;
 
+    --soft-pink:#fff0f7;
 
-    --light-pink:
-    #ffd6e7;
+    --dark-pink:#c21870;
 
+    --rose:#d63384;
 
-    --soft-pink:
-    #fff0f7;
+    --cream:#fffaf5;
 
-
-    --dark-pink:
-    #c21870;
-
-
-    --rose:
-    #d63384;
-
-
-    --cream:
-    #fffaf5;
-
-
-    --text:
-    #5a2845;
+    --text:#5a2845;
 
 
     --glass:
@@ -108,20 +76,14 @@ h3{
 
 
     --shadow:
-    rgba(214,51,132,.22);
-
+    rgba(214,51,132,.25);
 
 }
 
 
 
-
-
-
-
-
 /* =====================================================
-   GLOBAL BACKGROUND
+   GLOBAL PAGE STYLE
 ===================================================== */
 
 
@@ -131,24 +93,20 @@ h3{
 .flower-page,
 .message-page{
 
+    min-height:100vh;
+
+    position:relative;
 
     background:
 
     linear-gradient(
-    135deg,
-    #fff0f7,
-    #ffd6e7,
-    #fff8fb
+        135deg,
+        #fff0f7,
+        #ffd6e7,
+        #fff8fb
     );
 
-
-    position:relative;
-
-
 }
-
-
-
 
 
 
@@ -159,7 +117,6 @@ h3{
 
 .background-layer{
 
-
     position:fixed;
 
     inset:0;
@@ -168,15 +125,11 @@ h3{
 
     z-index:0;
 
-
 }
 
 
 
-
-
 .background-layer::before{
-
 
     content:"";
 
@@ -194,59 +147,48 @@ h3{
     background:
 
     radial-gradient(
-    circle,
-    rgba(255,126,179,.35),
-    transparent 70%
+        circle,
+        rgba(255,126,179,.35),
+        transparent 70%
     );
 
-
 }
-
-
 
 
 
 .background-layer::after{
 
-
     content:"";
 
     position:absolute;
 
-    width:450px;
+    width:500px;
 
-    height:450px;
-
-    bottom:-200px;
+    height:500px;
 
     right:-200px;
+
+    bottom:-200px;
 
 
     background:
 
     radial-gradient(
-    circle,
-    rgba(255,214,231,.8),
-    transparent 70%
+        circle,
+        rgba(255,214,231,.8),
+        transparent 70%
     );
-
 
 }
 
 
 
-
-
-
-
-
 /* =====================================================
-   FLOATING FLOWERS
+   FLOATING TULIPS
 ===================================================== */
 
 
 .floating-flowers{
-
 
     position:fixed;
 
@@ -258,13 +200,11 @@ h3{
 
     z-index:1;
 
-
 }
 
 
 
 .floating-flowers span{
-
 
     position:absolute;
 
@@ -272,22 +212,16 @@ h3{
 
     opacity:.7;
 
-
     animation:
 
-    flowerFall 12s linear infinite;
-
+    tulipFall 12s linear infinite;
 
 }
 
 
 
-
-
 .floating-flowers span:nth-child(1){
-
     left:10%;
-
 }
 
 
@@ -300,6 +234,7 @@ h3{
 }
 
 
+
 .floating-flowers span:nth-child(3){
 
     left:50%;
@@ -309,6 +244,7 @@ h3{
 }
 
 
+
 .floating-flowers span:nth-child(4){
 
     left:70%;
@@ -316,6 +252,7 @@ h3{
     animation-delay:2s;
 
 }
+
 
 
 .floating-flowers span:nth-child(5){
@@ -328,9 +265,7 @@ h3{
 
 
 
-
-
-@keyframes flowerFall{
+@keyframes tulipFall{
 
 
 from{
@@ -345,103 +280,21 @@ from{
 
 to{
 
-
     transform:
 
-    translateY(110vh)
+    translateY(120vh)
     rotate(360deg);
 
-
 }
 
 
 }
-
-
-
-
-
 
 
 
 /* =====================================================
-   SPARKLES
+   INTRO PAGE
 ===================================================== */
-
-
-.sparkle-container span{
-
-
-    position:fixed;
-
-    font-size:25px;
-
-    z-index:1;
-
-    animation:
-
-    sparkleFloat 6s infinite;
-
-
-}
-
-
-
-.sparkle-container span:nth-child(1){
-
-    left:15%;
-
-    top:20%;
-
-}
-
-
-
-.sparkle-container span:nth-child(2){
-
-    right:20%;
-
-    top:35%;
-
-    animation-delay:2s;
-
-}
-
-
-
-.sparkle-container span:nth-child(3){
-
-    left:50%;
-
-    bottom:20%;
-
-    animation-delay:4s;
-
-}
-
-
-
-
-
-@keyframes sparkleFloat{
-
-
-50%{
-
-    transform:
-
-    translateY(-30px)
-    scale(1.3);
-
-
-}
-
-
-}
-/* =====================================================
-   4. INTRO PAGE - PREMIUM GIFT EXPERIENCE
-===================================================== */
-
 
 
 .intro-page{
@@ -454,14 +307,9 @@ to{
 
 
 
-
-
-
 .gift-screen{
 
-
-    min-height:100vh;
-
+    height:100vh;
 
     display:flex;
 
@@ -469,19 +317,13 @@ to{
 
     align-items:center;
 
+    padding:30px;
 
     position:relative;
 
-
     z-index:2;
 
-
-    padding:30px;
-
-
 }
-
-
 
 
 
@@ -501,7 +343,7 @@ to{
 
     background:
 
-    rgba(255,255,255,.45);
+    rgba(255,255,255,.55);
 
 
     backdrop-filter:
@@ -514,129 +356,86 @@ to{
 
     border:
 
-    1px solid rgba(255,255,255,.7);
+    1px solid rgba(255,255,255,.8);
 
 
     box-shadow:
 
-
-    0 30px 90px rgba(214,51,132,.2);
+    0 30px 90px var(--shadow);
 
 
     animation:
 
-    giftCardFloat 5s ease-in-out infinite;
-
+    cardFloat 5s ease-in-out infinite;
 
 }
 
 
 
-
-
-
-@keyframes giftCardFloat{
+@keyframes cardFloat{
 
 
 50%{
-
 
     transform:
 
     translateY(-12px);
 
-
 }
 
-
 }
-
-
-
-
-
 
 
 
 /* TITLE */
 
 
-.gift-content h1{
+.small-title{
 
+    color:var(--rose);
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    font-size:15px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.gift-content h1{
 
     font-size:
 
     clamp(38px,6vw,60px);
 
-
     color:
 
     var(--dark-pink);
 
-
-    line-height:1.2;
-
-
     margin-bottom:20px;
 
-
 }
-
-
-
-
-
-
-.small-title{
-
-
-    font-size:15px;
-
-
-    letter-spacing:3px;
-
-
-    text-transform:uppercase;
-
-
-    color:
-
-    var(--rose);
-
-
-    margin-bottom:20px;
-
-
-}
-
-
 
 
 
 
 .gift-description{
 
-
     max-width:450px;
-
 
     margin:
 
     0 auto 40px;
 
-
     line-height:1.8;
-
 
     color:#87506c;
 
-
 }
-
-
-
-
-
 
 
 
@@ -645,59 +444,24 @@ to{
 ===================================================== */
 
 
-
 .gift-box{
-
 
     width:260px;
 
-
     height:220px;
-
 
     margin:auto;
 
-
     position:relative;
-
 
     cursor:pointer;
 
 
     animation:
 
-    giftFloat 3s ease-in-out infinite;
-
-
-    filter:
-
-    drop-shadow(
-    0 30px 40px rgba(214,51,132,.35)
-    );
-
+    giftFloat 3s infinite;
 
 }
-
-
-
-
-
-
-
-.gift-box:hover{
-
-
-    transform:
-
-    scale(1.08)
-    translateY(-15px);
-
-
-}
-
-
-
-
 
 
 
@@ -706,67 +470,55 @@ to{
 
 50%{
 
-
     transform:
 
     translateY(-18px);
 
+}
 
 }
 
 
+
+
+.gift-box:hover{
+
+    transform:
+
+    scale(1.08);
+
 }
 
-
-
-
-
-
-
-/* GLOW */
 
 
 
 .gift-glow{
 
-
     position:absolute;
 
-
-    inset:-100px;
-
+    inset:-80px;
 
     background:
 
-
     radial-gradient(
-
-    circle,
-
-    rgba(255,126,179,.45),
-
-    transparent 65%
-
+        circle,
+        rgba(255,126,179,.45),
+        transparent 70%
     );
 
 
     animation:
 
-    glowPulse 2s infinite;
-
+    glow 2s infinite;
 
 }
 
 
 
-
-
-
-@keyframes glowPulse{
+@keyframes glow{
 
 
 50%{
-
 
     transform:
 
@@ -775,240 +527,136 @@ to{
 
     opacity:.5;
 
+}
 
 }
 
 
-}
-
-
-
-
-
-
-
-/* BOX BODY */
 
 
 
 .box{
 
-
     position:absolute;
 
-
     bottom:0;
-
 
     left:35px;
 
 
     width:190px;
 
-
     height:140px;
 
 
     background:
 
-
     linear-gradient(
-
-    135deg,
-
-    #ff9dcc,
-
-    #ff4f9a
-
+        135deg,
+        #ff9dcc,
+        #ff4f9a
     );
 
 
     border-radius:20px;
 
-
-    box-shadow:
-
-
-    inset 0 -20px 30px rgba(0,0,0,.12);
-
-
     z-index:3;
-
 
 }
 
 
 
 
-
-
-
-/* LID */
-
-
-
 .lid{
-
 
     position:absolute;
 
-
     top:35px;
-
 
     left:25px;
 
 
     width:210px;
-
 
     height:50px;
 
 
     background:
 
-
     linear-gradient(
-
-    135deg,
-
-    #ffd1e5,
-
-    #ff76b5
-
+        135deg,
+        #ffd1e5,
+        #ff76b5
     );
 
 
     border-radius:18px;
 
-
-    box-shadow:
-
-
-    0 15px 30px rgba(214,51,132,.25);
-
-
-    z-index:5;
-
+    z-index:4;
 
 }
 
 
-
-
-
-
-
-/* RIBBON */
 
 
 
 .ribbon{
 
-
     position:absolute;
 
+    background:white;
 
-    background:
-
-
-    linear-gradient(
-
-    90deg,
-
-    #fff,
-
-    #ffe5f0
-
-    );
-
-
-    z-index:6;
-
+    z-index:5;
 
 }
-
-
 
 
 
 .ribbon.vertical{
 
-
     width:40px;
-
 
     height:185px;
 
-
     left:110px;
-
 
     bottom:0;
 
-
 }
-
-
 
 
 
 .ribbon.horizontal{
 
-
     width:210px;
-
 
     height:35px;
 
-
     left:25px;
-
 
     top:100px;
 
-
 }
-
-
-
-
-
-
-
-/* BOW */
 
 
 
 .bow{
 
-
     position:absolute;
-
 
     top:-55px;
 
-
     left:90px;
-
 
     font-size:90px;
 
-
-    z-index:10;
-
+    z-index:6;
 
     animation:
 
-
     bowMove 2s infinite;
 
-
 }
-
-
-
-
 
 
 
@@ -1017,137 +665,93 @@ to{
 
 50%{
 
-
     transform:
 
-
     translateY(-10px)
-
     rotate(5deg);
 
+}
 
 }
 
 
-}
-
-
-
-
-
-
-
-
-/* CLICK MESSAGE */
 
 
 
 .click-text{
 
-
     margin-top:45px;
 
+    color:var(--rose);
 
     font-weight:600;
-
-
-    color:
-
-    var(--rose);
-
 
     font-size:18px;
 
 
     animation:
 
-
-    pulseText 2s infinite;
-
+    pulse 2s infinite;
 
 }
 
 
 
-
-
-
-
-@keyframes pulseText{
+@keyframes pulse{
 
 
 50%{
-
 
     transform:
 
     scale(1.08);
 
-
-    opacity:.7;
-
-
 }
 
-
 }
-
-
 
 
 
 
 
 /* =====================================================
-   GIFT MOBILE
+   MOBILE INTRO
 ===================================================== */
-
 
 
 @media(max-width:600px){
 
 
-
 .gift-card{
-
 
     padding:40px 20px;
 
-
 }
-
-
 
 
 
 .gift-box{
 
+    transform:
 
-    transform:scale(.85);
-
+    scale(.8);
 
 }
-
-
 
 
 
 .click-text{
 
-
     font-size:15px;
 
-
 }
-
 
 
 }
 /* =====================================================
-   5. CHOOSE PAGE
-   PREMIUM SURPRISE SELECTION
+   CHOICE PAGE
+   THREE SURPRISE OPTIONS
 ===================================================== */
-
 
 
 .choice-page{
@@ -1156,10 +760,9 @@ to{
 
     overflow-x:hidden;
 
+    overflow-y:auto;
+
 }
-
-
-
 
 
 
@@ -1193,9 +796,6 @@ to{
 
 
 
-
-
-
 .choice-content{
 
 
@@ -1214,27 +814,19 @@ to{
 
 
 
-
-
-/* HEADER */
-
-
-
 .choice-small-title{
 
 
-    color:
-
-    var(--rose);
-
-
-    letter-spacing:3px;
+    color:var(--rose);
 
 
     text-transform:uppercase;
 
 
-    font-size:15px;
+    letter-spacing:4px;
+
+
+    font-size:14px;
 
 
     margin-bottom:20px;
@@ -1245,28 +837,22 @@ to{
 
 
 
-
-
-
 .choice-header h1{
+
+
+    color:var(--dark-pink);
 
 
     font-size:
 
-    clamp(38px,5vw,55px);
+
+    clamp(38px,6vw,60px);
 
 
-    color:
-
-    var(--dark-pink);
-
-
-    margin-bottom:15px;
+    margin-bottom:20px;
 
 
 }
-
-
 
 
 
@@ -1281,6 +867,9 @@ to{
     font-size:17px;
 
 
+    line-height:1.8;
+
+
 }
 
 
@@ -1288,13 +877,15 @@ to{
 
 
 
-
 /* =====================================================
-   CARD CONTAINER
+   CHOICE CARDS
 ===================================================== */
 
 
 .choice-container{
+
+
+    margin-top:60px;
 
 
     display:flex;
@@ -1309,24 +900,9 @@ to{
     gap:35px;
 
 
-    margin-top:60px;
-
-
-    flex-wrap:wrap;
-
-
 }
 
 
-
-
-
-
-
-
-/* =====================================================
-   CHOICE CARD
-===================================================== */
 
 
 
@@ -1337,6 +913,9 @@ to{
 
 
     height:330px;
+
+
+    padding:30px;
 
 
     display:flex;
@@ -1351,36 +930,10 @@ to{
     align-items:center;
 
 
-    padding:30px;
+    text-align:center;
 
 
-    border-radius:40px;
-
-
-    background:
-
-
-    rgba(255,255,255,.55);
-
-
-    backdrop-filter:
-
-    blur(20px);
-
-
-    border:
-
-
-    1px solid rgba(255,255,255,.7);
-
-
-    box-shadow:
-
-
-    0 25px 60px rgba(214,51,132,.18);
-
-
-    transition:.5s ease;
+    cursor:pointer;
 
 
     position:relative;
@@ -1389,11 +942,38 @@ to{
     overflow:hidden;
 
 
+    border-radius:40px;
+
+
+
+    background:
+
+    rgba(255,255,255,.55);
+
+
+
+    backdrop-filter:
+
+    blur(20px);
+
+
+
+    border:
+
+    1px solid rgba(255,255,255,.8);
+
+
+
+    box-shadow:
+
+    0 25px 60px var(--shadow);
+
+
+
+    transition:.5s ease;
+
+
 }
-
-
-
-
 
 
 
@@ -1419,19 +999,16 @@ to{
     right:-70px;
 
 
-    background:
+    border-radius:50%;
 
+
+
+    background:
 
     rgba(255,126,179,.25);
 
 
-    border-radius:50%;
-
-
 }
-
-
-
 
 
 
@@ -1447,22 +1024,10 @@ to{
     scale(1.05);
 
 
-    box-shadow:
-
-
-    0 40px 90px rgba(214,51,132,.3);
-
 
 }
 
 
-
-
-
-
-
-
-/* ICON */
 
 
 
@@ -1483,9 +1048,6 @@ to{
 
 
 
-
-
-
 .choice-card:hover .choice-icon{
 
 
@@ -1501,31 +1063,19 @@ to{
 
 
 
-
-
-
-
-/* TEXT */
-
-
-
 .choice-card h2{
+
+
+    color:var(--rose);
 
 
     font-size:32px;
 
 
-    color:
-
-    var(--rose);
-
-
-    margin-bottom:12px;
+    margin-bottom:15px;
 
 
 }
-
-
 
 
 
@@ -1537,42 +1087,24 @@ to{
     color:#87506c;
 
 
-    line-height:1.6;
-
-
     font-size:15px;
 
 
+    line-height:1.6;
+
+
 }
-
-
-
 
 
 
 
 
 /* =====================================================
-   CARD MOBILE
+   CHOICE MOBILE
 ===================================================== */
 
 
-
 @media(max-width:900px){
-
-
-
-.choice-screen{
-
-
-    padding:60px 20px;
-
-
-}
-
-
-
-
 
 
 .choice-container{
@@ -1581,12 +1113,7 @@ to{
     flex-direction:column;
 
 
-    gap:25px;
-
-
 }
-
-
 
 
 
@@ -1602,24 +1129,33 @@ to{
 }
 
 
-
 }
-/* =====================================================
-   6. MEMORIES PAGE
-   PREMIUM MEMORY GALLERY
-===================================================== */
 
+
+
+
+
+
+
+
+/* =====================================================
+   MEMORIES PAGE
+===================================================== */
 
 
 .memory-page{
 
+
     min-height:100vh;
 
-    padding-bottom:80px;
+
+    padding-bottom:100px;
+
+
+    overflow-y:auto;
+
 
 }
-
-
 
 
 
@@ -1631,7 +1167,7 @@ to{
     text-align:center;
 
 
-    padding:70px 20px 30px;
+    padding:80px 20px 40px;
 
 
     position:relative;
@@ -1646,31 +1182,22 @@ to{
 
 
 
-
-
 .memory-small-title{
 
 
-    color:
-
-    var(--rose);
+    color:var(--rose);
 
 
     text-transform:uppercase;
 
 
-    letter-spacing:3px;
+    letter-spacing:4px;
 
 
-    font-size:15px;
-
-
-    margin-bottom:20px;
+    font-size:14px;
 
 
 }
-
-
 
 
 
@@ -1679,17 +1206,16 @@ to{
 .memory-header h1{
 
 
-    color:
+    margin-top:20px;
 
-    var(--dark-pink);
+
+    color:var(--dark-pink);
 
 
     font-size:
 
-    clamp(38px,5vw,55px);
 
-
-    margin-bottom:15px;
+    clamp(40px,6vw,60px);
 
 
 }
@@ -1698,18 +1224,16 @@ to{
 
 
 
-
-
 .memory-header p{
-
-
-    color:#87506c;
 
 
     max-width:600px;
 
 
-    margin:auto;
+    margin:20px auto;
+
+
+    color:#87506c;
 
 
     line-height:1.8;
@@ -1722,29 +1246,9 @@ to{
 
 
 
-
-
 /* =====================================================
-   GALLERY
+   PHOTO GALLERY
 ===================================================== */
-
-
-
-.memory-content{
-
-
-    position:relative;
-
-
-    z-index:2;
-
-
-}
-
-
-
-
-
 
 
 .memory-gallery{
@@ -1765,22 +1269,25 @@ to{
     grid-template-columns:
 
 
-    repeat(auto-fit,minmax(260px,1fr));
+    repeat(
+        auto-fit,
+        minmax(260px,1fr)
+    );
+
 
 
     gap:45px;
 
 
+    position:relative;
+
+
+    z-index:2;
+
+
 }
 
 
-
-
-
-
-
-
-/* MEMORY CARD */
 
 
 
@@ -1790,22 +1297,23 @@ to{
     background:
 
 
-    rgba(255,255,255,.8);
+    rgba(255,255,255,.85);
+
 
 
     padding:18px;
 
 
-    border-radius:20px;
+
+    border-radius:25px;
+
 
 
     box-shadow:
 
 
-    0 25px 60px rgba(214,51,132,.18);
+    0 25px 60px var(--shadow);
 
-
-    transition:.5s;
 
 
     transform:
@@ -1814,9 +1322,11 @@ to{
     rotate(-2deg);
 
 
+
+    transition:.5s;
+
+
 }
-
-
 
 
 
@@ -1836,8 +1346,6 @@ to{
 
 
 
-
-
 .memory-card:hover{
 
 
@@ -1845,26 +1353,13 @@ to{
 
 
     translateY(-15px)
-    rotate(0deg)
+    rotate(0)
     scale(1.04);
-
-
-    box-shadow:
-
-
-    0 35px 80px rgba(214,51,132,.3);
 
 
 }
 
 
-
-
-
-
-
-
-/* IMAGE */
 
 
 
@@ -1880,37 +1375,13 @@ to{
     object-fit:cover;
 
 
-    border-radius:15px;
+    border-radius:18px;
 
 
     cursor:pointer;
 
 
-    transition:.4s;
-
-
 }
-
-
-
-
-
-
-
-.memory-card:hover .memory-photo{
-
-
-    transform:
-
-
-    scale(1.03);
-
-
-}
-
-
-
-
 
 
 
@@ -1918,30 +1389,27 @@ to{
 .memory-caption{
 
 
+    margin-top:20px;
+
+
     text-align:center;
-
-
-    margin-top:18px;
 
 
     font-family:
 
 
-    'Playfair Display',
+    "Playfair Display",
     serif;
 
 
-    font-size:20px;
+
+    font-size:22px;
 
 
-    color:
-
-    var(--rose);
+    color:var(--rose);
 
 
 }
-
-
 
 
 
@@ -1952,7 +1420,6 @@ to{
 /* =====================================================
    MEMORY LETTER
 ===================================================== */
-
 
 
 .memory-letter{
@@ -1978,84 +1445,46 @@ to{
 
 
 
-
-
-
-
 .letter-box{
 
 
-    max-width:750px;
+    width:min(90%,750px);
 
-
-    width:100%;
 
 
     padding:50px;
 
 
+
+    text-align:center;
+
+
+
     background:
 
 
-    rgba(255,255,255,.7);
+    rgba(255,255,255,.75);
+
 
 
     backdrop-filter:
 
+
     blur(20px);
+
 
 
     border-radius:40px;
 
 
-    text-align:center;
-
 
     box-shadow:
 
 
-    0 30px 80px rgba(214,51,132,.2);
-
-
-    border:
-
-
-    1px solid rgba(255,255,255,.7);
-
-
-    animation:
-
-
-    letterFloat 5s infinite;
+    0 30px 80px var(--shadow);
 
 
 }
-
-
-
-
-
-
-
-
-@keyframes letterFloat{
-
-
-50%{
-
-
-    transform:
-
-
-    translateY(-8px);
-
-
-}
-
-
-}
-
-
 
 
 
@@ -2064,16 +1493,10 @@ to{
 .letter-decoration{
 
 
-    font-size:55px;
-
-
-    margin-bottom:15px;
+    font-size:60px;
 
 
 }
-
-
-
 
 
 
@@ -2082,20 +1505,16 @@ to{
 .letter-box h2{
 
 
-    color:
-
-    var(--dark-pink);
+    color:var(--dark-pink);
 
 
     font-size:38px;
 
 
-    margin-bottom:25px;
+    margin:25px 0;
 
 
 }
-
-
 
 
 
@@ -2119,31 +1538,27 @@ to{
 
 
 
-
-
 .letter-sign{
 
 
     margin-top:35px;
 
 
-    color:
-
-    var(--rose);
-
-
     font-family:
 
 
-    'Playfair Display',
+    "Playfair Display",
     serif;
 
 
-    font-size:24px;
+
+    color:var(--rose);
+
+
+    font-size:25px;
 
 
 }
-
 
 
 
@@ -2155,39 +1570,43 @@ to{
    LIGHTBOX
 ===================================================== */
 
-/* ================================
-   FIXED MEMORY LIGHTBOX
-================================ */
-
 
 .lightbox{
 
 
-position:fixed;
-
-inset:0;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
+    position:fixed;
 
 
-background:
-
-rgba(0,0,0,.85);
+    inset:0;
 
 
-opacity:0;
-
-visibility:hidden;
+    background:
 
 
-transition:.4s;
+    rgba(0,0,0,.85);
 
 
-z-index:99999;
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+
+    opacity:0;
+
+
+    visibility:hidden;
+
+
+    transition:.4s;
+
+
+    z-index:9999;
 
 
 }
@@ -2199,30 +1618,10 @@ z-index:99999;
 .lightbox.show{
 
 
-opacity:1;
-
-visibility:visible;
+    opacity:1;
 
 
-}
-
-
-
-
-
-.lightbox-content{
-
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-
-max-width:90vw;
-
-max-height:90vh;
+    visibility:visible;
 
 
 }
@@ -2234,26 +1633,19 @@ max-height:90vh;
 .lightbox-content img{
 
 
-max-width:90vw;
-
-max-height:85vh;
+    max-width:90vw;
 
 
-object-fit:contain;
+    max-height:85vh;
 
 
-border-radius:25px;
+    border-radius:25px;
 
 
-background:white;
+    padding:10px;
 
 
-padding:10px;
-
-
-box-shadow:
-
-0 30px 80px rgba(0,0,0,.5);
+    background:white;
 
 
 }
@@ -2265,41 +1657,43 @@ box-shadow:
 .close-lightbox{
 
 
-position:absolute;
+    position:absolute;
 
 
-top:25px;
-
-right:30px;
+    top:25px;
 
 
-width:50px;
-
-height:50px;
+    right:30px;
 
 
-border:none;
+    width:50px;
 
 
-border-radius:50%;
+    height:50px;
 
 
-background:white;
+    border-radius:50%;
 
 
-color:#d63384;
+    border:none;
 
 
-font-size:35px;
+    background:white;
 
 
-cursor:pointer;
+    color:var(--rose);
 
 
-z-index:5;
+    font-size:30px;
+
+
+    cursor:pointer;
 
 
 }
+
+
+
 
 
 
@@ -2309,22 +1703,7 @@ z-index:5;
 ===================================================== */
 
 
-
 @media(max-width:600px){
-
-
-
-.memory-header{
-
-
-    padding-top:50px;
-
-
-}
-
-
-
-
 
 
 .memory-gallery{
@@ -2341,8 +1720,6 @@ z-index:5;
 
 
 
-
-
 .memory-photo{
 
 
@@ -2350,8 +1727,6 @@ z-index:5;
 
 
 }
-
-
 
 
 
@@ -2380,24 +1755,22 @@ z-index:5;
 
 }
 /* =====================================================
-   7. FLOWER PAGE
-   ANIMATED BOUQUET EXPERIENCE
+   FLOWER PAGE
+   PREMIUM BOUQUET EXPERIENCE
 ===================================================== */
-
 
 
 .flower-page{
 
-
     min-height:100vh;
-
 
     overflow-x:hidden;
 
+    overflow-y:auto;
+
+    position:relative;
 
 }
-
-
 
 
 
@@ -2409,19 +1782,23 @@ z-index:5;
     min-height:100vh;
 
 
+    padding:
+
+    80px 20px 120px;
+
+
+
     display:flex;
 
 
     flex-direction:column;
 
 
-    align-items:center;
-
-
     justify-content:center;
 
 
-    padding:80px 20px;
+    align-items:center;
+
 
 
     position:relative;
@@ -2437,11 +1814,9 @@ z-index:5;
 
 
 
-
 /* =====================================================
-   HEADER
+   FLOWER HEADER
 ===================================================== */
-
 
 
 .flower-header{
@@ -2453,9 +1828,12 @@ z-index:5;
     margin-bottom:40px;
 
 
+    animation:
+
+    flowerEnter 1.5s ease;
+
+
 }
-
-
 
 
 
@@ -2464,18 +1842,16 @@ z-index:5;
 .flower-small-title{
 
 
-    color:
-
-    var(--rose);
+    color:var(--rose);
 
 
     text-transform:uppercase;
 
 
-    letter-spacing:3px;
+    letter-spacing:4px;
 
 
-    font-size:15px;
+    font-size:14px;
 
 
     margin-bottom:20px;
@@ -2487,27 +1863,22 @@ z-index:5;
 
 
 
-
-
 .flower-header h1{
+
+
+    color:var(--dark-pink);
 
 
     font-size:
 
-    clamp(38px,5vw,55px);
+
+    clamp(38px,6vw,60px);
 
 
-    color:
-
-    var(--dark-pink);
-
-
-    margin-bottom:15px;
+    margin-bottom:20px;
 
 
 }
-
-
 
 
 
@@ -2516,13 +1887,16 @@ z-index:5;
 .flower-header p{
 
 
+    max-width:550px;
+
+
+    margin:auto;
+
+
     color:#87506c;
 
 
-    max-width:500px;
-
-
-    line-height:1.8;
+    line-height:2;
 
 
 }
@@ -2532,70 +1906,7 @@ z-index:5;
 
 
 
-
-
-/* =====================================================
-   BOUQUET AREA
-===================================================== */
-
-
-
-.bouquet-area{
-
-
-    width:350px;
-
-
-    height:420px;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:flex-end;
-
-
-    position:relative;
-
-
-}
-
-
-
-
-
-
-
-.bouquet{
-
-
-    position:relative;
-
-
-    width:250px;
-
-
-    height:300px;
-
-
-    animation:
-
-
-    bouquetAppear 2s ease;
-
-
-}
-
-
-
-
-
-
-
-@keyframes bouquetAppear{
+@keyframes flowerEnter{
 
 
 from{
@@ -2606,10 +1917,11 @@ from{
 
     transform:
 
-    translateY(80px);
+    translateY(-40px);
 
 
 }
+
 
 
 to{
@@ -2626,6 +1938,7 @@ to{
 }
 
 
+
 }
 
 
@@ -2634,26 +1947,100 @@ to{
 
 
 
+/* =====================================================
+   BOUQUET AREA
+===================================================== */
 
 
-/* FLOWERS */
+.bouquet-area{
+
+
+    width:420px;
+
+
+    height:500px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:flex-end;
+
+
+    position:relative;
+
+
+    margin-top:20px;
+
+
+}
 
 
 
-.tulip,
-.rose{
 
 
-    position:absolute;
+.bouquet{
 
 
-    font-size:80px;
+    width:300px;
+
+
+    height:420px;
+
+
+    position:relative;
 
 
     animation:
 
 
-    flowerMove 4s infinite;
+    bouquetAppear 2s ease;
+
+
+}
+
+
+
+
+
+@keyframes bouquetAppear{
+
+
+from{
+
+
+    opacity:0;
+
+
+    transform:
+
+
+    translateY(120px)
+    scale(.5);
+
+
+}
+
+
+
+to{
+
+
+    opacity:1;
+
+
+    transform:
+
+
+    translateY(0)
+    scale(1);
+
+
+}
+
 
 
 }
@@ -2664,32 +2051,54 @@ to{
 
 
 
-.tulip-one{
+/* =====================================================
+   FLOWER PIECES
+===================================================== */
 
 
-    left:40px;
+.flower{
 
 
-    bottom:100px;
+    position:absolute;
 
 
-    animation-delay:.2s;
+    font-size:100px;
+
+
+    transform-origin:center bottom;
+
+
+    filter:
+
+    drop-shadow(
+        0 20px 20px rgba(214,51,132,.25)
+    );
+
+
+
+    animation:
+
+
+    flowerSway 4s ease-in-out infinite;
 
 
 }
 
 
 
-.tulip-two{
 
 
-    left:100px;
+
+.flower-left{
+
+
+    left:15px;
 
 
     bottom:150px;
 
 
-    animation-delay:.6s;
+    animation-delay:.5s;
 
 
 }
@@ -2697,13 +2106,17 @@ to{
 
 
 
-.tulip-three{
+
+.flower-center{
 
 
-    left:160px;
+    left:85px;
 
 
-    bottom:100px;
+    bottom:220px;
+
+
+    font-size:125px;
 
 
     animation-delay:1s;
@@ -2715,19 +2128,37 @@ to{
 
 
 
-.rose{
+.flower-right{
 
 
-    left:100px;
+    right:15px;
 
 
-    bottom:40px;
+    bottom:150px;
 
 
-    font-size:90px;
+    animation-delay:1.5s;
 
 
-    animation-delay:.8s;
+}
+
+
+
+
+
+.flower-top{
+
+
+    left:110px;
+
+
+    bottom:300px;
+
+
+    font-size:75px;
+
+
+    animation-delay:2s;
 
 
 }
@@ -2737,8 +2168,7 @@ to{
 
 
 
-
-@keyframes flowerMove{
+@keyframes flowerSway{
 
 
 50%{
@@ -2746,13 +2176,15 @@ to{
 
     transform:
 
-    translateY(-15px)
-    rotate(5deg);
+
+    rotate(8deg)
+    translateY(-15px);
 
 
 }
 
 
+
 }
 
 
@@ -2762,8 +2194,9 @@ to{
 
 
 
-/* STEM */
-
+/* =====================================================
+   STEMS
+===================================================== */
 
 
 .stem{
@@ -2775,13 +2208,93 @@ to{
     bottom:0;
 
 
-    left:100px;
+    font-size:150px;
 
 
-    font-size:130px;
+    color:#55a630;
+
+
+    opacity:.8;
 
 
     z-index:-1;
+
+
+    animation:
+
+
+    stemGrow 2s ease;
+
+
+}
+
+
+
+
+
+.stem-one{
+
+
+    left:65px;
+
+
+}
+
+
+
+.stem-two{
+
+
+    left:120px;
+
+
+}
+
+
+
+.stem-three{
+
+
+    left:175px;
+
+
+}
+
+
+
+
+
+
+@keyframes stemGrow{
+
+
+from{
+
+
+    transform:
+
+
+    scaleY(0);
+
+
+    transform-origin:bottom;
+
+
+}
+
+
+
+to{
+
+
+    transform:
+
+
+    scaleY(1);
+
+
+}
+
 
 
 }
@@ -2794,29 +2307,114 @@ to{
 
 
 /* =====================================================
-   PETALS
+   BOUQUET RIBBON
 ===================================================== */
 
 
-
-.flower-particles span{
+.bouquet-wrap{
 
 
     position:absolute;
 
 
-    font-size:30px;
+    bottom:10px;
+
+
+    left:80px;
+
+
+    font-size:85px;
+
+
+    z-index:5;
 
 
     animation:
 
 
-    petalFloat 8s infinite;
+    ribbonAppear 2s ease;
 
 
 }
 
 
+
+
+
+@keyframes ribbonAppear{
+
+
+from{
+
+
+    opacity:0;
+
+
+    transform:
+
+
+    scale(.3);
+
+
+}
+
+
+
+to{
+
+
+    opacity:1;
+
+
+    transform:
+
+
+    scale(1);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================================
+   FLOATING PETALS
+===================================================== */
+
+
+.flower-particles span{
+
+
+    position:fixed;
+
+
+    font-size:30px;
+
+
+    opacity:.75;
+
+
+    z-index:1;
+
+
+    pointer-events:none;
+
+
+    animation:
+
+
+    petalMove 10s linear infinite;
+
+
+}
 
 
 
@@ -2824,28 +2422,16 @@ to{
 
 .flower-particles span:nth-child(1){
 
-
     left:10%;
-
-
-    top:20%;
-
 
 }
 
 
-
 .flower-particles span:nth-child(2){
 
-
-    right:20%;
-
-
-    top:30%;
-
+    left:30%;
 
     animation-delay:2s;
-
 
 }
 
@@ -2853,15 +2439,9 @@ to{
 
 .flower-particles span:nth-child(3){
 
+    left:55%;
 
-    left:25%;
-
-
-    bottom:20%;
-
-
-    animation-delay:3s;
-
+    animation-delay:4s;
 
 }
 
@@ -2869,33 +2449,19 @@ to{
 
 .flower-particles span:nth-child(4){
 
+    left:75%;
 
-    right:30%;
-
-
-    bottom:15%;
-
-
-    animation-delay:1s;
-
+    animation-delay:6s;
 
 }
-
-
 
 
 
 .flower-particles span:nth-child(5){
 
+    left:90%;
 
-    left:50%;
-
-
-    top:10%;
-
-
-    animation-delay:4s;
-
+    animation-delay:8s;
 
 }
 
@@ -2903,26 +2469,55 @@ to{
 
 
 
+@keyframes petalMove{
 
 
-@keyframes petalFloat{
-
-
-50%{
+from{
 
 
     transform:
 
 
-    translateY(-40px)
-    rotate(180deg);
+    translateY(100vh)
+    rotate(0deg);
+
+
+    opacity:0;
 
 
 }
 
 
+
+30%{
+
+
+    opacity:1;
+
+
 }
 
+
+
+to{
+
+
+    transform:
+
+
+    translateY(-120vh)
+    rotate(360deg);
+
+
+
+    opacity:0;
+
+
+}
+
+
+
+}
 
 
 
@@ -2932,27 +2527,23 @@ to{
 
 
 /* =====================================================
-   FLOWER MESSAGE
+   FLOWER MESSAGE CARD
 ===================================================== */
-
 
 
 .flower-message{
 
 
+    width:min(90%,700px);
+
+
     margin-top:40px;
 
 
-    max-width:650px;
+    padding:40px;
 
 
     text-align:center;
-
-
-    padding:35px;
-
-
-    border-radius:35px;
 
 
     background:
@@ -2961,21 +2552,39 @@ to{
     rgba(255,255,255,.55);
 
 
+
     backdrop-filter:
 
 
     blur(20px);
 
 
+
+    border-radius:40px;
+
+
+
+    border:
+
+
+    1px solid rgba(255,255,255,.7);
+
+
+
     box-shadow:
 
 
-    0 25px 60px rgba(214,51,132,.15);
+    0 30px 80px rgba(214,51,132,.18);
+
+
+
+    animation:
+
+
+    messageFloat 5s ease-in-out infinite;
 
 
 }
-
-
 
 
 
@@ -2984,20 +2593,20 @@ to{
 .flower-message h2{
 
 
-    color:
-
-    var(--dark-pink);
+    color:var(--dark-pink);
 
 
-    font-size:32px;
+    font-size:
 
 
-    margin-bottom:15px;
+    clamp(28px,5vw,38px);
+
+
+
+    margin-bottom:20px;
 
 
 }
-
-
 
 
 
@@ -3009,7 +2618,34 @@ to{
     color:#63364e;
 
 
-    line-height:1.8;
+    line-height:2;
+
+
+    font-size:16px;
+
+
+}
+
+
+
+
+
+
+
+@keyframes messageFloat{
+
+
+50%{
+
+
+    transform:
+
+
+    translateY(-10px);
+
+
+}
+
 
 
 }
@@ -3026,17 +2662,20 @@ to{
 ===================================================== */
 
 
-
 .flower-next{
 
 
     margin-top:40px;
 
 
-    padding:15px 35px;
+    padding:15px 40px;
 
 
     border-radius:50px;
+
+
+    display:inline-block;
+
 
 
     background:
@@ -3044,13 +2683,14 @@ to{
 
     linear-gradient(
 
-    135deg,
+        135deg,
 
-    #ff7eb3,
+        #ff7eb3,
 
-    #d63384
+        #d63384
 
     );
+
 
 
     color:white;
@@ -3059,19 +2699,17 @@ to{
     font-weight:600;
 
 
-    transition:.4s;
-
-
     box-shadow:
 
 
-    0 15px 35px rgba(214,51,132,.3);
+    0 20px 40px rgba(214,51,132,.35);
+
+
+
+    transition:.4s;
 
 
 }
-
-
-
 
 
 
@@ -3100,15 +2738,26 @@ to{
 ===================================================== */
 
 
-
 @media(max-width:600px){
-
 
 
 .flower-showcase{
 
 
-    padding:60px 15px;
+    padding:
+
+    60px 15px 100px;
+
+
+}
+
+
+
+
+.flower-header h1{
+
+
+    font-size:38px;
 
 
 }
@@ -3120,7 +2769,16 @@ to{
 .bouquet-area{
 
 
-    transform:scale(.85);
+    width:320px;
+
+
+    height:380px;
+
+
+    transform:
+
+
+    scale(.75);
 
 
 }
@@ -3132,7 +2790,55 @@ to{
 .flower-message{
 
 
-    padding:25px 20px;
+    padding:
+
+    25px 20px;
+
+
+}
+
+
+
+
+
+.flower-message p{
+
+
+    font-size:14px;
+
+
+}
+
+
+
+}
+
+
+
+
+
+@media(max-width:400px){
+
+
+.bouquet-area{
+
+
+    transform:
+
+
+    scale(.65);
+
+
+}
+
+
+
+
+
+.flower-header h1{
+
+
+    font-size:32px;
 
 
 }
@@ -3141,19 +2847,20 @@ to{
 
 }
 /* =====================================================
-   8. MESSAGE PAGE
-   ENVELOPE + LETTER EXPERIENCE
+   MESSAGE PAGE
+   ENVELOPE EXPERIENCE
 ===================================================== */
 
 
 .message-page{
 
-
     min-height:100vh;
-
 
     overflow-x:hidden;
 
+    overflow-y:auto;
+
+    position:relative;
 
 }
 
@@ -3161,13 +2868,30 @@ to{
 
 
 
-
+/* =====================================================
+   MESSAGE CONTAINER
+===================================================== */
 
 
 .message-experience{
 
 
     min-height:100vh;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    padding:80px 20px;
 
 
     position:relative;
@@ -3184,11 +2908,9 @@ to{
 
 
 
-
 /* =====================================================
    FLOATING HEARTS
 ===================================================== */
-
 
 
 .floating-hearts span{
@@ -3203,18 +2925,19 @@ to{
     opacity:.7;
 
 
-    animation:
-
-
-    heartFloat 10s infinite;
-
-
     z-index:1;
 
 
+    pointer-events:none;
+
+
+    animation:
+
+
+    heartRise 10s linear infinite;
+
+
 }
-
-
 
 
 
@@ -3222,81 +2945,56 @@ to{
 
 .floating-hearts span:nth-child(1){
 
-
     left:10%;
-
 
     bottom:-50px;
 
-
 }
-
 
 
 .floating-hearts span:nth-child(2){
 
-
     left:30%;
-
 
     bottom:-80px;
 
-
     animation-delay:2s;
 
-
 }
-
 
 
 
 .floating-hearts span:nth-child(3){
 
-
     left:50%;
-
 
     bottom:-100px;
 
-
     animation-delay:4s;
 
-
 }
-
-
 
 
 
 .floating-hearts span:nth-child(4){
 
-
     left:75%;
-
 
     bottom:-70px;
 
-
     animation-delay:6s;
 
-
 }
-
-
 
 
 
 .floating-hearts span:nth-child(5){
 
-
     left:90%;
-
 
     bottom:-50px;
 
-
-    animation-delay:3s;
-
+    animation-delay:8s;
 
 }
 
@@ -3306,7 +3004,7 @@ to{
 
 
 
-@keyframes heartFloat{
+@keyframes heartRise{
 
 
 from{
@@ -3314,13 +3012,16 @@ from{
 
     transform:
 
-    translateY(0);
+
+    translateY(0)
+    rotate(0deg);
 
 
     opacity:0;
 
 
 }
+
 
 
 30%{
@@ -3332,13 +3033,16 @@ from{
 }
 
 
+
 to{
 
 
     transform:
 
-    translateY(-110vh)
+
+    translateY(-120vh)
     rotate(360deg);
+
 
 
     opacity:0;
@@ -3347,8 +3051,8 @@ to{
 }
 
 
-}
 
+}
 
 
 
@@ -3360,7 +3064,6 @@ to{
 /* =====================================================
    ENVELOPE SCREEN
 ===================================================== */
-
 
 
 .envelope-screen{
@@ -3384,11 +3087,7 @@ to{
     text-align:center;
 
 
-    padding:30px;
-
-
 }
-
 
 
 
@@ -3398,21 +3097,19 @@ to{
 .message-small-title{
 
 
-    color:
+    color:var(--rose);
 
-    var(--rose);
+
+    letter-spacing:4px;
 
 
     text-transform:uppercase;
 
 
-    letter-spacing:3px;
+    font-size:14px;
 
 
     margin-bottom:40px;
-
-
-    font-size:15px;
 
 
 }
@@ -3424,13 +3121,18 @@ to{
 
 
 
+/* =====================================================
+   ENVELOPE
+===================================================== */
+
+
 .envelope-box{
 
 
-    width:270px;
+    width:280px;
 
 
-    height:180px;
+    height:190px;
 
 
     position:relative;
@@ -3439,13 +3141,10 @@ to{
     cursor:pointer;
 
 
-    transition:.7s;
+    transition:.8s;
 
 
 }
-
-
-
 
 
 
@@ -3460,10 +3159,29 @@ to{
     bottom:0;
 
 
-    width:270px;
+    width:280px;
 
 
     height:160px;
+
+
+    background:
+
+
+    linear-gradient(
+
+        135deg,
+
+        #ff9dcc,
+
+        #d63384
+
+    );
+
+
+
+    border-radius:20px;
+
 
 
     display:flex;
@@ -3478,22 +3196,6 @@ to{
     font-size:85px;
 
 
-    background:
-
-
-    linear-gradient(
-
-    135deg,
-
-    #ff9dcc,
-
-    #d63384
-
-    );
-
-
-    border-radius:20px;
-
 
     box-shadow:
 
@@ -3502,9 +3204,6 @@ to{
 
 
 }
-
-
-
 
 
 
@@ -3525,13 +3224,27 @@ to{
     height:0;
 
 
-    border-left:135px solid transparent;
+    
+
+    border-left:
 
 
-    border-right:135px solid transparent;
+    140px solid transparent;
 
 
-    border-top:100px solid #ffc1dd;
+
+    border-right:
+
+
+    140px solid transparent;
+
+
+
+    border-top:
+
+
+    100px solid #ffc1dd;
+
 
 
     transform-origin:top;
@@ -3550,11 +3263,11 @@ to{
 
 
 
-
 .envelope-box:hover{
 
 
     transform:
+
 
     translateY(-15px);
 
@@ -3565,14 +3278,11 @@ to{
 
 
 
-
-
-
-
 .envelope-box.open .envelope-flap{
 
 
     transform:
+
 
     rotateX(180deg);
 
@@ -3584,20 +3294,22 @@ to{
 
 
 
-
 .envelope-box.open{
+
+
+    transform:
+
+
+    scale(.7);
 
 
     opacity:0;
 
 
-    transform:
-
-    scale(.7);
+    pointer-events:none;
 
 
 }
-
 
 
 
@@ -3612,20 +3324,16 @@ to{
     margin-top:40px;
 
 
-    color:
-
-    var(--rose);
+    color:var(--rose);
 
 
     animation:
 
 
-    pulseText 2s infinite;
+    pulse 2s infinite;
 
 
 }
-
-
 
 
 
@@ -3634,26 +3342,82 @@ to{
 
 
 /* =====================================================
-   LETTER
+   LETTER REVEAL FIX
 ===================================================== */
-
 
 
 .hidden-letter{
 
+    display:none !important;
 
-    display:none;
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:
+    translateY(80px);
+
+}
+
+
+
+.hidden-letter.show{
+
+    display:flex !important;
+
+    visibility:visible;
+
+    opacity:1;
+
+    justify-content:center;
+
+    padding:50px 20px 100px;
+
+
+    animation:
+
+    revealLetter 1.2s ease forwards;
+
+}
+
+
+
+@keyframes revealLetter{
+
+
+from{
+
+    opacity:0;
+
+    transform:
+    translateY(80px);
+
+}
+
+
+to{
+
+    opacity:1;
+
+    transform:
+    translateY(0);
+
+}
 
 
 }
 
 
 
+/* =====================================================
+   LETTER PAPER
+===================================================== */
 
 
+.letter-container{
 
 
-.hidden-letter.show{
+    width:100%;
 
 
     display:flex;
@@ -3662,80 +3426,7 @@ to{
     justify-content:center;
 
 
-    padding:50px 20px;
-
-
-    animation:
-
-
-    letterReveal 1.5s ease;
-
-
 }
-
-
-
-
-
-
-
-
-@keyframes letterReveal{
-
-
-from{
-
-
-    opacity:0;
-
-
-    transform:
-
-    translateY(80px);
-
-
-}
-
-
-to{
-
-
-    opacity:1;
-
-
-    transform:
-
-    translateY(0);
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-.letter-container{
-
-
-    min-height:100vh;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-}
-
-
-
 
 
 
@@ -3744,19 +3435,12 @@ to{
 .letter-paper{
 
 
-    max-width:750px;
+    width:min(90%,750px);
 
-
-    width:100%;
 
 
     padding:55px;
 
-
-    text-align:center;
-
-
-    border-radius:45px;
 
 
     background:
@@ -3765,10 +3449,20 @@ to{
     rgba(255,255,255,.75);
 
 
+
     backdrop-filter:
 
 
     blur(20px);
+
+
+
+    border-radius:45px;
+
+
+
+    text-align:center;
+
 
 
     box-shadow:
@@ -3778,9 +3472,6 @@ to{
 
 
 }
-
-
-
 
 
 
@@ -3798,27 +3489,23 @@ to{
 
 
 
-
-
-
 .letter-header h1{
 
 
-    font-size:50px;
+    color:var(--dark-pink);
 
 
-    color:
+    font-size:
 
-    var(--dark-pink);
+
+    clamp(35px,6vw,55px);
+
 
 
     margin:25px 0;
 
 
 }
-
-
-
 
 
 
@@ -3836,15 +3523,10 @@ to{
     margin:20px auto 35px;
 
 
-    background:
-
-    var(--pink);
+    background:var(--pink);
 
 
 }
-
-
-
 
 
 
@@ -3859,18 +3541,16 @@ to{
     white-space:pre-line;
 
 
-    line-height:2;
-
-
     color:#63364e;
+
+
+    line-height:2;
 
 
     font-size:17px;
 
 
 }
-
-
 
 
 
@@ -3884,16 +3564,16 @@ to{
 
     font-family:
 
-    'Playfair Display',
+
+    "Playfair Display",
     serif;
 
 
-    color:
 
-    var(--rose);
+    font-size:28px;
 
 
-    font-size:25px;
+    color:var(--rose);
 
 
 }
@@ -3905,11 +3585,9 @@ to{
 
 
 
-
 /* =====================================================
    BACK BUTTON
 ===================================================== */
-
 
 
 .back-button{
@@ -3933,17 +3611,23 @@ to{
     background:
 
 
-    rgba(255,255,255,.7);
+    rgba(255,255,255,.75);
+
 
 
     backdrop-filter:
 
+
     blur(15px);
 
 
-    color:
 
-    var(--rose);
+    color:var(--rose);
+
+
+
+    z-index:50;
+
 
 
     box-shadow:
@@ -3952,15 +3636,7 @@ to{
     0 15px 40px rgba(214,51,132,.15);
 
 
-    z-index:50;
-
-
-    transition:.3s;
-
-
 }
-
-
 
 
 
@@ -3970,6 +3646,7 @@ to{
 
 
     transform:
+
 
     translateY(-5px);
 
@@ -3984,41 +3661,20 @@ to{
 
 
 /* =====================================================
-   FINAL RESPONSIVE SYSTEM
+   MESSAGE MOBILE
 ===================================================== */
 
 
-
-@media(max-width:768px){
-
-
-
-.letter-paper{
-
-
-    padding:35px 25px;
-
-
-}
+@media(max-width:600px){
 
 
 
-
-.letter-header h1{
-
-
-    font-size:35px;
+.message-experience{
 
 
-}
+    padding:
 
-
-
-
-.typing-text{
-
-
-    font-size:15px;
+    60px 15px;
 
 
 }
@@ -4030,7 +3686,56 @@ to{
 .envelope-box{
 
 
-    transform:scale(.85);
+    transform:
+
+
+    scale(.85);
+
+
+}
+
+
+
+
+
+.letter-paper{
+
+
+    padding:
+
+
+    35px 25px;
+
+
+
+    border-radius:30px;
+
+
+}
+
+
+
+
+
+.typing-text{
+
+
+    font-size:15px;
+
+
+    line-height:1.8;
+
+
+}
+
+
+
+
+
+.letter-icon{
+
+
+    font-size:60px;
 
 
 }
@@ -4048,69 +3753,10 @@ to{
     left:15px;
 
 
-    padding:10px 22px;
+    padding:10px 20px;
 
 
 }
-
-
-
-}
-
-
-
-
-
-
-@media(max-width:450px){
-
-
-
-.choice-card{
-
-
-    height:260px;
-
-
-}
-
-
-
-
-
-.gift-box{
-
-
-    transform:scale(.75);
-
-
-}
-
-
-
-
-
-.bouquet-area{
-
-
-    transform:scale(.7);
-
-
-}
-
-
-
-
-
-.letter-paper{
-
-
-    border-radius:25px;
-
-
-}
-
-
 
 
 
