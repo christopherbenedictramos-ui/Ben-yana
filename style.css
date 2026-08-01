@@ -2155,50 +2155,42 @@ to{
    LIGHTBOX
 ===================================================== */
 
+/* ================================
+   FIXED MEMORY LIGHTBOX
+================================ */
 
 
 .lightbox{
 
 
-    position:fixed;
+position:fixed;
+
+inset:0;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
 
 
-    inset:0;
+background:
+
+rgba(0,0,0,.85);
 
 
-    background:
+opacity:0;
+
+visibility:hidden;
 
 
-    rgba(0,0,0,.85);
+transition:.4s;
 
 
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    padding:30px;
-
-
-    opacity:0;
-
-
-    visibility:hidden;
-
-
-    transition:.4s;
-
-
-    z-index:999;
+z-index:99999;
 
 
 }
-
-
 
 
 
@@ -2207,42 +2199,9 @@ to{
 .lightbox.show{
 
 
-    opacity:1;
+opacity:1;
 
-
-    visibility:visible;
-
-
-}
-
-
-
-
-
-
-
-.lightbox img{
-
-
-    max-width:90%;
-
-
-    max-height:80%;
-
-
-    border-radius:25px;
-
-
-    padding:10px;
-
-
-    background:white;
-
-
-    transform:scale(.8);
-
-
-    transition:.4s;
+visibility:visible;
 
 
 }
@@ -2251,17 +2210,53 @@ to{
 
 
 
+.lightbox-content{
 
 
-.lightbox.show img{
+display:flex;
+
+justify-content:center;
+
+align-items:center;
 
 
-    transform:scale(1);
+max-width:90vw;
+
+max-height:90vh;
 
 
 }
 
 
+
+
+
+.lightbox-content img{
+
+
+max-width:90vw;
+
+max-height:85vh;
+
+
+object-fit:contain;
+
+
+border-radius:25px;
+
+
+background:white;
+
+
+padding:10px;
+
+
+box-shadow:
+
+0 30px 80px rgba(0,0,0,.5);
+
+
+}
 
 
 
@@ -2270,44 +2265,41 @@ to{
 .close-lightbox{
 
 
-    position:absolute;
+position:absolute;
 
 
-    top:30px;
+top:25px;
+
+right:30px;
 
 
-    right:35px;
+width:50px;
+
+height:50px;
 
 
-    width:50px;
+border:none;
 
 
-    height:50px;
+border-radius:50%;
 
 
-    border:none;
+background:white;
 
 
-    border-radius:50%;
+color:#d63384;
 
 
-    background:white;
+font-size:35px;
 
 
-    color:#d63384;
+cursor:pointer;
 
 
-    font-size:35px;
-
-
-    cursor:pointer;
+z-index:5;
 
 
 }
-
-
-
-
 
 
 
