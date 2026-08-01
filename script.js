@@ -1,214 +1,674 @@
 /* =====================================================
    BIRTHDAY EXPERIENCE WEBSITE
-   MAIN SCRIPT
+   PREMIUM SCRIPT ENGINE
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
 
-    /* ==========================================
-       PAGE FADE IN
-    ========================================== */
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
-    document.body.style.opacity = "0";
 
-    setTimeout(() => {
-        document.body.style.transition = "opacity .8s ease";
-        document.body.style.opacity = "1";
-    }, 100);
 
-    /* ==========================================
-       INDEX PAGE - GIFT BOX
-    ========================================== */
+/* =====================================================
+   PAGE FADE IN
+===================================================== */
 
-    const giftBox = document.querySelector(".gift-box");
 
-    if (giftBox) {
+document.body.style.opacity="0";
 
-        giftBox.addEventListener("click", () => {
 
-            giftBox.style.transform = "scale(1.08) rotate(5deg)";
+setTimeout(()=>{
 
-            setTimeout(() => {
-                window.location.href = "choose.html";
-            }, 700);
+document.body.style.transition=
+"opacity .8s ease";
 
-        });
 
-    }
+document.body.style.opacity="1";
 
-    /* ==========================================
-       CHOOSE PAGE
-    ========================================== */
 
-    document.querySelectorAll(".choice-card").forEach(card => {
+},100);
 
-        card.addEventListener("click", (e) => {
 
-            e.preventDefault();
 
-            const destination = card.href;
 
-            card.style.transform = "scale(.95)";
-            card.style.opacity = ".6";
 
-            setTimeout(() => {
 
-                window.location.href = destination;
+/* =====================================================
+   GIFT BOX OPENING
+===================================================== */
 
-            }, 300);
 
-        });
+const giftBox =
+document.querySelector(".gift-box");
 
-    });
 
-    /* ==========================================
-       FLOATING FLOWERS
-    ========================================== */
 
-    function createFlower() {
+if(giftBox){
 
-        const flower = document.createElement("span");
 
-        flower.className = "generated-flower";
+giftBox.addEventListener(
+"click",
+()=>{
 
-        flower.innerHTML = Math.random() > .5 ? "🌷" : "🌸";
 
-        flower.style.left = Math.random() * 100 + "%";
-        flower.style.fontSize = (20 + Math.random() * 18) + "px";
-        flower.style.animationDuration = (8 + Math.random() * 5) + "s";
+giftBox.classList.add("open");
 
-        document.body.appendChild(flower);
 
-        setTimeout(() => {
 
-            flower.remove();
+/* CONFETTI */
 
-        }, 12000);
+if(typeof confetti !== "undefined"){
 
-    }
 
-    setInterval(createFlower, 1800);
+confetti({
 
-    /* ==========================================
-       MEMORIES LIGHTBOX
-    ========================================== */
+particleCount:150,
 
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImage = document.getElementById("lightboxImage");
-    const closeLightbox = document.getElementById("closeLightbox");
+spread:90,
 
-    if (lightbox && lightboxImage && closeLightbox) {
+origin:{
+y:.6
+}
 
-        document.querySelectorAll(".memory-photo").forEach(photo => {
+});
 
-            photo.addEventListener("click", () => {
 
-                lightboxImage.src = photo.src;
+}
 
-                lightbox.classList.add("show");
 
-                document.body.style.overflowY = "hidden";
 
-            });
+setTimeout(()=>{
 
-        });
 
-        function closeGallery() {
+window.location.href=
+"choose.html";
 
-            lightbox.classList.remove("show");
 
-            document.body.style.overflowY = "auto";
+},800);
 
-        }
 
-        closeLightbox.addEventListener("click", closeGallery);
 
-        lightbox.addEventListener("click", (e) => {
+});
 
-            if (e.target === lightbox) {
 
-                closeGallery();
+}
 
-            }
 
-        });
 
-        document.addEventListener("keydown", (e) => {
 
-            if (e.key === "Escape") {
 
-                closeGallery();
 
-            }
 
-        });
 
-    }
 
-    /* ==========================================
-       MESSAGE PAGE - ENVELOPE
-    ========================================== */
+/* =====================================================
+   CHOOSE PAGE CARD ANIMATION
+===================================================== */
 
-    const envelopeBox = document.getElementById("envelopeBox");
-    const envelopeScreen = document.getElementById("envelopeScreen");
-    const letterContent = document.getElementById("letterContent");
 
-    if (envelopeBox && envelopeScreen && letterContent) {
+const cards =
+document.querySelectorAll(".choice-card");
 
-        envelopeBox.addEventListener("click", () => {
 
-            envelopeBox.classList.add("open");
 
-            setTimeout(() => {
+cards.forEach(card=>{
 
-                envelopeScreen.style.display = "none";
 
-                letterContent.classList.remove("hidden-letter");
-                letterContent.classList.add("show");
+card.addEventListener(
+"click",
+(e)=>{
 
-                window.scrollTo({
 
-                    top: 0,
-                    behavior: "smooth"
+e.preventDefault();
 
-                });
 
-            }, 900);
 
-        });
+const link =
+card.getAttribute("href");
 
-    }
 
-    /* ==========================================
-       TYPING EFFECT
-    ========================================== */
 
-    const typingText = document.querySelector(".typing-text");
+card.style.transform=
+"scale(.9)";
 
-    if (typingText) {
 
-        const original = typingText.innerHTML;
 
-        typingText.innerHTML = "";
+card.style.opacity=".5";
 
-        let index = 0;
 
-        function type() {
 
-            if (index < original.length) {
+setTimeout(()=>{
 
-                typingText.innerHTML += original.charAt(index);
 
-                index++;
+window.location.href=link;
 
-                setTimeout(type, 35);
 
-            }
+},400);
 
-        }
 
-        type();
 
-    }
+});
+
+
+});
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   FLOATING FLOWERS GENERATOR
+===================================================== */
+
+
+function createFlower(){
+
+
+
+const flower =
+document.createElement("span");
+
+
+
+flower.className=
+"generated-flower";
+
+
+
+const flowers=[
+"🌷",
+"🌸",
+"🌺",
+"✨"
+];
+
+
+
+flower.innerHTML =
+flowers[
+Math.floor(
+Math.random()*flowers.length
+)
+];
+
+
+
+flower.style.left =
+Math.random()*100+"%";
+
+
+
+flower.style.fontSize =
+(20+
+Math.random()*25)
++"px";
+
+
+
+flower.style.animationDuration =
+(7+
+Math.random()*6)
++"s";
+
+
+
+document.body.appendChild(
+flower
+);
+
+
+
+setTimeout(()=>{
+
+flower.remove();
+
+
+},14000);
+
+
+
+}
+
+
+
+setInterval(
+createFlower,
+2000
+);
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   MEMORY LIGHTBOX
+===================================================== */
+
+
+
+const lightbox =
+document.getElementById(
+"lightbox"
+);
+
+
+
+const lightboxImage =
+document.getElementById(
+"lightboxImage"
+);
+
+
+
+const closeLightbox =
+document.getElementById(
+"closeLightbox"
+);
+
+
+
+
+if(
+lightbox &&
+lightboxImage &&
+closeLightbox
+){
+
+
+
+document
+.querySelectorAll(".memory-photo")
+.forEach(photo=>{
+
+
+photo.addEventListener(
+"click",
+()=>{
+
+
+lightboxImage.src=
+photo.src;
+
+
+
+lightbox.classList.add(
+"show"
+);
+
+
+
+document.body.style.overflow=
+"hidden";
+
+
+
+});
+
+
+});
+
+
+
+
+
+function closeGallery(){
+
+
+lightbox.classList.remove(
+"show"
+);
+
+
+
+document.body.style.overflow=
+"auto";
+
+
+}
+
+
+
+
+
+closeLightbox.onclick=
+closeGallery;
+
+
+
+lightbox.onclick=
+(e)=>{
+
+
+if(
+e.target===lightbox
+){
+
+closeGallery();
+
+}
+
+
+};
+
+
+
+document.addEventListener(
+"keydown",
+(e)=>{
+
+
+if(
+e.key==="Escape"
+){
+
+closeGallery();
+
+}
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   ENVELOPE OPENING
+===================================================== */
+
+
+
+const envelope =
+document.getElementById(
+"envelopeBox"
+);
+
+
+
+const envelopeScreen =
+document.getElementById(
+"envelopeScreen"
+);
+
+
+
+const letter =
+document.getElementById(
+"letterContent"
+);
+
+
+
+if(
+envelope &&
+envelopeScreen &&
+letter
+){
+
+
+
+envelope.addEventListener(
+"click",
+()=>{
+
+
+envelope.classList.add(
+"open"
+);
+
+
+
+setTimeout(()=>{
+
+
+envelopeScreen.style.display=
+"none";
+
+
+
+letter.classList.remove(
+"hidden-letter"
+);
+
+
+
+letter.classList.add(
+"show"
+);
+
+
+
+startTyping();
+
+
+
+},900);
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   TYPING EFFECT
+===================================================== */
+
+
+
+function startTyping(){
+
+
+
+const text =
+document.querySelector(
+".typing-text"
+);
+
+
+
+if(!text)return;
+
+
+
+const message =
+text.textContent.trim();
+
+
+
+text.textContent="";
+
+
+
+let i=0;
+
+
+
+function typing(){
+
+
+
+if(i < message.length){
+
+
+
+text.textContent +=
+message.charAt(i);
+
+
+
+i++;
+
+
+
+setTimeout(
+typing,
+35
+);
+
+
+
+}
+
+
+
+}
+
+
+
+typing();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   FLOWER PAGE SPARKLES
+===================================================== */
+
+
+
+const flowerPage =
+document.querySelector(
+".flower-page"
+);
+
+
+
+if(flowerPage){
+
+
+
+setInterval(()=>{
+
+
+const sparkle =
+document.createElement(
+"span"
+);
+
+
+
+sparkle.innerHTML="✨";
+
+
+
+sparkle.style.position=
+"fixed";
+
+
+
+sparkle.style.left=
+Math.random()*100+"%";
+
+
+
+sparkle.style.top=
+Math.random()*100+"%";
+
+
+
+sparkle.style.fontSize=
+"25px";
+
+
+
+sparkle.style.animation=
+"fadeSparkle 3s forwards";
+
+
+
+sparkle.style.pointerEvents=
+"none";
+
+
+
+document.body.appendChild(
+sparkle
+);
+
+
+
+setTimeout(()=>{
+
+
+sparkle.remove();
+
+
+},3000);
+
+
+
+},1200);
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================================
+   IMAGE ERROR HANDLER
+===================================================== */
+
+
+document
+.querySelectorAll("img")
+.forEach(img=>{
+
+
+img.onerror=()=>{
+
+
+img.style.display="none";
+
+
+};
+
+
+});
+
+
+
+
 
 });
