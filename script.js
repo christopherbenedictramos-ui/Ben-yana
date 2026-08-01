@@ -295,19 +295,22 @@ photo.addEventListener(
 ()=>{
 
 
-lightboxImage.src=
-photo.src;
+console.log("Opening image:", photo.src);
 
 
 
-lightbox.classList.add(
-"show"
+lightboxImage.setAttribute(
+"src",
+photo.getAttribute("src")
 );
 
 
 
-document.body.style.overflow=
-"hidden";
+lightbox.classList.add("show");
+
+
+
+document.body.style.overflow="hidden";
 
 
 
