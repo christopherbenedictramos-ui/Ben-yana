@@ -1,381 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
 
-
 <meta charset="UTF-8">
-
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-
-<title>
-A Letter For You 💌
-</title>
-
-
+<title>A Letter For You 💌</title>
 
 <link rel="stylesheet" href="style.css">
 
-
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-
 
 </head>
 
-
-
-
-
-
 <body class="message-page">
 
-
-
-
-
-
-
 <!-- =====================================
-     BACKGROUND DECORATION
+     BACKGROUND
 ===================================== -->
-
 
 <div class="background-layer">
 
-
-
-<div class="floating-hearts">
-
-
-<span>❤️</span>
-
-<span>💗</span>
-
-<span>✨</span>
-
-<span>❤️</span>
-
-<span>💗</span>
-
-
+    <div class="floating-hearts">
+        <span>❤️</span>
+        <span>💗</span>
+        <span>✨</span>
+        <span>❤️</span>
+        <span>💗</span>
+    </div>
 
 </div>
-
-
-
-
-
-<div class="sparkle-container">
-
-
-<span>✨</span>
-
-<span>✨</span>
-
-<span>✨</span>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
 
 <!-- =====================================
-     ENVELOPE EXPERIENCE
+     MESSAGE EXPERIENCE
 ===================================== -->
-
 
 <main class="message-experience">
 
+    <!-- INTRO -->
 
+    <section class="message-intro">
 
+        <p class="message-small-title">
+            One Last Surprise
+        </p>
 
+        <h1>
+            A Letter Just For You 💗
+        </h1>
 
-<section 
-class="envelope-screen"
-id="envelopeScreen"
->
+        <p class="message-description">
+            Before today comes to an end, there is one last thing I want to share with you.
+            I hope these words make you smile as much as your smile always makes my day.
+        </p>
 
+        <button
+            id="openLetterBtn"
+            class="open-letter-btn">
 
+            💌 Read My Letter
 
+        </button>
 
+    </section>
 
-<p class="message-small-title">
+    <!-- LETTER -->
 
-A Special Letter For You ❤️
+    <section
+        id="letterContent"
+        class="letter-container hidden-letter">
 
-</p>
+        <article class="letter-paper">
 
+            <div class="letter-icon">
+                💌
+            </div>
 
+            <header class="letter-header">
 
+                <h1>
+                    Happy Birthday ❤️
+                </h1>
 
+                <div class="divider"></div>
 
-<div 
-class="envelope-box"
-id="envelopeBox"
-aria-label="Open birthday letter"
->
+            </header>
 
+            <div class="letter-content">
 
-
-
-
-<div class="envelope-flap">
-
-</div>
-
-
-
-
-
-<div class="envelope-body">
-
-
-💌
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-<h2>
-
-Click the envelope to open
-
-</h2>
-
-
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- =====================================
-     LETTER CONTENT
-===================================== -->
-
-
-<section 
-
-class="letter-container hidden-letter"
-
-id="letterContent"
-
->
-
-
-
-
-
-<article class="letter-paper">
-
-
-
-
-
-
-<div class="letter-icon">
-
-💌
-
-</div>
-
-
-
-
-
-
-
-<header class="letter-header">
-
-
-<h1>
-
-Happy Birthday ❤️
-
-</h1>
-
-
-
-<div class="divider">
-
-</div>
-
-
-</header>
-
-
-
-
-
-
-
-
-<div class="letter-content">
-
-
-
-
-
-<p class="typing-text">
-
+                <p class="typing-text">
 
 Happy Birthday!
 
-
-
 You still chose to stay, even in the moments when I struggled to give you the love, attention, and reassurance you truly deserve.
-
-
 
 I know there were times when my shortcomings may have made things harder, but your patience, understanding, and unwavering presence mean more to me than words can explain.
 
-
-
 Today, I hope you remember how special you are.
-
-
 
 You deserve happiness, love, and beautiful moments.
 
-
-
 Thank you for being part of my life.
-
-
 
 I promise to continue learning, growing, and becoming someone who can give you the love you deserve.
 
-
-
 Happy Birthday ❤️
 
+                </p>
 
-</p>
+            </div>
 
+            <footer class="letter-footer">
 
+                <p class="signature">
 
+                    With love,<br>
 
+                    Someone who treasures you 🌷
 
-</div>
+                </p>
 
+            </footer>
 
+        </article>
 
-
-
-
-
-
-<footer class="letter-footer">
-
-
-<p class="signature">
-
-
-With love,
-
-<br>
-
-Someone who treasures you 🌷
-
-
-</p>
-
-
-
-</footer>
-
-
-
-
-
-
-
-</article>
-
-
-
-
-
-
-
-</section>
-
-
-
-
-
-
-
+    </section>
 
 </main>
 
-
-
-
-
-
-
-<!-- =====================================
-     NAVIGATION
-===================================== -->
-
+<!-- BACK BUTTON -->
 
 <a href="choose.html" class="back-button">
-
-← Back
-
+    ← Back
 </a>
-
-
-
-
-
-
 
 <script src="script.js"></script>
 
-
-
 </body>
-
 
 </html>
