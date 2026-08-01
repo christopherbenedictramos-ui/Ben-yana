@@ -2480,3 +2480,177 @@ font-size:28px;
 }
 
 }
+/* ==========================================
+   MEMORY LETTER BOX
+========================================== */
+
+.memory-letter{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:70px 20px;
+
+}
+
+
+.letter-box{
+
+    max-width:800px;
+    width:100%;
+
+    background:
+    rgba(255,255,255,0.75);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:30px;
+
+    padding:45px;
+
+    text-align:center;
+
+    box-shadow:
+    0 20px 50px rgba(190,24,93,.18);
+
+    border:
+    2px solid rgba(244,114,182,.25);
+
+    position:relative;
+
+    animation:
+    letterAppear 1.2s ease;
+
+}
+
+
+.letter-box::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-15px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:80px;
+    height:30px;
+
+    background:#fbcfe8;
+
+    border-radius:20px;
+
+}
+
+
+.letter-decoration{
+
+    font-size:40px;
+
+    margin-bottom:10px;
+
+}
+
+
+.letter-box h2{
+
+    font-family:
+    "Playfair Display",
+    serif;
+
+    color:#be185d;
+
+    font-size:35px;
+
+    margin-bottom:25px;
+
+}
+
+
+.letter-box p{
+
+    font-family:
+    "Poppins",
+    sans-serif;
+
+    color:#4a1d35;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    margin-bottom:20px;
+
+}
+
+
+.letter-sign{
+
+    margin-top:35px;
+
+    font-family:
+    "Playfair Display",
+    serif !important;
+
+    font-size:22px !important;
+
+    color:#9d174d !important;
+
+}
+
+
+
+@keyframes letterAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(40px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+    }
+
+}
+
+
+
+/* Mobile */
+
+@media(max-width:600px){
+
+    .letter-box{
+
+        padding:30px 20px;
+
+        border-radius:20px;
+
+    }
+
+
+    .letter-box h2{
+
+        font-size:28px;
+
+    }
+
+
+    .letter-box p{
+
+        font-size:14px;
+
+    }
+
+}
