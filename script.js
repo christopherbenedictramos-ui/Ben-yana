@@ -76,8 +76,7 @@ flower.remove();
 ===================================== */
 
 
-const unlockDate =
-new Date("August 23, 2026 00:00:00").getTime();
+const unlockDate = new Date("2026-08-23T00:00:00+08:00").getTime();
 
 
 
