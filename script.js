@@ -3,13 +3,208 @@
    PREMIUM SCRIPT ENGINE
 ===================================================== */
 
-
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
+function createUnlockFlower(){
+
+
+const flower =
+document.createElement("span");
 
 
 
+const flowers=[
+
+"🌷",
+"🌸",
+"🌺",
+"✨",
+"💗"
+
+];
+
+
+
+flower.innerHTML =
+flowers[
+Math.floor(
+Math.random()*flowers.length
+)
+];
+
+
+
+flower.className=
+"unlock-flower";
+
+
+
+flower.style.left =
+Math.random()*100+"%";
+
+
+
+flower.style.top =
+Math.random()*100+"%";
+
+
+
+flower.style.fontSize =
+(25+Math.random()*40)+"px";
+
+
+
+document.body.appendChild(
+flower
+);
+
+
+
+setTimeout(()=>{
+
+flower.remove();
+
+},4000);
+
+
+
+}
+
+/* =====================================
+   BIRTHDAY DATE LOCK
+===================================== */
+
+
+const unlockDate =
+new Date("August 1, 2026 00:00:00").getTime();
+
+
+
+const lockScreen =
+document.getElementById("lockScreen");
+
+
+const giftScreen =
+document.getElementById("giftScreen");
+
+
+
+if(lockScreen && giftScreen){
+
+
+giftScreen.style.opacity="0";
+
+
+giftScreen.style.pointerEvents="none";
+
+
+
+setInterval(()=>{
+
+
+const now =
+new Date().getTime();
+
+
+
+const distance =
+unlockDate - now;
+
+
+
+if(distance <= 0){
+
+
+lockScreen.style.opacity="0";
+
+
+document.body.classList.add(
+"birthday-unlocked"
+);
+
+
+
+setTimeout(()=>{
+
+
+lockScreen.style.display="none";
+
+
+giftScreen.style.opacity="1";
+
+giftScreen.style.pointerEvents="auto";
+
+
+},1200);
+
+
+
+
+/* FLOWER BURST */
+
+
+for(let i=0;i<30;i++){
+
+
+createUnlockFlower();
+
+
+}
+
+
+
+
+/* CONFETTI */
+
+
+if(typeof confetti !== "undefined"){
+
+
+confetti({
+
+particleCount:250,
+
+spread:160,
+
+origin:{
+y:.5
+}
+
+});
+
+
+}
+
+
+
+return;
+
+
+}
+
+
+document.getElementById("days").innerHTML =
+Math.floor(distance/(1000*60*60*24));
+
+
+document.getElementById("hours").innerHTML =
+Math.floor(distance/(1000*60*60)%24);
+
+
+document.getElementById("minutes").innerHTML =
+Math.floor(distance/(1000*60)%60);
+
+
+document.getElementById("seconds").innerHTML =
+Math.floor(distance/1000%60);
+
+
+
+},1000);
+
+
+}
 /* =====================================================
    PAGE FADE IN
 ===================================================== */
@@ -175,17 +370,7 @@ document.createElement("span");
 
 
 
-flower.className=
-"generated-flower";
 
-
-
-const flowers=[
-"🌷",
-"🌸",
-"🌺",
-"✨"
-];
 
 
 
@@ -392,103 +577,77 @@ closeGallery();
 
 
 
-/* =====================================================
-   ENVELOPE OPENING
-===================================================== */
-
-
-
-const envelope =
-document.getElementById(
-"envelopeBox"
-);
-
-
-
-const envelopeScreen =
-document.getElementById(
-"envelopeScreen"
-);
-
-
-
-const letter =
-document.getElementById(
-"letterContent"
-);
-
-
-
-if(
-envelope &&
-envelopeScreen &&
-letter
-){
-
-
-
-envelope.addEventListener(
-"click",
-()=>{
-
-
-envelope.classList.add(
-"open"
-);
-
-
-
-setTimeout(()=>{
-
-
-envelopeScreen.style.display=
-"none";
-
-
-
-letter.classList.remove(
-"hidden-letter"
-);
-
-
-
-letter.classList.add(
-"show"
-);
-
-
-
-startTyping();
-
-
-
-},900);
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
 
 /* =====================================================
    TYPING EFFECT
 ===================================================== */
 
+const openLetterBtn =
+document.getElementById("openLetterBtn");
 
+const letterContent =
+document.getElementById("letterContent");
+
+if(openLetterBtn && letterContent){
+
+    openLetterBtn.addEventListener("click",()=>{
+
+        document.querySelector(".message-intro").style.display="none";
+
+        letterContent.classList.remove("hidden-letter");
+
+        letterContent.classList.add("show");
+
+        startTyping();
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    });
+
+}
 
 function startTyping(){
 
 
+/* =====================================================
+   MESSAGE PAGE
+   OPEN LETTER BUTTON
+===================================================== */
 
+const openLetterBtn =
+document.getElementById("openLetterBtn");
+
+const letterContent =
+document.getElementById("letterContent");
+
+if(openLetterBtn && letterContent){
+
+    openLetterBtn.addEventListener(
+    "click",
+    ()=>{
+
+        openLetterBtn.style.display="none";
+
+        letterContent.classList.remove("hidden-letter");
+
+        letterContent.classList.add("show");
+
+        startTyping();
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    });
+
+}
 const text =
 document.querySelector(
 ".typing-text"
