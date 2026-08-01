@@ -299,17 +299,18 @@ to{
 
 .intro-page{
 
-    height:100vh;
+    min-height:100vh;
 
-    overflow:hidden;
+    overflow-x:hidden;
+
+    overflow-y:auto;
 
 }
 
 
-
 .gift-screen{
 
-    height:100vh;
+    min-height:100vh;
 
     display:flex;
 
@@ -322,6 +323,12 @@ to{
     position:relative;
 
     z-index:2;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:1.5s ease;
 
 }
 
@@ -1246,171 +1253,6 @@ to{
 
 
 
-/* =====================================================
-   PHOTO GALLERY
-===================================================== */
-
-
-.memory-gallery{
-
-
-    max-width:1200px;
-
-
-    margin:auto;
-
-
-    padding:50px 25px;
-
-
-    display:grid;
-
-
-    grid-template-columns:
-
-
-    repeat(
-        auto-fit,
-        minmax(260px,1fr)
-    );
-
-
-
-    gap:45px;
-
-
-    position:relative;
-
-
-    z-index:2;
-
-
-}
-
-
-
-
-
-.memory-card{
-
-
-    background:
-
-
-    rgba(255,255,255,.85);
-
-
-
-    padding:18px;
-
-
-
-    border-radius:25px;
-
-
-
-    box-shadow:
-
-
-    0 25px 60px var(--shadow);
-
-
-
-    transform:
-
-
-    rotate(-2deg);
-
-
-
-    transition:.5s;
-
-
-}
-
-
-
-
-.memory-card:nth-child(even){
-
-
-    transform:
-
-
-    rotate(3deg);
-
-
-}
-
-
-
-
-
-.memory-card:hover{
-
-
-    transform:
-
-
-    translateY(-15px)
-    rotate(0)
-    scale(1.04);
-
-
-}
-
-
-
-
-
-.memory-photo{
-
-
-    width:100%;
-
-
-    height:320px;
-
-
-    object-fit:cover;
-
-
-    border-radius:18px;
-
-
-    cursor:pointer;
-
-
-}
-
-
-
-
-.memory-caption{
-
-
-    margin-top:20px;
-
-
-    text-align:center;
-
-
-    font-family:
-
-
-    "Playfair Display",
-    serif;
-
-
-
-    font-size:22px;
-
-
-    color:var(--rose);
-
-
-}
-
 
 
 
@@ -1754,777 +1596,175 @@ to{
 
 
 }
-/* =====================================================
-   FLOWER PAGE
-   PREMIUM BOUQUET EXPERIENCE
-===================================================== */
-
-
-.flower-page{
-
-    min-height:100vh;
-
-    overflow-x:hidden;
-
-    overflow-y:auto;
-
-    position:relative;
-
-}
-
-
-
-
-
-.flower-showcase{
-
-
-    min-height:100vh;
-
-
-    padding:
-
-    80px 20px 120px;
-
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-
-    position:relative;
-
-
-    z-index:2;
-
-
-}
-
-
-
-
-
-
-/* =====================================================
-   FLOWER HEADER
-===================================================== */
-
-
-.flower-header{
-
-
-    text-align:center;
-
-
-    margin-bottom:40px;
-
-
-    animation:
-
-    flowerEnter 1.5s ease;
-
-
-}
-
-
-
-
-
-.flower-small-title{
-
-
-    color:var(--rose);
-
-
-    text-transform:uppercase;
-
-
-    letter-spacing:4px;
-
-
-    font-size:14px;
-
-
-    margin-bottom:20px;
-
-
-}
-
-
-
-
-
-.flower-header h1{
-
-
-    color:var(--dark-pink);
-
-
-    font-size:
-
-
-    clamp(38px,6vw,60px);
-
-
-    margin-bottom:20px;
-
-
-}
-
-
-
-
-
-.flower-header p{
-
-
-    max-width:550px;
-
-
-    margin:auto;
-
-
-    color:#87506c;
-
-
-    line-height:2;
-
-
-}
-
-
-
-
-
-
-@keyframes flowerEnter{
-
-
-from{
-
-
-    opacity:0;
-
-
-    transform:
-
-    translateY(-40px);
-
-
-}
-
-
-
-to{
-
-
-    opacity:1;
-
-
-    transform:
-
-    translateY(0);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-   BOUQUET AREA
-===================================================== */
-
-
-.bouquet-area{
-
-
-    width:420px;
-
-
-    height:500px;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:flex-end;
-
-
-    position:relative;
-
-
-    margin-top:20px;
-
-
-}
-
-
-
-
-
 .bouquet{
 
-
-    width:300px;
-
-
-    height:420px;
-
-
+    width:340px;
+    height:480px;
     position:relative;
-
-
-    animation:
-
-
-    bouquetAppear 2s ease;
-
+    transform-style:preserve-3d;
+    perspective:1200px;
 
 }
-
-
-
-
-
-@keyframes bouquetAppear{
-
-
-from{
-
-
-    opacity:0;
-
-
-    transform:
-
-
-    translateY(120px)
-    scale(.5);
-
-
-}
-
-
-
-to{
-
-
-    opacity:1;
-
-
-    transform:
-
-
-    translateY(0)
-    scale(1);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-/* =====================================================
-   FLOWER PIECES
-===================================================== */
-
-
-.flower{
-
-
-    position:absolute;
-
-
-    font-size:100px;
-
-
-    transform-origin:center bottom;
-
-
-    filter:
-
-    drop-shadow(
-        0 20px 20px rgba(214,51,132,.25)
-    );
-
-
-
-    animation:
-
-
-    flowerSway 4s ease-in-out infinite;
-
-
-}
-
-
-
-
-
-
-.flower-left{
-
-
-    left:15px;
-
-
-    bottom:150px;
-
-
-    animation-delay:.5s;
-
-
-}
-
-
-
-
-
-.flower-center{
-
-
-    left:85px;
-
-
-    bottom:220px;
-
-
-    font-size:125px;
-
-
-    animation-delay:1s;
-
-
-}
-
-
-
-
-
-.flower-right{
-
-
-    right:15px;
-
-
-    bottom:150px;
-
-
-    animation-delay:1.5s;
-
-
-}
-
-
-
-
-
-.flower-top{
-
-
-    left:110px;
-
-
-    bottom:300px;
-
-
-    font-size:75px;
-
-
-    animation-delay:2s;
-
-
-}
-
-
-
-
-
-
-@keyframes flowerSway{
-
-
-50%{
-
-
-    transform:
-
-
-    rotate(8deg)
-    translateY(-15px);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-/* =====================================================
-   STEMS
-===================================================== */
-
 
 .stem{
 
-
     position:absolute;
-
-
-    bottom:0;
-
-
-    font-size:150px;
-
-
-    color:#55a630;
-
-
-    opacity:.8;
-
-
-    z-index:-1;
-
-
-    animation:
-
-
-    stemGrow 2s ease;
-
-
-}
-
-
-
-
-
-.stem-one{
-
-
-    left:65px;
-
-
-}
-
-
-
-.stem-two{
-
-
-    left:120px;
-
-
-}
-
-
-
-.stem-three{
-
-
-    left:175px;
-
-
-}
-
-
-
-
-
-
-@keyframes stemGrow{
-
-
-from{
-
-
-    transform:
-
-
-    scaleY(0);
-
-
+    width:8px;
+    height:240px;
+    background:linear-gradient(#76d44d,#3e8f2c);
+    bottom:70px;
+    border-radius:20px;
     transform-origin:bottom;
 
+}
+
+.stem1{
+    left:95px;
+    transform:rotate(-15deg);
+}
+
+.stem2{
+    left:165px;
+}
+
+.stem3{
+    left:235px;
+    transform:rotate(15deg);
+}
+
+.flower{
+
+    position:absolute;
+    width:90px;
+    height:90px;
+    transform-style:preserve-3d;
+    animation:sway 5s ease-in-out infinite;
 
 }
 
+.flower1{
 
-
-to{
-
-
-    transform:
-
-
-    scaleY(1);
-
+    left:50px;
+    top:80px;
 
 }
 
+.flower2{
 
+    left:125px;
+    top:30px;
+    transform:scale(1.15);
 
 }
 
+.flower3{
 
+    left:205px;
+    top:80px;
 
+}
 
+.petal{
 
+    position:absolute;
+    width:42px;
+    height:58px;
+    background:linear-gradient(#ffbfd8,#ff5da8);
+    border-radius:50% 50% 45% 45%;
+    transform-origin:bottom center;
+    box-shadow:
+    inset -5px -5px 12px rgba(255,255,255,.6),
+    inset 6px 8px 10px rgba(180,0,90,.25),
+    0 12px 18px rgba(0,0,0,.18);
 
+}
 
+.p1{
 
-/* =====================================================
-   BOUQUET RIBBON
-===================================================== */
+    left:24px;
+    transform:rotate(0deg);
 
+}
+
+.p2{
+
+    top:18px;
+    left:0;
+    transform:rotate(-90deg);
+
+}
+
+.p3{
+
+    top:18px;
+    right:0;
+    transform:rotate(90deg);
+
+}
+
+.p4{
+
+    top:38px;
+    left:24px;
+    transform:rotate(180deg);
+
+}
+
+.center{
+
+    position:absolute;
+    width:24px;
+    height:24px;
+    background:#ffd54f;
+    border-radius:50%;
+    left:33px;
+    top:34px;
+    box-shadow:0 0 15px rgba(255,210,0,.5);
+
+}
 
 .bouquet-wrap{
 
-
     position:absolute;
-
-
-    bottom:10px;
-
-
-    left:80px;
-
-
-    font-size:85px;
-
-
-    z-index:5;
-
-
-    animation:
-
-
-    ribbonAppear 2s ease;
-
+    width:170px;
+    height:160px;
+    bottom:0;
+    left:85px;
+    background:linear-gradient(#ffe2ef,#ffb3d6);
+    clip-path:polygon(15% 0,85% 0,100% 100%,0 100%);
+    border-radius:0 0 18px 18px;
+    box-shadow:0 15px 30px rgba(0,0,0,.18);
 
 }
 
+.bouquet-wrap::after{
 
-
-
-
-@keyframes ribbonAppear{
-
-
-from{
-
-
-    opacity:0;
-
-
-    transform:
-
-
-    scale(.3);
-
+    content:"";
+    position:absolute;
+    width:90px;
+    height:26px;
+    background:#ff5ca7;
+    left:40px;
+    top:60px;
+    border-radius:40px;
 
 }
 
+@keyframes sway{
 
+    0%,100%{
 
-to{
+        transform:rotate(-3deg);
 
+    }
 
-    opacity:1;
+    50%{
 
+        transform:rotate(3deg);
 
-    transform:
-
-
-    scale(1);
-
-
-}
-
-
+    }
 
 }
-
-
-
-
-
-
-
-
-/* =====================================================
-   FLOATING PETALS
-===================================================== */
-
-
-.flower-particles span{
-
-
-    position:fixed;
-
-
-    font-size:30px;
-
-
-    opacity:.75;
-
-
-    z-index:1;
-
-
-    pointer-events:none;
-
-
-    animation:
-
-
-    petalMove 10s linear infinite;
-
-
-}
-
-
-
-
-
-.flower-particles span:nth-child(1){
-
-    left:10%;
-
-}
-
-
-.flower-particles span:nth-child(2){
-
-    left:30%;
-
-    animation-delay:2s;
-
-}
-
-
-
-.flower-particles span:nth-child(3){
-
-    left:55%;
-
-    animation-delay:4s;
-
-}
-
-
-
-.flower-particles span:nth-child(4){
-
-    left:75%;
-
-    animation-delay:6s;
-
-}
-
-
-
-.flower-particles span:nth-child(5){
-
-    left:90%;
-
-    animation-delay:8s;
-
-}
-
-
-
-
-
-@keyframes petalMove{
-
-
-from{
-
-
-    transform:
-
-
-    translateY(100vh)
-    rotate(0deg);
-
-
-    opacity:0;
-
-
-}
-
-
-
-30%{
-
-
-    opacity:1;
-
-
-}
-
-
-
-to{
-
-
-    transform:
-
-
-    translateY(-120vh)
-    rotate(360deg);
-
-
-
-    opacity:0;
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
 
 /* =====================================================
    FLOWER MESSAGE CARD
@@ -3059,283 +2299,111 @@ to{
 
 
 
-
-
 /* =====================================================
-   ENVELOPE SCREEN
+   LETTER INTRO
 ===================================================== */
 
-
-.envelope-screen{
-
+.message-intro{
 
     min-height:100vh;
 
-
     display:flex;
-
 
     flex-direction:column;
 
-
     justify-content:center;
 
-
     align-items:center;
-
 
     text-align:center;
 
-
 }
-
-
-
-
-
 
 .message-small-title{
 
-
     color:var(--rose);
-
 
     letter-spacing:4px;
 
-
     text-transform:uppercase;
-
 
     font-size:14px;
 
+    margin-bottom:20px;
+
+}
+
+.message-intro h1{
+
+    font-size:clamp(40px,6vw,65px);
+
+    color:var(--dark-pink);
+
+    margin-bottom:20px;
+
+}
+
+.message-intro p{
+
+    max-width:550px;
+
+    color:#87506c;
+
+    line-height:1.8;
 
     margin-bottom:40px;
 
-
 }
 
+.open-letter-btn{
 
+    padding:18px 50px;
 
+    border:none;
 
-
-
-
-
-/* =====================================================
-   ENVELOPE
-===================================================== */
-
-
-.envelope-box{
-
-
-    width:280px;
-
-
-    height:190px;
-
-
-    position:relative;
-
+    border-radius:60px;
 
     cursor:pointer;
 
+    font-size:18px;
 
-    transition:.8s;
+    font-weight:600;
 
-
-}
-
-
-
-
-
-.envelope-body{
-
-
-    position:absolute;
-
-
-    bottom:0;
-
-
-    width:280px;
-
-
-    height:160px;
-
+    color:white;
 
     background:
-
-
     linear-gradient(
-
         135deg,
-
-        #ff9dcc,
-
+        #ff7eb3,
         #d63384
-
     );
 
-
-
-    border-radius:20px;
-
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    font-size:85px;
-
-
-
     box-shadow:
+    0 20px 45px rgba(214,51,132,.35);
 
+    transition:.4s;
 
-    0 30px 70px rgba(214,51,132,.35);
-
-
-}
-
-
-
-
-
-.envelope-flap{
-
-
-    position:absolute;
-
-
-    top:0;
-
-
-    width:0;
-
-
-    height:0;
-
-
-    
-
-    border-left:
-
-
-    140px solid transparent;
-
-
-
-    border-right:
-
-
-    140px solid transparent;
-
-
-
-    border-top:
-
-
-    100px solid #ffc1dd;
-
-
-
-    transform-origin:top;
-
-
-    transition:.8s;
-
-
-    z-index:3;
-
+    animation:buttonFloat 3s ease-in-out infinite;
 
 }
 
-
-
-
-
-
-.envelope-box:hover{
-
+.open-letter-btn:hover{
 
     transform:
-
-
-    translateY(-15px);
-
+    translateY(-8px)
+    scale(1.05);
 
 }
 
+@keyframes buttonFloat{
 
+    50%{
 
+        transform:translateY(-10px);
 
-
-.envelope-box.open .envelope-flap{
-
-
-    transform:
-
-
-    rotateX(180deg);
-
+    }
 
 }
-
-
-
-
-
-
-.envelope-box.open{
-
-
-    transform:
-
-
-    scale(.7);
-
-
-    opacity:0;
-
-
-    pointer-events:none;
-
-
-}
-
-
-
-
-
-
-
-
-.envelope-screen h2{
-
-
-    margin-top:40px;
-
-
-    color:var(--rose);
-
-
-    animation:
-
-
-    pulse 2s infinite;
-
-
-}
-
-
 
 
 
@@ -3346,37 +2414,24 @@ to{
 ===================================================== */
 
 
-.hidden-letter{
+.letter-container{
 
-    display:none !important;
+    display:none;
 
-    opacity:0;
+    justify-content:center;
 
-    visibility:hidden;
-
-    transform:
-    translateY(80px);
+    width:100%;
 
 }
 
 
+.letter-container.show{
 
-.hidden-letter.show{
+    display:flex;
 
-    display:flex !important;
+    padding:40px 20px 100px;
 
-    visibility:visible;
-
-    opacity:1;
-
-    justify-content:center;
-
-    padding:50px 20px 100px;
-
-
-    animation:
-
-    revealLetter 1.2s ease forwards;
+    animation:revealLetter 1s ease forwards;
 
 }
 
@@ -3390,9 +2445,11 @@ from{
     opacity:0;
 
     transform:
-    translateY(80px);
+    translateY(80px)
+    scale(.95);
 
 }
+
 
 
 to{
@@ -3400,14 +2457,13 @@ to{
     opacity:1;
 
     transform:
-    translateY(0);
+    translateY(0)
+    scale(1);
 
 }
 
 
 }
-
-
 
 /* =====================================================
    LETTER PAPER
@@ -3416,18 +2472,13 @@ to{
 
 .letter-container{
 
-
     width:100%;
 
-
-    display:flex;
-
+    display:none;
 
     justify-content:center;
 
-
 }
-
 
 
 
@@ -3759,5 +2810,1047 @@ to{
 }
 
 
+
+}
+/* =====================================
+   DATE LOCK SCREEN
+===================================== */
+
+
+.lock-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:
+    linear-gradient(
+    135deg,
+    #fff0f7,
+    #ffd6e7
+    );
+
+    z-index:999;
+
+}
+
+
+
+.lock-card{
+
+    text-align:center;
+
+    padding:50px;
+
+    border-radius:40px;
+
+    background:
+    rgba(255,255,255,.65);
+
+    backdrop-filter:blur(20px);
+
+    box-shadow:
+    0 30px 80px rgba(214,51,132,.25);
+
+}
+
+
+
+.lock-card h1{
+
+    color:#c21870;
+
+    font-size:40px;
+
+}
+
+
+
+.lock-card p{
+
+    margin:20px;
+
+    color:#87506c;
+
+}
+
+
+
+.countdown{
+
+    display:flex;
+
+    gap:15px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+
+.countdown div{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    min-width:80px;
+
+}
+
+
+
+.countdown span{
+
+    display:block;
+
+    font-size:35px;
+
+    color:#d63384;
+
+    font-family:
+    "Playfair Display";
+
+}
+
+
+
+.countdown small{
+
+    color:#87506c;
+
+}
+@media(max-width:600px){
+
+
+.lock-card{
+
+    width:90%;
+
+    padding:35px 20px;
+
+}
+
+
+.lock-card h1{
+
+    font-size:32px;
+
+}
+
+
+
+.countdown div{
+
+    min-width:65px;
+
+    padding:15px 10px;
+
+}
+
+
+
+.countdown span{
+
+    font-size:28px;
+
+}
+
+
+
+}
+.lock-screen.hide{
+
+    animation:
+    unlockScreen 1.5s forwards;
+
+}
+
+
+
+@keyframes unlockScreen{
+
+
+to{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+}
+/* =====================================
+   MEMORY TIMELINE SECTION
+===================================== */
+
+
+.memory-timeline{
+
+    width:90%;
+
+    max-width:1100px;
+
+    margin:80px auto;
+
+    position:relative;
+
+    padding:40px 0;
+
+}
+
+
+
+/* CENTER LINE */
+
+.timeline-line{
+
+
+    position:absolute;
+
+    top:0;
+
+    bottom:0;
+
+    left:50%;
+
+
+    width:5px;
+
+
+    background:
+
+    linear-gradient(
+
+        to bottom,
+
+        #ff7eb3,
+
+        #d63384
+
+    );
+
+
+    transform:
+
+    translateX(-50%);
+
+
+    border-radius:20px;
+
+}
+
+
+
+
+/* TIMELINE ITEM */
+
+
+.timeline-item{
+
+
+    width:50%;
+
+
+    padding:40px;
+
+
+    position:relative;
+
+
+    animation:
+
+    timelineReveal 1s ease forwards;
+
+
+}
+
+
+
+
+.timeline-item.left{
+
+
+    left:0;
+
+
+    text-align:right;
+
+
+}
+
+
+
+
+.timeline-item.right{
+
+
+    left:50%;
+
+
+    text-align:left;
+
+
+}
+
+
+
+
+
+@keyframes timelineReveal{
+
+
+from{
+
+    opacity:0;
+
+    transform:
+
+    translateY(60px);
+
+}
+
+
+to{
+
+    opacity:1;
+
+    transform:
+
+    translateY(0);
+
+}
+
+
+}
+
+
+
+
+/* DOT */
+
+
+.timeline-dot{
+
+
+    position:absolute;
+
+
+    top:70px;
+
+
+    right:-32px;
+
+
+    width:65px;
+
+
+    height:65px;
+
+
+    background:white;
+
+
+    border-radius:50%;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    font-size:32px;
+
+
+    z-index:5;
+
+
+    box-shadow:
+
+
+    0 15px 40px rgba(214,51,132,.25);
+
+
+    border:
+
+    3px solid #ffd6e7;
+
+
+}
+
+
+
+
+.timeline-item.right .timeline-dot{
+
+
+    left:-32px;
+
+
+    right:auto;
+
+
+}
+
+
+
+
+
+
+
+/* CARD */
+
+
+.timeline-card{
+
+
+    background:
+
+
+    rgba(255,255,255,.75);
+
+
+
+    backdrop-filter:
+
+    blur(20px);
+
+
+
+    border-radius:35px;
+
+
+    padding:25px;
+
+
+
+    box-shadow:
+
+
+    0 25px 70px rgba(214,51,132,.18);
+
+
+
+    transition:.5s ease;
+
+
+}
+
+
+
+
+.timeline-card:hover{
+
+
+    transform:
+
+
+    translateY(-15px)
+    scale(1.03);
+
+
+}
+
+
+
+
+
+/* IMAGE */
+
+
+.timeline-card img{
+
+
+    width:100%;
+
+
+    height:320px;
+
+
+    object-fit:cover;
+
+
+    border-radius:25px;
+
+
+}
+
+
+
+
+
+
+/* DATE */
+
+
+.timeline-date{
+
+
+    margin-top:20px;
+
+
+    font-family:
+
+
+    "Playfair Display",serif;
+
+
+
+    font-size:30px;
+
+
+    color:
+
+    var(--dark-pink);
+
+
+}
+
+
+
+
+
+/* DESCRIPTION */
+
+
+.timeline-card p{
+
+
+    margin-top:15px;
+
+
+    color:#63364e;
+
+
+    line-height:1.8;
+
+
+    font-size:16px;
+
+
+}
+
+
+
+
+
+/* SMALL DECORATION */
+
+
+.timeline-card::before{
+
+
+    content:"🌷";
+
+
+    position:absolute;
+
+
+    font-size:25px;
+
+
+    opacity:.7;
+
+
+}
+
+
+
+
+
+
+
+/* =====================================
+   MOBILE TIMELINE
+===================================== */
+
+
+@media(max-width:700px){
+
+
+
+.memory-timeline{
+
+
+    width:95%;
+
+
+}
+
+
+
+
+.timeline-line{
+
+
+    left:30px;
+
+
+}
+
+
+
+.timeline-item,
+.timeline-item.left,
+.timeline-item.right{
+
+
+    width:100%;
+
+
+    left:0;
+
+
+    padding:
+
+    30px 10px 30px 80px;
+
+
+    text-align:left;
+
+
+}
+
+
+
+
+.timeline-dot,
+.timeline-item.right .timeline-dot{
+
+
+    left:-3px;
+
+
+    right:auto;
+
+
+    width:60px;
+
+
+    height:60px;
+
+
+}
+
+
+
+.timeline-card{
+
+
+    padding:20px;
+
+
+}
+
+
+
+
+.timeline-card img{
+
+
+    height:260px;
+
+
+}
+
+
+
+
+.timeline-date{
+
+
+    font-size:25px;
+
+
+}
+
+
+
+}
+/* =====================================================
+   FINAL MOBILE + ANIMATION FIX PATCH
+===================================================== */
+
+
+/* FIX GIFT BOX HOVER */
+.gift-box:hover{
+    animation-play-state:paused;
+    transform:scale(1.08);
+}
+
+
+
+/* FIX MESSAGE PAGE SCROLL */
+
+.message-experience{
+
+    justify-content:flex-start;
+
+    padding-top:120px;
+
+}
+
+
+
+.letter-container.show{
+
+    display:flex;
+
+    min-height:auto;
+
+}
+
+
+
+/* FIX LETTER MOBILE */
+
+@media(max-width:600px){
+
+
+.message-experience{
+
+    padding-top:100px;
+    padding-bottom:80px;
+
+}
+
+
+
+.message-intro h1{
+
+    font-size:38px;
+
+}
+
+
+
+.open-letter-btn{
+
+    padding:15px 35px;
+
+}
+
+
+
+.letter-paper{
+
+    width:95%;
+
+}
+
+
+
+}
+
+
+
+/* FIX FLOWER MOBILE */
+
+.bouquet-area,
+.bouquet{
+
+    margin:auto;
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.bouquet{
+
+    transform:scale(.75);
+
+}
+
+
+
+}
+
+
+
+
+/* FIX TIMELINE FLOWER */
+
+.timeline-card{
+
+    position:relative;
+
+}
+
+
+
+.timeline-card::before{
+
+    top:-15px;
+
+    left:-10px;
+
+}
+
+
+
+
+/* BETTER PAGE TRANSITION */
+
+.choice-card,
+.flower-message,
+.timeline-card,
+.letter-paper{
+
+    animation:
+
+    fadeUp .8s ease forwards;
+
+}
+
+
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+/* MOBILE LOCK SCREEN FIX */
+
+@media(max-width:600px){
+
+
+.lock-card{
+
+    border-radius:30px;
+
+}
+
+
+
+.lock-card h1{
+
+    line-height:1.2;
+
+}
+
+
+
+.countdown{
+
+    gap:10px;
+
+}
+
+
+}
+
+
+
+/* FIX FLOATING FLOWERS ABOVE CONTENT */
+
+.floating-flowers{
+
+    z-index:0;
+
+}
+
+
+
+.choice-screen,
+.memory-header,
+.memory-letter,
+.message-experience,
+.flower-showcase{
+
+    z-index:2;
+
+}
+
+
+
+/* FIX BUTTON TAP MOBILE */
+
+button,
+.choice-card,
+.gift-box,
+.open-letter-btn{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+
+
+/* SMOOTH OPEN LETTER */
+
+.letter-paper{
+
+    animation:
+
+    paperOpen .8s ease;
+
+}
+
+
+
+@keyframes paperOpen{
+
+
+from{
+
+opacity:0;
+
+transform:
+
+scale(.8)
+rotateX(20deg);
+
+
+}
+
+
+to{
+
+
+opacity:1;
+
+transform:
+
+scale(1)
+rotateX(0);
+
+
+}
+
+
+}
+/* =====================================================
+   FIX FLOWER SECTION CENTER ALIGNMENT
+===================================================== */
+
+
+.flower-page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+
+.flower-showcase{
+
+    width:100%;
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:80px 20px;
+
+}
+
+
+
+.flower-header{
+
+    width:100%;
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+
+
+.flower-header h1{
+
+    text-align:center;
+
+    color:var(--dark-pink);
+
+}
+
+
+
+.flower-header p{
+
+    max-width:600px;
+
+    margin:20px auto;
+
+    text-align:center;
+
+    color:#87506c;
+
+    line-height:1.8;
+
+}
+
+
+
+.bouquet-area,
+.bouquet{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:0 auto;
+
+}
+
+
+
+.flower-message{
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+    text-align:center;
 
 }
