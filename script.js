@@ -1,16 +1,18 @@
-/* =====================================================
+/* =========================================================
 🌷 A LITTLE SCRAPBOOK
-COUNTDOWN + FULL INTERACTIVE SCRIPT
-===================================================== */
+REAL PAGE-TURN SYSTEM
+COUNTDOWN + INTERACTIVE SCRAPBOOK
+POLISHED SCRIPT ENGINE
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("🌷 Scrapbook started");
+    console.log("🌷 A Little Scrapbook started");
 
 
-    /* =================================================
-       🌷 COUNTDOWN
-    ================================================= */
+    /* =========================================================
+       🌷 ELEMENTS
+    ========================================================= */
 
     const countdownScreen =
         document.getElementById("countdownScreen");
@@ -27,198 +29,698 @@ document.addEventListener("DOMContentLoaded", () => {
     const secondsElement =
         document.getElementById("seconds");
 
+    const openButton =
+        document.getElementById("openScrapbook");
 
-    /*
-       CHANGE YOUR TARGET DATE HERE
+    const scrapbook =
+        document.querySelector(".scrapbook");
 
-       Example:
-       August 11, 2026 at 12:06 PM
-    */
+    const pages =
+        Array.from(
+            document.querySelectorAll(".scrapbook-page")
+        );
 
-    const targetDate =
-        new Date("August 11, 2026 12:07:00").getTime();
+    const cover =
+        document.querySelector(".cover-page");
 
+    const envelope =
+        document.querySelector(".envelope");
 
-    let countdownFinished = false;
-    let countdownTimer;
+    const letter =
+        document.querySelector(".letter-container");
 
+    const typingLetter =
+        document.getElementById("typingLetter");
 
-    /* =================================================
-       COUNTDOWN NUMBER ANIMATION
-    ================================================= */
+    const photos =
+        Array.from(
+            document.querySelectorAll(".polaroid img")
+        );
 
-    function animateNumber(element, value) {
-
-        if (!element) return;
-
-        if (element.textContent === value) {
-            return;
-        }
-
-        element.classList.add("number-changing");
-
-
-        setTimeout(() => {
-
-            element.textContent = value;
-
-            element.classList.remove(
-                "number-changing"
-            );
-
-        }, 120);
-
-    }
-
-
-    /* =================================================
-       SHOW SCRAPBOOK
-    ================================================= */
-
-    function showScrapbook() {
-
-        if (countdownFinished) {
-            return;
-        }
-
-        countdownFinished = true;
-
-
-        console.log(
-            "🌷 Countdown finished — opening scrapbook"
+    const stickyNotes =
+        Array.from(
+            document.querySelectorAll(".sticky-note")
         );
 
 
-        /*
-           Keep the screen at 00:00:00
-           briefly before disappearing.
-        */
+    /* =========================================================
+       🌷 STATE
+    ========================================================= */
 
-        if (daysElement)
-            daysElement.textContent = "00";
+    let scrapbookUnlocked = false;
 
-        if (hoursElement)
-            hoursElement.textContent = "00";
+    let countdownFinished = false;
 
-        if (minutesElement)
-            minutesElement.textContent = "00";
+    let countdownTimer = null;
 
-        if (secondsElement)
-            secondsElement.textContent = "00";
+    let currentPage = 0;
+
+    let isTurningPage = false;
+
+    let letterOpened = false;
+
+    let navigation = null;
+
+    let previousButton = null;
+
+    let nextButton = null;
+
+    let pageNumber = null;
 
 
-        setTimeout(() => {
+    /* =========================================================
+       🌷 SETTINGS
+    ========================================================= */
 
-            /*
-               Hide countdown
-            */
+    /*
+        CHANGE THIS DATE WHEN NEEDED.
 
-            if (countdownScreen) {
+        IMPORTANT:
+        JavaScript months are normally zero-based
+        when using numeric Date values.
 
-                countdownScreen.classList.add(
-                    "countdown-finished"
-                );
+        7 = August
 
+        Example:
+        August 23, 2026 at midnight
+    */
+
+    const targetDate =
+        new Date(
+            2026,
+            7,
+            15,
+            0,
+            0,
+            0
+        ).getTime();
+
+
+    /*
+        If you prefer the readable format:
+
+        const targetDate =
+            new Date(
+                "August 23, 2026 00:00:00"
+            ).getTime();
+    */
+
+
+    /* =========================================================
+       ✍️ LETTER CONTENT
+    ========================================================= */
+
+    const letterText =
+`Happy Birthday!
+
+Today, I hope you remember
+how special you are.
+
+You deserve happiness,
+beautiful moments,
+and wonderful memories.
+
+Thank you for being part
+of my life.
+
+With love,
+
+Benny 🌷`;
+
+
+    /* =========================================================
+       🎨 PAGE-TURN ENGINE CSS
+    ========================================================= */
+
+    const pageTurnStyle =
+        document.createElement("style");
+
+    pageTurnStyle.id =
+        "scrapbook-page-engine";
+
+    pageTurnStyle.textContent = `
+
+        /* =====================================================
+           🌷 LOCKING
+        ===================================================== */
+
+        body.scrapbook-locked {
+            overflow: hidden !important;
+            height: 100vh !important;
+            touch-action: none;
+        }
+
+        body.scrapbook-open {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+
+
+        /* =====================================================
+           📖 SCRAPBOOK
+        ===================================================== */
+
+        .scrapbook {
+            position: relative !important;
+            width: 100%;
+            min-height: 100vh;
+            perspective: 1800px;
+            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           📄 PAGE BASE
+        ===================================================== */
+
+        .scrapbook-page {
+            position: absolute !important;
+
+            top: 0;
+            left: 50%;
+
+            width: min(1100px, 92%);
+
+            margin: 30px 0 100px !important;
+
+            transform-origin: left center;
+
+            transform:
+                translateX(-50%)
+                rotateY(0deg);
+
+            visibility: hidden;
+
+            opacity: 1 !important;
+
+            pointer-events: none;
+
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+
+            transform-style: preserve-3d;
+
+            will-change:
+                transform,
+                filter;
+
+            z-index: 1;
+
+            transition:
+                transform 1s cubic-bezier(.65,.05,.36,1),
+                filter 1s ease;
+        }
+
+
+        /* =====================================================
+           📄 CURRENT PAGE
+        ===================================================== */
+
+        .scrapbook-page.page-current {
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+            z-index: 20;
+
+            transform:
+                translateX(-50%)
+                rotateY(0deg);
+
+            filter: none;
+        }
+
+
+        /* =====================================================
+           📄 NEXT PAGE WAITING
+        ===================================================== */
+
+        .scrapbook-page.page-next {
+
+            visibility: visible;
+
+            pointer-events: none;
+
+            z-index: 10;
+
+            transform:
+                translateX(-50%)
+                rotateY(0deg);
+
+            filter: none;
+        }
+
+
+        /* =====================================================
+           📄 TURNED PAGE
+        ===================================================== */
+
+        .scrapbook-page.page-turned {
+
+            visibility: visible;
+
+            pointer-events: none;
+
+            z-index: 30;
+
+            transform:
+                translateX(-50%)
+                rotateY(-180deg);
+
+            filter: brightness(.9);
+        }
+
+
+        /* =====================================================
+           📄 PREVIOUS PAGE DURING BACKWARD TURN
+        ===================================================== */
+
+        .scrapbook-page.page-previous {
+
+            visibility: visible;
+
+            pointer-events: none;
+
+            z-index: 30;
+
+            transform:
+                translateX(-50%)
+                rotateY(-180deg);
+
+            filter: none;
+        }
+
+
+        /* =====================================================
+           📖 NAVIGATION
+        ===================================================== */
+
+        .scrapbook-navigation {
+
+            position: fixed;
+
+            left: 50%;
+            bottom: 25px;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 9990;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 15px;
+
+            padding: 10px 15px;
+
+            border-radius: 40px;
+
+            background:
+                rgba(255,250,244,.94);
+
+            border:
+                1px solid
+                rgba(184,111,123,.18);
+
+            box-shadow:
+                0 12px 35px
+                rgba(77,52,45,.18);
+
+            backdrop-filter:
+                blur(10px);
+
+            -webkit-backdrop-filter:
+                blur(10px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity .4s ease,
+                visibility .4s ease;
+        }
+
+
+        .scrapbook-navigation.visible {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+        }
+
+
+        /* =====================================================
+           🔘 PAGE BUTTONS
+        ===================================================== */
+
+        .page-button {
+
+            border: none;
+
+            min-width: 45px;
+            height: 42px;
+
+            padding: 0 16px;
+
+            border-radius: 25px;
+
+            background:
+                #f7efe5;
+
+            color:
+                #b86f7b;
+
+            font-family:
+                "Poppins",
+                Arial,
+                sans-serif;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            transition:
+                transform .25s ease,
+                background .25s ease,
+                box-shadow .25s ease,
+                opacity .25s ease;
+        }
+
+
+        .page-button:hover:not(:disabled) {
+
+            transform:
+                translateY(-3px);
+
+            background:
+                #efd1d4;
+
+            box-shadow:
+                0 8px 18px
+                rgba(77,52,45,.12);
+        }
+
+
+        .page-button:active:not(:disabled) {
+
+            transform:
+                scale(.95);
+        }
+
+
+        .page-button:disabled {
+
+            opacity: .35;
+
+            cursor: default;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        .page-number {
+
+            min-width: 70px;
+
+            text-align: center;
+
+            font-family:
+                "Playfair Display",
+                Georgia,
+                serif;
+
+            font-size: 14px;
+
+            color:
+                #806e6d;
+        }
+
+
+        /* =====================================================
+           🌷 OPEN BUTTON
+        ===================================================== */
+
+        #openScrapbook.button-hidden {
+
+            opacity: 0 !important;
+
+            visibility: hidden !important;
+
+            pointer-events: none !important;
+
+            transform:
+                translateY(15px);
+
+            transition:
+                opacity .5s ease,
+                transform .5s ease,
+                visibility 0s linear .5s;
+        }
+
+
+        /* =====================================================
+           📝 STICKY NOTES
+        ===================================================== */
+
+        .sticky-note {
+
+            touch-action: none;
+
+            user-select: none;
+
+            -webkit-user-select: none;
+
+            cursor: grab;
+        }
+
+
+        .sticky-note.dragging {
+
+            cursor: grabbing;
+
+            z-index: 9999 !important;
+
+            box-shadow:
+                0 20px 40px
+                rgba(77,52,45,.25);
+        }
+
+
+        /* =====================================================
+           📱 MOBILE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .scrapbook-page {
+
+                width: 94%;
+
+                min-height: 700px;
             }
 
+            .scrapbook-navigation {
 
-            /*
-               IMPORTANT:
-               Force the document to the VERY TOP.
-            */
-
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "instant"
-            });
+                bottom: 20px;
+            }
+        }
 
 
-            /*
-               Some browsers restore scroll position
-               after the countdown disappears.
-               Force it again after the transition.
-            */
+        @media (max-width: 520px) {
 
-            setTimeout(() => {
+            .scrapbook-page {
 
-                window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "instant"
-                });
+                width: 94%;
 
-            }, 50);
+                min-height: 650px;
 
-
-            /*
-               Unlock scrolling
-            */
-
-            document.body.style.overflow = "";
-
-
-            /*
-               Make sure the scrapbook cover
-               is visible.
-            */
-
-            const cover =
-                document.querySelector(".cover-page");
-
-            if (cover) {
-
-                cover.classList.remove(
-                    "scrapbook-opened"
-                );
-
-                cover.classList.add(
-                    "page-visible"
-                );
-
+                margin-top: 20px !important;
             }
 
-        }, 800);
+            .scrapbook-navigation {
 
+                bottom: 15px;
+
+                gap: 8px;
+
+                padding: 8px 10px;
+            }
+
+            .page-button {
+
+                min-width: 40px;
+
+                height: 38px;
+
+                padding: 0 12px;
+
+                font-size: 11px;
+            }
+
+            .page-number {
+
+                min-width: 55px;
+
+                font-size: 12px;
+            }
+        }
+
+
+        /* =====================================================
+           ♿ REDUCED MOTION
+        ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .scrapbook-page {
+
+                transition-duration:
+                    .01ms !important;
+            }
+
+            .scrapbook-navigation {
+
+                transition-duration:
+                    .01ms !important;
+            }
+        }
+
+    `;
+
+    /*
+        Remove an older injected version if one exists.
+    */
+
+    const oldPageEngine =
+        document.getElementById(
+            "scrapbook-page-engine"
+        );
+
+    if (oldPageEngine) {
+        oldPageEngine.remove();
+    }
+
+    document.head.appendChild(
+        pageTurnStyle
+    );
+
+
+    /* =========================================================
+       🔒 INITIAL LOCK
+    ========================================================= */
+
+    document.body.classList.add(
+        "scrapbook-locked"
+    );
+
+    document.body.classList.remove(
+        "scrapbook-open"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+
+    /* =========================================================
+       🌷 COUNTDOWN NUMBER ANIMATION
+    ========================================================= */
+
+    function animateNumber(
+        element,
+        value
+    ) {
+
+        if (!element) {
+            return;
+        }
+
+        if (
+            element.textContent === value
+        ) {
+            return;
+        }
+
+        element.classList.add(
+            "number-changing"
+        );
+
+        setTimeout(
+            () => {
+
+                element.textContent =
+                    value;
+
+                element.classList.remove(
+                    "number-changing"
+                );
+
+            },
+            120
+        );
     }
 
 
-    /* =================================================
-       UPDATE COUNTDOWN
-    ================================================= */
+    /* =========================================================
+       🌷 UPDATE COUNTDOWN
+    ========================================================= */
 
     function updateCountdown() {
 
         const now =
-            new Date().getTime();
+            Date.now();
 
         const difference =
             targetDate - now;
 
 
         /*
-           Countdown finished
+            Countdown finished.
         */
 
         if (difference <= 0) {
 
-            clearInterval(countdownTimer);
+            if (countdownTimer) {
+
+                clearInterval(
+                    countdownTimer
+                );
+
+                countdownTimer =
+                    null;
+            }
 
             showScrapbook();
 
             return;
-
         }
 
-
-        /*
-           Calculate time
-        */
 
         const days =
             Math.floor(
                 difference /
-                (1000 * 60 * 60 * 24)
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                )
             );
 
 
@@ -226,9 +728,18 @@ document.addEventListener("DOMContentLoaded", () => {
             Math.floor(
                 (
                     difference %
-                    (1000 * 60 * 60 * 24)
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
                 ) /
-                (1000 * 60 * 60)
+                (
+                    1000 *
+                    60 *
+                    60
+                )
             );
 
 
@@ -236,9 +747,16 @@ document.addEventListener("DOMContentLoaded", () => {
             Math.floor(
                 (
                     difference %
-                    (1000 * 60 * 60)
+                    (
+                        1000 *
+                        60 *
+                        60
+                    )
                 ) /
-                (1000 * 60)
+                (
+                    1000 *
+                    60
+                )
             );
 
 
@@ -246,333 +764,878 @@ document.addEventListener("DOMContentLoaded", () => {
             Math.floor(
                 (
                     difference %
-                    (1000 * 60)
+                    (
+                        1000 *
+                        60
+                    )
                 ) /
                 1000
             );
 
 
-        /*
-           Display
-        */
-
         animateNumber(
             daysElement,
-            String(days).padStart(2, "0")
+            String(days)
+                .padStart(2, "0")
         );
-
 
         animateNumber(
             hoursElement,
-            String(hours).padStart(2, "0")
+            String(hours)
+                .padStart(2, "0")
         );
-
 
         animateNumber(
             minutesElement,
-            String(minutes).padStart(2, "0")
+            String(minutes)
+                .padStart(2, "0")
         );
-
 
         animateNumber(
             secondsElement,
-            String(seconds).padStart(2, "0")
+            String(seconds)
+                .padStart(2, "0")
         );
-
     }
 
 
-    /* =================================================
-       LOCK PAGE DURING COUNTDOWN
-    ================================================= */
+    /* =========================================================
+       🌷 SHOW SCRAPBOOK
+    ========================================================= */
 
-    if (countdownScreen) {
+    function showScrapbook() {
 
-        document.body.style.overflow = "hidden";
+        if (countdownFinished) {
+            return;
+        }
+
+        countdownFinished =
+            true;
+
+
+        console.log(
+            "🌷 Countdown finished!"
+        );
 
 
         /*
-           Always start the page at the top.
+            Force countdown to zero.
         */
 
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "instant"
-        });
+        if (daysElement)
+            daysElement.textContent =
+                "00";
+
+        if (hoursElement)
+            hoursElement.textContent =
+                "00";
+
+        if (minutesElement)
+            minutesElement.textContent =
+                "00";
+
+        if (secondsElement)
+            secondsElement.textContent =
+                "00";
 
 
-        updateCountdown();
+        /*
+            Give the countdown exit animation
+            time to finish.
+        */
+
+        setTimeout(
+            () => {
+
+                if (countdownScreen) {
+
+                    countdownScreen.classList.add(
+                        "countdown-finished"
+                    );
+                }
 
 
-        countdownTimer =
-            setInterval(
-                updateCountdown,
-                1000
-            );
+                /*
+                    Keep scrapbook locked.
 
+                    User must press
+                    "Open Scrapbook".
+                */
+
+                document.body.classList.add(
+                    "scrapbook-locked"
+                );
+
+
+                document.body.classList.remove(
+                    "scrapbook-open"
+                );
+
+
+                document.body.style.overflow =
+                    "hidden";
+
+
+                setupPages();
+
+
+                /*
+                    Make cover ready.
+                */
+
+                if (cover) {
+
+                    cover.classList.add(
+                        "page-visible"
+                    );
+
+                    cover.style.visibility =
+                        "visible";
+
+                    cover.style.opacity =
+                        "1";
+
+                    cover.style.pointerEvents =
+                        "auto";
+                }
+
+
+                window.scrollTo(
+                    0,
+                    0
+                );
+
+
+                console.log(
+                    "📖 Cover revealed"
+                );
+
+            },
+            800
+        );
     }
 
 
-    /* =================================================
-       🌷 SCRAPBOOK ELEMENTS
-    ================================================= */
+    /* =========================================================
+       📖 SETUP PAGE SYSTEM
+    ========================================================= */
 
-    const openButton =
-        document.getElementById(
-            "openScrapbook"
+    function setupPages() {
+
+    if (!pages.length) {
+
+        console.warn(
+            "⚠️ No .scrapbook-page elements found."
         );
 
-    const cover =
-        document.querySelector(
-            ".cover-page"
-        );
+        return;
+    }
 
-    const pages =
-        document.querySelectorAll(
-            ".scrapbook-page"
-        );
+    currentPage = 0;
 
-    const envelope =
-        document.querySelector(
-            ".envelope"
-        );
+    createSpiralBinding();
 
-    const letter =
-        document.querySelector(
-            ".letter-container"
-        );
+    pages.forEach(
+        (page, index) => {
 
-    const photos =
-        document.querySelectorAll(
-            ".polaroid img"
-        );
-
-    const stickyNotes =
-        document.querySelectorAll(
-            ".sticky-note"
-        );
-
-
-    /* =================================================
-       INITIAL PAGE STATE
-    ================================================= */
-
-    pages.forEach(page => {
-
-        if (
-            page.classList.contains(
-                "cover-page"
-            )
-        ) {
-
-            page.classList.add(
-                "page-visible"
+            page.classList.remove(
+                "page-current",
+                "page-next",
+                "page-turned",
+                "page-previous"
             );
 
+            if (index === 0) {
+
+                page.classList.add(
+                    "page-current"
+                );
+
+            } else {
+
+                page.classList.add(
+                    "page-next"
+                );
+            }
+        }
+    );
+
+    updateNavigation();
+}
+
+
+    /* =========================================================
+       📖 CREATE NAVIGATION
+    ========================================================= */
+
+    function createNavigation() {
+
+        if (navigation) {
+            return;
         }
 
-    });
+
+        navigation =
+            document.createElement(
+                "div"
+            );
+
+        navigation.className =
+            "scrapbook-navigation";
 
 
-    /* =================================================
-       📖 OPEN SCRAPBOOK
-    ================================================= */
+        previousButton =
+            document.createElement(
+                "button"
+            );
 
-    if (
-        openButton &&
-        cover
+        previousButton.type =
+            "button";
+
+        previousButton.className =
+            "page-button";
+
+        previousButton.textContent =
+            "← Prev";
+
+        previousButton.setAttribute(
+            "aria-label",
+            "Previous page"
+        );
+
+
+        pageNumber =
+            document.createElement(
+                "div"
+            );
+
+        pageNumber.className =
+            "page-number";
+
+        pageNumber.setAttribute(
+            "aria-live",
+            "polite"
+        );
+
+
+        nextButton =
+            document.createElement(
+                "button"
+            );
+
+        nextButton.type =
+            "button";
+
+        nextButton.className =
+            "page-button";
+
+        nextButton.textContent =
+            "Next →";
+
+        nextButton.setAttribute(
+            "aria-label",
+            "Next page"
+        );
+
+
+        navigation.appendChild(
+            previousButton
+        );
+
+        navigation.appendChild(
+            pageNumber
+        );
+
+        navigation.appendChild(
+            nextButton
+        );
+
+
+        document.body.appendChild(
+            navigation
+        );
+
+
+        previousButton.addEventListener(
+            "click",
+            previousPage
+        );
+
+
+        nextButton.addEventListener(
+            "click",
+            nextPage
+        );
+
+
+        updateNavigation();
+    }
+
+
+    /* =========================================================
+       📖 UPDATE NAVIGATION
+    ========================================================= */
+
+    function updateNavigation() {
+
+        if (
+            !navigation ||
+            !previousButton ||
+            !nextButton ||
+            !pageNumber
+        ) {
+
+            return;
+        }
+
+
+        pageNumber.textContent =
+            `${currentPage + 1} / ${pages.length}`;
+
+
+        previousButton.disabled =
+            currentPage === 0 ||
+            isTurningPage;
+
+
+        nextButton.disabled =
+            currentPage >=
+            pages.length - 1 ||
+            isTurningPage;
+    }
+
+
+    /* =========================================================
+       📄 ACTIVATE PAGE
+    ========================================================= */
+
+    function activatePage(page) {
+
+        if (!page) {
+            return;
+        }
+
+
+        page.classList.add(
+            "page-visible"
+        );
+
+
+        /*
+            Activate photos.
+        */
+
+        page
+            .querySelectorAll(
+                ".polaroid"
+            )
+            .forEach(
+                photo => {
+
+                    photo.classList.add(
+                        "photo-visible"
+                    );
+                }
+            );
+
+
+        /*
+            Activate sticky notes.
+        */
+
+        page
+            .querySelectorAll(
+                ".sticky-note"
+            )
+            .forEach(
+                note => {
+
+                    note.classList.add(
+                        "note-visible"
+                    );
+                }
+            );
+    }
+
+
+    /* =========================================================
+       📖 NEXT PAGE
+    ========================================================= */
+
+    function nextPage() {
+
+        /*
+            Don't allow page turns
+            while locked.
+        */
+
+        if (!scrapbookUnlocked) {
+            return;
+        }
+
+
+        /*
+            Don't allow two animations
+            at the same time.
+        */
+
+        if (isTurningPage) {
+            return;
+        }
+
+
+        /*
+            Already at final page.
+        */
+
+        if (
+            currentPage >=
+            pages.length - 1
+        ) {
+
+            return;
+        }
+
+
+        const current =
+            pages[currentPage];
+
+        const next =
+            pages[currentPage + 1];
+
+
+        if (!current || !next) {
+            return;
+        }
+
+
+        isTurningPage =
+            true;
+
+        updateNavigation();
+
+
+        console.log(
+            `📖 Page ${currentPage + 1} → ${currentPage + 2}`
+        );
+
+
+        /*
+            Bring next page into position.
+        */
+
+        next.classList.remove(
+            "page-next",
+            "page-turned",
+            "page-previous"
+        );
+
+        next.classList.add(
+            "page-current"
+        );
+
+
+        /*
+            Force browser repaint.
+
+            This is important because
+            without it the browser can combine
+            both class changes.
+        */
+
+        void next.offsetWidth;
+
+
+        /*
+            Turn current page over.
+        */
+
+        current.classList.remove(
+            "page-current"
+        );
+
+        current.classList.add(
+            "page-turned"
+        );
+
+
+        /*
+            Update state.
+        */
+
+        currentPage++;
+
+
+        activatePage(
+            next
+        );
+
+
+        updateNavigation();
+
+
+        /*
+            Wait for the actual CSS
+            animation to finish.
+        */
+
+        waitForPageTurn(
+            () => {
+
+                /*
+                    The page behind the
+                    current page can stay
+                    in its turned state.
+                */
+
+                isTurningPage =
+                    false;
+
+                updateNavigation();
+
+            }
+        );
+    }
+
+
+    /* =========================================================
+       📖 PREVIOUS PAGE
+    ========================================================= */
+
+    function previousPage() {
+
+        if (!scrapbookUnlocked) {
+            return;
+        }
+
+
+        if (isTurningPage) {
+            return;
+        }
+
+
+        if (currentPage <= 0) {
+            return;
+        }
+
+
+        const current =
+            pages[currentPage];
+
+        const previous =
+            pages[currentPage - 1];
+
+
+        if (!current || !previous) {
+            return;
+        }
+
+
+        isTurningPage =
+            true;
+
+        updateNavigation();
+
+
+        console.log(
+            `📖 Page ${currentPage + 1} → ${currentPage}`
+        );
+
+
+        /*
+            Current page moves backward.
+        */
+
+        current.classList.remove(
+            "page-current"
+        );
+
+        current.classList.add(
+            "page-previous"
+        );
+
+
+        /*
+            Bring previous page back
+            from the turned position.
+        */
+
+        previous.classList.remove(
+            "page-turned",
+            "page-next",
+            "page-previous"
+        );
+
+        previous.classList.add(
+            "page-current"
+        );
+
+
+        /*
+            Force repaint.
+        */
+
+        void previous.offsetWidth;
+
+
+        /*
+            Update state.
+        */
+
+        currentPage--;
+
+
+        activatePage(
+            previous
+        );
+
+
+        updateNavigation();
+
+
+        /*
+            After the animation,
+            the old current page becomes
+            the next page again.
+        */
+
+        waitForPageTurn(
+            () => {
+
+                current.classList.remove(
+                    "page-previous",
+                    "page-turned"
+                );
+
+                current.classList.add(
+                    "page-next"
+                );
+
+
+                isTurningPage =
+                    false;
+
+                updateNavigation();
+
+            }
+        );
+    }
+
+
+    /* =========================================================
+       ⏱️ PAGE TURN TIMER
+    ========================================================= */
+
+    function waitForPageTurn(
+        callback
     ) {
+
+        let finished =
+            false;
+
+
+        const finish =
+            () => {
+
+                if (finished) {
+                    return;
+                }
+
+                finished =
+                    true;
+
+                callback();
+            };
+
+
+        /*
+            Normal animation duration.
+        */
+
+        const timer =
+            setTimeout(
+                finish,
+                1050
+            );
+
+
+        /*
+            Also listen for the actual
+            transition ending.
+        */
+
+        const activePage =
+            pages[currentPage];
+
+
+        if (activePage) {
+
+            const transitionHandler =
+                event => {
+
+                    if (
+                        event.propertyName ===
+                        "transform"
+                    ) {
+
+                        clearTimeout(
+                            timer
+                        );
+
+                        activePage.removeEventListener(
+                            "transitionend",
+                            transitionHandler
+                        );
+
+                        finish();
+                    }
+                };
+
+
+            activePage.addEventListener(
+                "transitionend",
+                transitionHandler
+            );
+        }
+    }
+
+
+    /* =========================================================
+       📖 OPEN SCRAPBOOK
+    ========================================================= */
+
+    if (openButton) {
+
+        openButton.type =
+            "button";
+
 
         openButton.addEventListener(
             "click",
             () => {
 
+                if (scrapbookUnlocked) {
+                    return;
+                }
+
+
+                /*
+                    Unlock scrapbook.
+                */
+
+                scrapbookUnlocked =
+                    true;
+
+
                 console.log(
-                    "📖 Opening scrapbook..."
+                    "📖 Scrapbook opened"
                 );
 
 
                 /*
-                   Close the cover
+                    Unlock scrolling state.
                 */
 
-                cover.classList.add(
-                    "scrapbook-opened"
+                document.body.classList.remove(
+                    "scrapbook-locked"
+                );
+
+                document.body.classList.add(
+                    "scrapbook-open"
+                );
+
+                document.body.style.overflow =
+                    "hidden";
+
+
+                /*
+                    Hide open button.
+                */
+
+                openButton.classList.add(
+                    "button-hidden"
                 );
 
 
                 /*
-                   Reveal first page
+                    Open cover.
+
+                    These classes are left here
+                    so your existing CSS can
+                    animate the cover if it has
+                    its own animation.
                 */
 
-                setTimeout(() => {
+                if (cover) {
 
-                    const firstPage =
-                        document.querySelector(
-                            ".memories-page"
-                        );
+                    cover.classList.add(
+                        "scrapbook-opened"
+                    );
 
-
-                    if (firstPage) {
-
-                        firstPage.classList.add(
-                            "page-visible"
-                        );
+                    cover.classList.add(
+                        "scrapbook-opening"
+                    );
 
 
-                        /*
-                           Scroll to Memories
-                        */
+                    setTimeout(
+                        () => {
 
-                        firstPage.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start"
-                        });
+                            cover.classList.remove(
+                                "scrapbook-opening"
+                            );
 
-                    }
+                        },
+                        1000
+                    );
+                }
 
-                }, 700);
 
+                /*
+                    Create navigation.
+                */
+
+                createNavigation();
+
+
+                /*
+                    Show navigation after
+                    opening animation.
+                */
+
+                setTimeout(
+                    () => {
+
+                        if (navigation) {
+
+                            navigation.classList.add(
+                                "visible"
+                            );
+                        }
+
+                    },
+                    500
+                );
+
+
+                window.scrollTo(
+                    0,
+                    0
+                );
             }
         );
-
     }
 
 
-    /* =================================================
-       📖 PAGE SCROLL REVEAL
-    ================================================= */
+    /* =========================================================
+       📸 PHOTO LIGHTBOX
+    ========================================================= */
 
-    const pageObserver =
-        new IntersectionObserver(
-            entries => {
+    function setupLightbox() {
 
-                entries.forEach(
-                    entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "page-visible"
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.12
-            }
-        );
-
-
-    pages.forEach(page => {
-
-        if (
-            !page.classList.contains(
-                "cover-page"
-            )
-        ) {
-
-            pageObserver.observe(page);
-
+        if (!photos.length) {
+            return;
         }
 
-    });
-
-
-    /* =================================================
-       📸 PHOTO ENTRANCE
-    ================================================= */
-
-    const photoObserver =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "photo-visible"
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.2
-            }
-        );
-
-
-    document
-        .querySelectorAll(".polaroid")
-        .forEach(photo => {
-
-            photoObserver.observe(
-                photo
-            );
-
-        });
-
-
-    /* =================================================
-       📝 STICKY NOTE ENTRANCE
-    ================================================= */
-
-    const noteObserver =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "note-visible"
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.15
-            }
-        );
-
-
-    stickyNotes.forEach(note => {
-
-        noteObserver.observe(
-            note
-        );
-
-    });
-
-
-    /* =================================================
-       📸 PHOTO LIGHTBOX
-    ================================================= */
-
-    if (photos.length > 0) {
 
         const lightbox =
             document.createElement(
@@ -591,6 +1654,9 @@ document.addEventListener("DOMContentLoaded", () => {
         image.className =
             "lightbox-image";
 
+        image.alt =
+            "Scrapbook memory";
+
 
         const close =
             document.createElement(
@@ -600,14 +1666,16 @@ document.addEventListener("DOMContentLoaded", () => {
         close.className =
             "lightbox-close";
 
-        close.type = "button";
+        close.type =
+            "button";
+
+        close.textContent =
+            "×";
 
         close.setAttribute(
             "aria-label",
             "Close photo"
         );
-
-        close.textContent = "×";
 
 
         lightbox.appendChild(
@@ -618,47 +1686,52 @@ document.addEventListener("DOMContentLoaded", () => {
             close
         );
 
+
         document.body.appendChild(
             lightbox
         );
 
 
-        /* Open photo */
+        /*
+            Open photo.
+        */
 
-        photos.forEach(photo => {
+        photos.forEach(
+            photo => {
 
-            photo.addEventListener(
-                "click",
-                event => {
+                photo.addEventListener(
+                    "click",
+                    event => {
 
-                    event.stopPropagation();
-
-
-                    image.src =
-                        photo.currentSrc ||
-                        photo.src;
+                        event.stopPropagation();
 
 
-                    image.alt =
-                        photo.alt ||
-                        "Scrapbook memory";
+                        image.src =
+                            photo.currentSrc ||
+                            photo.src;
 
 
-                    lightbox.classList.add(
-                        "active"
-                    );
+                        image.alt =
+                            photo.alt ||
+                            "Scrapbook memory";
 
 
-                    document.body.style.overflow =
-                        "hidden";
-
-                }
-            );
-
-        });
+                        lightbox.classList.add(
+                            "active"
+                        );
 
 
-        /* Close */
+                        document.body.style.overflow =
+                            "hidden";
+                    }
+                );
+            }
+        );
+
+
+        /*
+            Close lightbox.
+        */
 
         function closeLightbox() {
 
@@ -667,39 +1740,38 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-            /*
-               Only unlock scrolling if
-               countdown is already finished.
-            */
-
-            if (countdownFinished) {
-
-                document.body.style.overflow =
-                    "";
-
-            }
+            document.body.style.overflow =
+                "hidden";
 
 
-            setTimeout(() => {
+            setTimeout(
+                () => {
 
-                if (
-                    !lightbox.classList.contains(
-                        "active"
-                    )
-                ) {
+                    if (
+                        !lightbox.classList.contains(
+                            "active"
+                        )
+                    ) {
 
-                    image.src = "";
+                        image.removeAttribute(
+                            "src"
+                        );
+                    }
 
-                }
-
-            }, 300);
-
+                },
+                300
+            );
         }
 
 
         close.addEventListener(
             "click",
-            closeLightbox
+            event => {
+
+                event.stopPropagation();
+
+                closeLightbox();
+            }
         );
 
 
@@ -708,13 +1780,12 @@ document.addEventListener("DOMContentLoaded", () => {
             event => {
 
                 if (
-                    event.target === lightbox
+                    event.target ===
+                    lightbox
                 ) {
 
                     closeLightbox();
-
                 }
-
             }
         );
 
@@ -731,50 +1802,94 @@ document.addEventListener("DOMContentLoaded", () => {
                 ) {
 
                     closeLightbox();
-
                 }
-
             }
         );
-
     }
 
 
-    /* =================================================
+    setupLightbox();
+
+
+    /* =========================================================
        💌 ENVELOPE / LETTER
-    ================================================= */
+    ========================================================= */
 
-    if (
-        envelope &&
-        letter
-    ) {
+    function setupLetter() {
 
-        let letterOpened = false;
+        if (
+            !envelope ||
+            !letter
+        ) {
+
+            return;
+        }
+
+
+        envelope.setAttribute(
+            "tabindex",
+            "0"
+        );
+
+
+        envelope.setAttribute(
+            "role",
+            "button"
+        );
+
+
+        envelope.setAttribute(
+            "aria-label",
+            "Open birthday letter"
+        );
 
 
         envelope.addEventListener(
             "click",
-            () => {
+            openLetter
+        );
 
-                if (letterOpened) {
-                    return;
+
+        envelope.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    openLetter();
                 }
+            }
+        );
 
 
-                letterOpened = true;
+        function openLetter() {
+
+            if (letterOpened) {
+                return;
+            }
 
 
-                console.log(
-                    "💌 Opening letter..."
-                );
+            letterOpened =
+                true;
 
 
-                envelope.classList.add(
-                    "opened"
-                );
+            console.log(
+                "💌 Opening letter..."
+            );
 
 
-                setTimeout(() => {
+            envelope.classList.add(
+                "opened"
+            );
+
+
+            setTimeout(
+                () => {
 
                     letter.style.display =
                         "block";
@@ -790,274 +1905,793 @@ document.addEventListener("DOMContentLoaded", () => {
                                         "letter-visible"
                                     );
 
+                                    typeLetter();
+
                                 }
                             );
-
                         }
                     );
 
-
-                    setTimeout(() => {
-
-                        letter.scrollIntoView({
-                            behavior: "smooth",
-                            block: "center"
-                        });
-
-                    }, 350);
-
-
-                }, 500);
-
-            }
-        );
-
+                },
+                500
+            );
+        }
     }
 
 
-    /* =================================================
-       📝 DRAGGABLE STICKY NOTES
-    ================================================= */
-
-    stickyNotes.forEach(note => {
-
-        let dragging = false;
-
-        let startX = 0;
-        let startY = 0;
-
-        let currentX = 0;
-        let currentY = 0;
+    setupLetter();
 
 
-        note.addEventListener(
-            "pointerdown",
-            event => {
+    /* =========================================================
+       ✍️ LETTER TYPING
+    ========================================================= */
 
-                if (
-                    event.target.closest(
-                        "button"
-                    ) ||
-                    event.target.closest(
-                        "a"
-                    )
-                ) {
+    function typeLetter() {
 
-                    return;
-
-                }
+        if (!typingLetter) {
+            return;
+        }
 
 
-                dragging = true;
+        if (
+            typingLetter.dataset.typed ===
+            "true"
+        ) {
+
+            return;
+        }
 
 
-                note.classList.add(
-                    "dragging"
-                );
+        typingLetter.dataset.typed =
+            "true";
 
 
-                note.setPointerCapture(
-                    event.pointerId
-                );
+        typingLetter.innerHTML =
+            "";
 
 
-                startX =
-                    event.clientX -
-                    currentX;
-
-                startY =
-                    event.clientY -
-                    currentY;
-
-            }
-        );
+        let index =
+            0;
 
 
-        note.addEventListener(
-            "pointermove",
-            event => {
-
-                if (!dragging) {
-                    return;
-                }
+        const typingSpeed =
+            35;
 
 
-                currentX =
-                    event.clientX -
-                    startX;
+        function typeCharacter() {
 
-                currentY =
-                    event.clientY -
-                    startY;
+            if (
+                index >=
+                letterText.length
+            ) {
 
-
-                let rotation = 0;
-
-
-                if (
-                    note.classList.contains(
-                        "note-one"
-                    )
-                ) {
-
-                    rotation = -3;
-
-                }
-
-
-                if (
-                    note.classList.contains(
-                        "note-two"
-                    )
-                ) {
-
-                    rotation = 4;
-
-                }
-
-
-                if (
-                    note.classList.contains(
-                        "note-three"
-                    )
-                ) {
-
-                    rotation = 2;
-
-                }
-
-
-                if (
-                    note.classList.contains(
-                        "note-four"
-                    )
-                ) {
-
-                    rotation = -4;
-
-                }
-
-
-                note.style.transform =
-                    `translate(${currentX}px, ${currentY}px) rotate(${rotation}deg)`;
-
-            }
-        );
-
-
-        function stopDragging() {
-
-            if (!dragging) {
                 return;
             }
 
 
-            dragging = false;
+            const character =
+                letterText.charAt(
+                    index
+                );
 
 
-            note.classList.remove(
-                "dragging"
+            /*
+                Preserve line breaks.
+            */
+
+            if (
+                character === "\n"
+            ) {
+
+                typingLetter.appendChild(
+                    document.createElement(
+                        "br"
+                    )
+                );
+
+            } else {
+
+                const span =
+                    document.createElement(
+                        "span"
+                    );
+
+                span.textContent =
+                    character;
+
+                typingLetter.appendChild(
+                    span
+                );
+            }
+
+
+            index++;
+
+
+            setTimeout(
+                typeCharacter,
+                typingSpeed
             );
-
         }
 
 
-        note.addEventListener(
-            "pointerup",
-            stopDragging
+        typeCharacter();
+    }
+
+
+    /* =========================================================
+       📝 DRAGGABLE STICKY NOTES
+    ========================================================= */
+
+    function setupStickyNotes() {
+
+        stickyNotes.forEach(
+            (note, index) => {
+
+                let dragging =
+                    false;
+
+                let currentX =
+                    0;
+
+                let currentY =
+                    0;
+
+                let startX =
+                    0;
+
+                let startY =
+                    0;
+
+
+                const rotations = [
+                    -3,
+                     4,
+                     2,
+                    -4,
+                     3,
+                    -2,
+                     5,
+                    -3,
+                     2,
+                    -5,
+                     3,
+                    -2
+                ];
+
+
+                const originalRotation =
+                    rotations[
+                        index %
+                        rotations.length
+                    ];
+
+
+                note.style.setProperty(
+                    "--note-rotation",
+                    `${originalRotation}deg`
+                );
+
+
+                /*
+                    Pointer starts dragging.
+                */
+
+                note.addEventListener(
+                    "pointerdown",
+                    event => {
+
+                        /*
+                            Don't drag buttons
+                            or links.
+                        */
+
+                        if (
+                            event.target.closest(
+                                "button"
+                            ) ||
+                            event.target.closest(
+                                "a"
+                            )
+                        ) {
+
+                            return;
+                        }
+
+
+                        dragging =
+                            true;
+
+
+                        note.classList.add(
+                            "dragging"
+                        );
+
+
+                        note.setPointerCapture(
+                            event.pointerId
+                        );
+
+
+                        startX =
+                            event.clientX -
+                            currentX;
+
+
+                        startY =
+                            event.clientY -
+                            currentY;
+
+
+                        event.preventDefault();
+                    }
+                );
+
+
+                /*
+                    Move sticky note.
+                */
+
+                note.addEventListener(
+                    "pointermove",
+                    event => {
+
+                        if (!dragging) {
+                            return;
+                        }
+
+
+                        currentX =
+                            event.clientX -
+                            startX;
+
+
+                        currentY =
+                            event.clientY -
+                            startY;
+
+
+                        note.style.transform =
+                            `
+                            translate(
+                                ${currentX}px,
+                                ${currentY}px
+                            )
+                            rotate(
+                                ${originalRotation}deg
+                            )
+                            `;
+                    }
+                );
+
+
+                /*
+                    Stop dragging.
+                */
+
+                function stopDragging(
+                    event
+                ) {
+
+                    if (!dragging) {
+                        return;
+                    }
+
+
+                    dragging =
+                        false;
+
+
+                    note.classList.remove(
+                        "dragging"
+                    );
+
+
+                    try {
+
+                        note.releasePointerCapture(
+                            event.pointerId
+                        );
+
+                    } catch (error) {
+
+                        /*
+                            Pointer already released.
+                        */
+
+                    }
+                }
+
+
+                note.addEventListener(
+                    "pointerup",
+                    stopDragging
+                );
+
+
+                note.addEventListener(
+                    "pointercancel",
+                    stopDragging
+                );
+
+
+                note.addEventListener(
+                    "lostpointercapture",
+                    () => {
+
+                        dragging =
+                            false;
+
+                        note.classList.remove(
+                            "dragging"
+                        );
+                    }
+                );
+            }
         );
+    }
 
 
-        note.addEventListener(
-            "pointercancel",
-            stopDragging
-        );
-
-    });
+    setupStickyNotes();
 
 
-    /* =================================================
+    /* =========================================================
        🚫 PREVENT IMAGE DRAGGING
-    ================================================= */
+    ========================================================= */
 
     document
-        .querySelectorAll("img")
-        .forEach(img => {
+        .querySelectorAll(
+            "img"
+        )
+        .forEach(
+            img => {
 
-            img.addEventListener(
-                "dragstart",
-                event => {
-
-                    event.preventDefault();
-
-                }
-            );
-
-        });
+                img.setAttribute(
+                    "draggable",
+                    "false"
+                );
 
 
-    /* =================================================
-       📱 MOBILE TAP HIGHLIGHT
-    ================================================= */
+                img.addEventListener(
+                    "dragstart",
+                    event => {
+
+                        event.preventDefault();
+                    }
+                );
+            }
+        );
+
+
+    /* =========================================================
+       📱 REMOVE TAP HIGHLIGHT
+    ========================================================= */
 
     document
         .querySelectorAll(
             "button, .polaroid, .envelope, .sticky-note"
         )
-        .forEach(element => {
+        .forEach(
+            element => {
 
-            element.style.webkitTapHighlightColor =
-                "transparent";
-
-        });
-
-
-    /* =================================================
-       ⌨️ KEYBOARD SUPPORT
-    ================================================= */
-
-    if (envelope) {
-
-        envelope.setAttribute(
-            "tabindex",
-            "0"
-        );
-
-
-        envelope.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-
-                    event.preventDefault();
-
-                    envelope.click();
-
-                }
-
+                element.style.webkitTapHighlightColor =
+                    "transparent";
             }
         );
 
-    }
+
+    /* =========================================================
+       ⌨️ KEYBOARD PAGE TURNING
+    ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (!scrapbookUnlocked) {
+                return;
+            }
 
 
-    if (openButton) {
+            /*
+                Don't interfere with typing.
+            */
 
-        openButton.setAttribute(
-            "type",
-            "button"
+            const tag =
+                event.target.tagName;
+
+
+            if (
+                tag === "INPUT" ||
+                tag === "TEXTAREA" ||
+                tag === "SELECT"
+            ) {
+
+                return;
+            }
+
+
+            /*
+                Ignore modifier combinations.
+            */
+
+            if (
+                event.ctrlKey ||
+                event.metaKey ||
+                event.altKey
+            ) {
+
+                return;
+            }
+
+
+            if (
+                event.key ===
+                "ArrowRight"
+            ) {
+
+                event.preventDefault();
+
+                nextPage();
+            }
+
+
+            if (
+                event.key ===
+                "ArrowLeft"
+            ) {
+
+                event.preventDefault();
+
+                previousPage();
+            }
+        }
+    );
+
+
+    /* =========================================================
+       👆 MOBILE SWIPE PAGE TURNING
+    ========================================================= */
+
+    let touchStartX =
+        0;
+
+    let touchStartY =
+        0;
+
+    let touchStartedOnInteractive =
+        false;
+
+
+    document.addEventListener(
+        "touchstart",
+        event => {
+
+            if (!scrapbookUnlocked) {
+                return;
+            }
+
+
+            const target =
+                event.target;
+
+
+            /*
+                Don't accidentally turn pages
+                while interacting with photos,
+                envelopes, buttons, notes, etc.
+            */
+
+            touchStartedOnInteractive =
+                Boolean(
+                    target.closest(
+                        "button, a, .polaroid, .envelope, .sticky-note, .photo-lightbox"
+                    )
+                );
+
+
+            if (
+                touchStartedOnInteractive
+            ) {
+
+                return;
+            }
+
+
+            const touch =
+                event.changedTouches[0];
+
+
+            touchStartX =
+                touch.screenX;
+
+
+            touchStartY =
+                touch.screenY;
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    document.addEventListener(
+        "touchend",
+        event => {
+
+            if (!scrapbookUnlocked) {
+                return;
+            }
+
+
+            if (
+                touchStartedOnInteractive
+            ) {
+
+                touchStartedOnInteractive =
+                    false;
+
+                return;
+            }
+
+
+            const touch =
+                event.changedTouches[0];
+
+
+            const touchEndX =
+                touch.screenX;
+
+
+            const touchEndY =
+                touch.screenY;
+
+
+            const distanceX =
+                touchEndX -
+                touchStartX;
+
+
+            const distanceY =
+                touchEndY -
+                touchStartY;
+
+
+            /*
+                Ignore vertical gestures.
+            */
+
+            if (
+                Math.abs(distanceX) <=
+                Math.abs(distanceY)
+            ) {
+
+                return;
+            }
+
+
+            /*
+                Minimum swipe distance.
+            */
+
+            if (
+                Math.abs(distanceX) <
+                60
+            ) {
+
+                return;
+            }
+
+
+            /*
+                LEFT = NEXT
+                RIGHT = PREVIOUS
+            */
+
+            if (
+                distanceX < 0
+            ) {
+
+                nextPage();
+
+            } else {
+
+                previousPage();
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =========================================================
+       🖱️ MOUSE WHEEL PAGE TURNING
+       Disabled by default.
+
+       Uncomment this section if you want
+       mouse-wheel page turning.
+    ========================================================= */
+
+    /*
+    let wheelLocked = false;
+
+    document.addEventListener(
+        "wheel",
+        event => {
+
+            if (!scrapbookUnlocked) {
+                return;
+            }
+
+            if (wheelLocked) {
+                return;
+            }
+
+            if (Math.abs(event.deltaY) < 30) {
+                return;
+            }
+
+            wheelLocked = true;
+
+            if (event.deltaY > 0) {
+                nextPage();
+            } else {
+                previousPage();
+            }
+
+            setTimeout(() => {
+                wheelLocked = false;
+            }, 1100);
+
+        },
+        {
+            passive: true
+        }
+    );
+    */
+/* =====================================================
+   🌀 REAL SCRAPBOOK SPIRAL BINDING
+===================================================== */
+
+function createSpiralBinding() {
+
+    pages.forEach((page) => {
+
+        /* Prevent duplicates */
+        if (page.querySelector(".scrapbook-spiral")) {
+            return;
+        }
+
+        const spiral =
+            document.createElement("div");
+
+        spiral.className =
+            "scrapbook-spiral";
+
+        /* Create individual metal rings */
+        const ringCount = 18;
+
+        for (let i = 0; i < ringCount; i++) {
+
+            const ring =
+                document.createElement("span");
+
+            ring.className =
+                "spiral-ring";
+
+            ring.style.setProperty(
+                "--ring-index",
+                i
+            );
+
+            spiral.appendChild(ring);
+        }
+
+        /* Binding holes */
+        const holes =
+            document.createElement("div");
+
+        holes.className =
+            "spiral-holes";
+
+        for (let i = 0; i < ringCount; i++) {
+
+            const hole =
+                document.createElement("span");
+
+            holes.appendChild(hole);
+        }
+
+        spiral.appendChild(holes);
+
+        page.appendChild(spiral);
+    });
+}
+
+    /* =========================================================
+       🌷 INITIALIZE
+    ========================================================= */
+
+    if (!countdownScreen) {
+
+        /*
+            No countdown exists.
+
+            Start scrapbook immediately.
+        */
+
+        countdownFinished =
+            true;
+
+
+        setupPages();
+
+
+        /*
+            Don't lock the scrapbook
+            if there is no countdown.
+        */
+
+        if (openButton) {
+
+            openButton.style.display =
+                "none";
+        }
+
+
+        scrapbookUnlocked =
+            true;
+
+
+        document.body.classList.remove(
+            "scrapbook-locked"
         );
 
+        document.body.classList.add(
+            "scrapbook-open"
+        );
+
+
+        createNavigation();
+
+
+        setTimeout(
+            () => {
+
+                if (navigation) {
+
+                    navigation.classList.add(
+                        "visible"
+                    );
+                }
+
+            },
+            300
+        );
+
+
+    } else {
+
+        /*
+            Countdown exists.
+        */
+
+        updateCountdown();
+
+
+        countdownTimer =
+            setInterval(
+                updateCountdown,
+                1000
+            );
     }
 
 
-    /* =================================================
-       🌷 FINISHED
-    ================================================= */
+    /* =========================================================
+       🌷 FINAL
+    ========================================================= */
 
     console.log(
         "🌷 Scrapbook ready!"
