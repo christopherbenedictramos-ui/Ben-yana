@@ -1,321 +1,378 @@
+    
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#ffd6e7">
+    <title>A Little Scrapbook 🌷</title>
 
-<meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>
-A Special Gift 🌷
-</title>
-
-
-<link rel="stylesheet" href="style.css">
-
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap"
+        rel="stylesheet">
 </head>
+<div id="countdownScreen">
 
+    <div class="countdown-box">
 
+        <div class="countdown-flower">
+            🌷
+        </div>
 
-<body class="intro-page">
+        <p>
+            A little something is waiting for you...
+        </p>
 
+        <h1>
+            Almost Time
+        </h1>
 
-<!-- =====================================
-     DATE LOCK SCREEN
-===================================== -->
+        <div class="countdown">
 
+            <div>
+                <span id="days">00</span>
+                <small>Days</small>
+            </div>
 
-<section class="lock-screen" id="lockScreen">
+            <div>
+                <span id="hours">00</span>
+                <small>Hours</small>
+            </div>
 
+            <div>
+                <span id="minutes">00</span>
+                <small>Minutes</small>
+            </div>
 
-<div class="lock-card">
+            <div>
+                <span id="seconds">00</span>
+                <small>Seconds</small>
+            </div>
 
+        </div>
 
-<h1>
-A Special Surprise Awaits 🌷
-</h1>
+        <div class="countdown-page-number">
+            00
+        </div>
 
-
-<p>
-This gift will open on your special day ❤️
-</p>
-
-
-
-<div class="countdown">
-
-
-<div>
-
-<span id="days">
-00
-</span>
-
-<small>
-Days
-</small>
-
-</div>
-
-
-
-<div>
-
-<span id="hours">
-00
-</span>
-
-<small>
-Hours
-</small>
+    </div>
 
 </div>
+<body>
 
+    <main class="scrapbook" id="scrapbook">
 
+        <!-- COVER -->
+        <section class="scrapbook-page cover-page">
 
+            <div class="cover-content">
 
-<div>
+                <p class="handwritten">
+                    A little something
+                </p>
 
-<span id="minutes">
-00
-</span>
+                <h1>
+                    A Little<br>
+                    Scrapbook
+                </h1>
 
-<small>
-Minutes
-</small>
+                <div class="cover-divider">
+                    ✿
+                </div>
 
-</div>
+                <p class="cover-subtitle">
+                    A collection of little moments,
+                    memories, and things worth keeping.
+                </p>
 
+                <p class="cover-name">
+                    For Allana Marie ❤️
+                </p>
 
+                <p class="cover-date">
+                    August 23, 2026
+                </p>
 
+                <button
+                    class="open-scrapbook"
+                    id="openScrapbook">
+                    Open the Scrapbook ♡
+                </button>
 
-<div>
+            </div>
 
-<span id="seconds">
-00
-</span>
+        </section>
 
-<small>
-Seconds
-</small>
 
-</div>
+        <!-- MEMORIES -->
+        <section
+            class="scrapbook-page memories-page"
+            id="memories">
 
+            <div class="page-heading">
 
-</div>
+                <p class="handwritten">
+                    Chapter One
+                </p>
 
+                <h2>
+                    Our Memories
+                </h2>
 
-</div>
+                <p>
+                    Little moments that became
+                    beautiful memories.
+                </p>
 
+            </div>
 
-</section>
+            <div class="photo-grid">
 
+                <div class="polaroid polaroid-one">
 
+                    <img
+                        src="assets/photo_2026-07-29_12-25-59.jpg"
+                        alt="Memory 1">
 
+                    <p>
+                        The beginning ❤️
+                    </p>
 
+                </div>
 
-<!-- =====================================
-     DREAMY BACKGROUND
-===================================== -->
 
+                <div class="polaroid polaroid-two">
 
-<div class="background-glow"></div>
+                    <img
+                        src="assets/Orange Black and Purple Playful Photo Dump Photo Collage.jpg"
+                        alt="Memory 2">
 
+                    <p>
+                        Little moments ✨
+                    </p>
 
+                </div>
 
 
-<div class="floating-flowers">
+                <div class="polaroid polaroid-three">
 
+                    <img
+                        src="assets/photo_2026-07-29_12-05-47.jpg"
+                        alt="Memory 3">
 
-<span>🌷</span>
+                    <p>
+                        Forever memories 🌷
+                    </p>
 
-<span>🌸</span>
+                </div>
 
-<span>🌷</span>
+            </div>
 
-<span>🌸</span>
+        </section>
 
-<span>🌷</span>
 
+        <!-- LITTLE THINGS -->
+        <section class="scrapbook-page reasons-page">
 
-</div>
+            <div class="page-heading">
 
+                <p class="handwritten">
+                    Chapter Two
+                </p>
 
+                <h2>
+                    Little Things
+                </h2>
 
+                <p>
+                    A few things I adore about you.
+                </p>
 
+            </div>
 
-<div class="sparkle-container">
+            <div class="notes-container">
 
+                <article class="sticky-note note-one">
 
-<span>✨</span>
+                    <span>🌷</span>
 
-<span>✨</span>
+                    <h3>
+                        Your Smile
+                    </h3>
 
-<span>✨</span>
+                    <p>
+                        You have a way of making
+                        ordinary moments feel brighter.
+                    </p>
 
-<span>✨</span>
+                </article>
 
 
-</div>
+                <article class="sticky-note note-two">
 
+                    <span>✨</span>
 
+                    <h3>
+                        Your Kindness
+                    </h3>
 
+                    <p>
+                        Your kindness is one of the
+                        little things that makes you special.
+                    </p>
 
+                </article>
 
 
+                <article class="sticky-note note-three">
 
-<!-- =====================================
-     GIFT EXPERIENCE
-===================================== -->
+                    <span>🤍</span>
 
+                    <h3>
+                        Your Heart
+                    </h3>
 
-<section 
-class="gift-screen" 
-id="giftScreen"
->
+                    <p>
+                        There is something beautiful
+                        about the way you care.
+                    </p>
 
+                </article>
 
 
-<div class="gift-card">
+                <article class="sticky-note note-four">
 
+                    <span>🌸</span>
 
+                    <h3>
+                        Your Presence
+                    </h3>
 
-<div class="gift-content">
+                    <p>
+                        Somehow, even the simplest
+                        moments become memories.
+                    </p>
 
+                </article>
 
+            </div>
 
-<p class="small-title">
+        </section>
 
-For Someone Special ❤️
 
-</p>
+        <!-- LETTER -->
+        <section class="scrapbook-page letter-page">
 
+            <div class="page-heading">
 
+                <p class="handwritten">
+                    Chapter Three
+                </p>
 
+                <h2>
+                    A Letter For You
+                </h2>
 
+                <p>
+                    Something I wanted you to know.
+                </p>
 
-<h1>
+            </div>
 
-A Special Gift
+            <button
+                class="envelope"
+                type="button"
+                aria-label="Open letter">
 
-<br>
+                💌
 
-For You 🌷
+            </button>
 
-</h1>
+            <div class="letter-container">
 
+                <article class="letter-paper">
 
+                    <h2>
+                        Happy Birthday ❤️
+                    </h2>
 
+                    <p>
+                        Happy Birthday!
 
+                        <br><br>
 
-<p class="gift-description">
+                        Today, I hope you remember
+                        how special you are.
 
-A little surprise filled with memories,
-flowers, and words from my heart.
+                        <br><br>
 
-</p>
+                        You deserve happiness,
+                        beautiful moments,
+                        and wonderful memories.
 
+                        <br><br>
 
+                        Thank you for being part
+                        of my life.
 
+                        <br><br>
 
+                        With love,
 
+                        <br>
 
+                        Benny 🌷
+                    </p>
 
+                </article>
 
-<!-- =====================================
-     GIFT BOX
-===================================== -->
+            </div>
 
+        </section>
 
-<div 
-class="gift-box"
-id="giftBox"
-aria-label="Open gift"
->
 
+        <!-- FINAL PAGE -->
+        <section class="scrapbook-page final-page">
 
+            <div class="final-flower">
+                🌷
+            </div>
 
+            <p class="handwritten">
+                And finally...
+            </p>
 
-<div class="gift-glow"></div>
+            <h1>
+                Happy Birthday<br>
+                Allana Marie
+            </h1>
 
+            <div class="final-divider">
+                ✿ ✿ ✿
+            </div>
 
+            <p>
+                Here's to more memories,
+                <br>
+                more laughter,
+                <br>
+                and more beautiful days.
+            </p>
 
-<div class="lid"></div>
+            <div class="final-heart">
+                ❤️
+            </div>
 
+        </section>
 
+    </main>
 
-<div class="box"></div>
-
-
-
-
-<div class="ribbon vertical"></div>
-
-
-
-<div class="ribbon horizontal"></div>
-
-
-
-
-
-<div class="bow">
-
-🎀
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-<p class="click-text">
-
-✨ Tap the gift to open ✨
-
-</p>
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-
-
-<script src="script.js"></script>
-
-
+    <script src="script.js"></script>
 
 </body>
 
-
 </html>
+
