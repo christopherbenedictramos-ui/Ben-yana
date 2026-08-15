@@ -65,6 +65,12 @@
 
     <main class="scrapbook" id="scrapbook">
 
+    <!-- =================================================
+         BOOK
+    ================================================= -->
+
+    <div class="book" id="book">
+
         <!-- COVER -->
         <section class="scrapbook-page cover-page">
 
@@ -98,7 +104,8 @@
 
                 <button
                     class="open-scrapbook"
-                    id="openScrapbook">
+                    id="openScrapbook"
+                    type="button">
                     Open the Scrapbook ♡
                 </button>
 
@@ -108,9 +115,7 @@
 
 
         <!-- MEMORIES -->
-        <section
-            class="scrapbook-page memories-page"
-            id="memories">
+        <section class="scrapbook-page memories-page">
 
             <div class="page-heading">
 
@@ -143,7 +148,6 @@
 
                 </div>
 
-
                 <div class="polaroid polaroid-two">
 
                     <img
@@ -155,7 +159,6 @@
                     </p>
 
                 </div>
-
 
                 <div class="polaroid polaroid-three">
 
@@ -193,69 +196,115 @@
 
             </div>
 
+
             <div class="notes-container">
-
+                
                 <article class="sticky-note note-one">
-
                     <span>🌷</span>
-
-                    <h3>
-                        Your Smile
-                    </h3>
-
+                    <h3>Your Smile</h3>
                     <p>
                         You have a way of making
                         ordinary moments feel brighter.
                     </p>
-
                 </article>
 
-
                 <article class="sticky-note note-two">
-
                     <span>✨</span>
-
-                    <h3>
-                        Your Kindness
-                    </h3>
-
+                    <h3>Your Kindness</h3>
                     <p>
                         Your kindness is one of the
                         little things that makes you special.
                     </p>
-
                 </article>
 
-
                 <article class="sticky-note note-three">
-
                     <span>🤍</span>
-
-                    <h3>
-                        Your Heart
-                    </h3>
-
+                    <h3>Your Heart</h3>
                     <p>
                         There is something beautiful
                         about the way you care.
                     </p>
-
                 </article>
 
-
                 <article class="sticky-note note-four">
-
                     <span>🌸</span>
-
-                    <h3>
-                        Your Presence
-                    </h3>
-
+                    <h3>Your Presence</h3>
                     <p>
                         Somehow, even the simplest
                         moments become memories.
                     </p>
+                </article>
 
+                <article class="sticky-note note-five">
+                    <span>🦋</span>
+                    <h3>Your Energy</h3>
+                    <p>
+                        You bring a special kind of
+                        warmth wherever you go.
+                    </p>
+                </article>
+
+                <article class="sticky-note note-six">
+                    <span>☀️</span>
+                    <h3>Your Laugh</h3>
+                    <p>
+                        Your laughter can make even
+                        an ordinary day feel special.
+                    </p>
+                </article>
+
+                <article class="sticky-note note-seven">
+                    <span>🌼</span>
+                    <h3>Your Thoughtfulness</h3>
+                    <p>
+                        The little things you do often
+                        mean more than you realize.
+                    </p>
+                </article>
+
+                <article class="sticky-note note-eight">
+                    <span>💌</span>
+                    <h3>Your Words</h3>
+                    <p>
+                        Some conversations stay in my
+                        mind long after they end.
+                    </p>
+                </article>
+
+                <article class="sticky-note note-nine">
+                    <span>🌙</span>
+                    <h3>Your Comfort</h3>
+                    <p>
+                        There is something comforting
+                        about simply having you around.
+                    </p>
+                </article>
+
+                <article class="sticky-note note-ten">
+                    <span>🌿</span>
+                    <h3>The Little Moments</h3>
+                    <p>
+                        The smallest moments somehow
+                        become the ones worth remembering.
+                    </p>
+                </article>
+
+                <article class="sticky-note note-eleven">
+                    <span>💗</span>
+                    <h3>Your Uniqueness</h3>
+                    <p>
+                        There is no one quite like you,
+                        and that is worth celebrating.
+                    </p>
+                </article>
+
+                <article class="sticky-note note-twelve">
+                    <span>🌷</span>
+                    <h3>Simply You</h3>
+                    <p>
+                        Out of all the little things,
+                        my favorite is simply you.
+                    </p>
                 </article>
 
             </div>
@@ -286,9 +335,7 @@
                 class="envelope"
                 type="button"
                 aria-label="Open letter">
-
                 💌
-
             </button>
 
             <div class="letter-container">
@@ -299,33 +346,7 @@
                         Happy Birthday ❤️
                     </h2>
 
-                    <p>
-                        Happy Birthday!
-
-                        <br><br>
-
-                        Today, I hope you remember
-                        how special you are.
-
-                        <br><br>
-
-                        You deserve happiness,
-                        beautiful moments,
-                        and wonderful memories.
-
-                        <br><br>
-
-                        Thank you for being part
-                        of my life.
-
-                        <br><br>
-
-                        With love,
-
-                        <br>
-
-                        Benny 🌷
-                    </p>
+                    <p id="typingLetter"></p>
 
                 </article>
 
@@ -334,7 +355,7 @@
         </section>
 
 
-        <!-- FINAL PAGE -->
+        <!-- FINAL -->
         <section class="scrapbook-page final-page">
 
             <div class="final-flower">
@@ -368,7 +389,15 @@
 
         </section>
 
-    </main>
+    </div>
+
+
+    <!-- =================================================
+         PAGE CONTROLS
+    ================================================= -->
+
+    
+</main>
 
     <script src="script.js"></script>
 
