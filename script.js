@@ -1,835 +1,1066 @@
 /* =====================================================
-   BIRTHDAY EXPERIENCE WEBSITE
-   PREMIUM SCRIPT ENGINE
+🌷 A LITTLE SCRAPBOOK
+COUNTDOWN + FULL INTERACTIVE SCRIPT
 ===================================================== */
 
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
-function createUnlockFlower(){
+document.addEventListener("DOMContentLoaded", () => {
 
+    console.log("🌷 Scrapbook started");
 
-const flower =
-document.createElement("span");
 
+    /* =================================================
+       🌷 COUNTDOWN
+    ================================================= */
 
+    const countdownScreen =
+        document.getElementById("countdownScreen");
 
-const flowers=[
+    const daysElement =
+        document.getElementById("days");
 
-"🌷",
-"🌸",
-"🌺",
-"✨",
-"💗"
+    const hoursElement =
+        document.getElementById("hours");
 
-];
+    const minutesElement =
+        document.getElementById("minutes");
 
+    const secondsElement =
+        document.getElementById("seconds");
 
 
-flower.innerHTML =
-flowers[
-Math.floor(
-Math.random()*flowers.length
-)
-];
+    /*
+       CHANGE YOUR TARGET DATE HERE
 
+       Example:
+       August 11, 2026 at 12:06 PM
+    */
 
+    const targetDate =
+        new Date("August 11, 2026 12:07:00").getTime();
 
-flower.className=
-"unlock-flower";
 
+    let countdownFinished = false;
+    let countdownTimer;
 
 
-flower.style.left =
-Math.random()*100+"%";
+    /* =================================================
+       COUNTDOWN NUMBER ANIMATION
+    ================================================= */
 
+    function animateNumber(element, value) {
 
+        if (!element) return;
 
-flower.style.top =
-Math.random()*100+"%";
+        if (element.textContent === value) {
+            return;
+        }
 
+        element.classList.add("number-changing");
 
 
-flower.style.fontSize =
-(25+Math.random()*40)+"px";
+        setTimeout(() => {
 
+            element.textContent = value;
 
+            element.classList.remove(
+                "number-changing"
+            );
 
-document.body.appendChild(
-flower
-);
+        }, 120);
 
+    }
 
 
-setTimeout(()=>{
+    /* =================================================
+       SHOW SCRAPBOOK
+    ================================================= */
 
-flower.remove();
+    function showScrapbook() {
 
-},4000);
+        if (countdownFinished) {
+            return;
+        }
 
+        countdownFinished = true;
 
 
-}
+        console.log(
+            "🌷 Countdown finished — opening scrapbook"
+        );
 
-/* =====================================
-   BIRTHDAY DATE LOCK
-===================================== */
 
+        /*
+           Keep the screen at 00:00:00
+           briefly before disappearing.
+        */
 
-const unlockDate = new Date("2026-08-23T00:00:00+08:00").getTime();
+        if (daysElement)
+            daysElement.textContent = "00";
 
+        if (hoursElement)
+            hoursElement.textContent = "00";
 
+        if (minutesElement)
+            minutesElement.textContent = "00";
 
-const lockScreen =
-document.getElementById("lockScreen");
+        if (secondsElement)
+            secondsElement.textContent = "00";
 
 
-const giftScreen =
-document.getElementById("giftScreen");
+        setTimeout(() => {
 
+            /*
+               Hide countdown
+            */
 
+            if (countdownScreen) {
 
-if(lockScreen && giftScreen){
+                countdownScreen.classList.add(
+                    "countdown-finished"
+                );
 
+            }
 
-giftScreen.style.opacity="0";
 
+            /*
+               IMPORTANT:
+               Force the document to the VERY TOP.
+            */
 
-giftScreen.style.pointerEvents="none";
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "instant"
+            });
 
 
+            /*
+               Some browsers restore scroll position
+               after the countdown disappears.
+               Force it again after the transition.
+            */
 
-setInterval(()=>{
+            setTimeout(() => {
 
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "instant"
+                });
 
-const now =
-new Date().getTime();
+            }, 50);
 
 
+            /*
+               Unlock scrolling
+            */
 
-const distance =
-unlockDate - now;
+            document.body.style.overflow = "";
 
 
+            /*
+               Make sure the scrapbook cover
+               is visible.
+            */
 
-if(distance <= 0){
+            const cover =
+                document.querySelector(".cover-page");
 
+            if (cover) {
 
-lockScreen.style.opacity="0";
+                cover.classList.remove(
+                    "scrapbook-opened"
+                );
 
+                cover.classList.add(
+                    "page-visible"
+                );
 
-document.body.classList.add(
-"birthday-unlocked"
-);
+            }
 
+        }, 800);
 
+    }
 
-setTimeout(()=>{
 
+    /* =================================================
+       UPDATE COUNTDOWN
+    ================================================= */
 
-lockScreen.style.display="none";
+    function updateCountdown() {
 
+        const now =
+            new Date().getTime();
 
-giftScreen.style.opacity="1";
+        const difference =
+            targetDate - now;
 
-giftScreen.style.pointerEvents="auto";
 
+        /*
+           Countdown finished
+        */
 
-},1200);
+        if (difference <= 0) {
 
+            clearInterval(countdownTimer);
 
+            showScrapbook();
 
+            return;
 
-/* FLOWER BURST */
+        }
 
 
-for(let i=0;i<30;i++){
+        /*
+           Calculate time
+        */
 
+        const days =
+            Math.floor(
+                difference /
+                (1000 * 60 * 60 * 24)
+            );
 
-createUnlockFlower();
 
+        const hours =
+            Math.floor(
+                (
+                    difference %
+                    (1000 * 60 * 60 * 24)
+                ) /
+                (1000 * 60 * 60)
+            );
 
-}
 
+        const minutes =
+            Math.floor(
+                (
+                    difference %
+                    (1000 * 60 * 60)
+                ) /
+                (1000 * 60)
+            );
 
 
+        const seconds =
+            Math.floor(
+                (
+                    difference %
+                    (1000 * 60)
+                ) /
+                1000
+            );
 
-/* CONFETTI */
 
+        /*
+           Display
+        */
 
-if(typeof confetti !== "undefined"){
+        animateNumber(
+            daysElement,
+            String(days).padStart(2, "0")
+        );
 
 
-confetti({
+        animateNumber(
+            hoursElement,
+            String(hours).padStart(2, "0")
+        );
 
-particleCount:250,
 
-spread:160,
+        animateNumber(
+            minutesElement,
+            String(minutes).padStart(2, "0")
+        );
 
-origin:{
-y:.5
-}
 
-});
+        animateNumber(
+            secondsElement,
+            String(seconds).padStart(2, "0")
+        );
 
+    }
 
-}
 
+    /* =================================================
+       LOCK PAGE DURING COUNTDOWN
+    ================================================= */
 
+    if (countdownScreen) {
 
-return;
+        document.body.style.overflow = "hidden";
 
 
-}
-
-
-document.getElementById("days").innerHTML =
-Math.floor(distance/(1000*60*60*24));
-
-
-document.getElementById("hours").innerHTML =
-Math.floor(distance/(1000*60*60)%24);
-
-
-document.getElementById("minutes").innerHTML =
-Math.floor(distance/(1000*60)%60);
-
-
-document.getElementById("seconds").innerHTML =
-Math.floor(distance/1000%60);
-
-
-
-},1000);
-
-
-}
-/* =====================================================
-   PAGE FADE IN
-===================================================== */
-
-
-document.body.style.opacity="0";
-
-
-setTimeout(()=>{
-
-document.body.style.transition=
-"opacity .8s ease";
-
-
-document.body.style.opacity="1";
-
-
-},100);
-
-
-
-
-
-
-/* =====================================================
-   GIFT BOX OPENING
-===================================================== */
-
-
-const giftBox =
-document.querySelector(".gift-box");
-
-
-
-if(giftBox){
-
-
-giftBox.addEventListener(
-"click",
-()=>{
-
-
-giftBox.classList.add("open");
-
-
-
-/* CONFETTI */
-
-if(typeof confetti !== "undefined"){
-
-
-confetti({
-
-particleCount:150,
-
-spread:90,
-
-origin:{
-y:.6
-}
-
-});
-
-
-}
-
-
-
-setTimeout(()=>{
-
-
-window.location.href=
-"choose.html";
-
-
-},800);
-
-
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =====================================================
-   CHOOSE PAGE CARD ANIMATION
-===================================================== */
-
-
-const cards =
-document.querySelectorAll(".choice-card");
-
-
-
-cards.forEach(card=>{
-
-
-card.addEventListener(
-"click",
-(e)=>{
-
-
-e.preventDefault();
-
-
-
-const link =
-card.getAttribute("href");
-
-
-
-card.style.transform=
-"scale(.9)";
-
-
-
-card.style.opacity=".5";
-
-
-
-setTimeout(()=>{
-
-
-window.location.href=link;
-
-
-},400);
-
-
-
-});
-
-
-});
-
-
-
-
-
-
-
-
-
-/* =====================================================
-   FLOATING FLOWERS GENERATOR
-===================================================== */
-
-
-function createFlower(){
-
-
-
-const flower =
-document.createElement("span");
-
-
-
-
-
-
-
-flower.innerHTML =
-flowers[
-Math.floor(
-Math.random()*flowers.length
-)
-];
-
-
-
-flower.style.left =
-Math.random()*100+"%";
-
-
-
-flower.style.fontSize =
-(20+
-Math.random()*25)
-+"px";
-
-
-
-flower.style.animationDuration =
-(7+
-Math.random()*6)
-+"s";
-
-
-
-document.body.appendChild(
-flower
-);
-
-
-
-setTimeout(()=>{
-
-flower.remove();
-
-
-},14000);
-
-
-
-}
-
-
-
-setInterval(
-createFlower,
-2000
-);
-
-
-
-
-
-
-
-
-
-/* =====================================================
-   MEMORY LIGHTBOX
-===================================================== */
-
-
-
-const lightbox =
-document.getElementById(
-"lightbox"
-);
-
-
-
-const lightboxImage =
-document.getElementById(
-"lightboxImage"
-);
-
-
-
-const closeLightbox =
-document.getElementById(
-"closeLightbox"
-);
-
-
-
-
-if(
-lightbox &&
-lightboxImage &&
-closeLightbox
-){
-
-
-
-document
-.querySelectorAll(".memory-photo")
-.forEach(photo=>{
-
-
-photo.addEventListener(
-"click",
-()=>{
-
-
-console.log("Opening image:", photo.src);
-
-
-
-lightboxImage.setAttribute(
-"src",
-photo.getAttribute("src")
-);
-
-
-
-lightbox.classList.add("show");
-
-
-
-document.body.style.overflow="hidden";
-
-
-
-});
-
-
-});
-
-
-
-
-
-function closeGallery(){
-
-
-lightbox.classList.remove(
-"show"
-);
-
-
-
-document.body.style.overflow=
-"auto";
-
-
-}
-
-
-
-
-
-closeLightbox.onclick=
-closeGallery;
-
-
-
-lightbox.onclick=
-(e)=>{
-
-
-if(
-e.target===lightbox
-){
-
-closeGallery();
-
-}
-
-
-};
-
-
-
-document.addEventListener(
-"keydown",
-(e)=>{
-
-
-if(
-e.key==="Escape"
-){
-
-closeGallery();
-
-}
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-/* =====================================================
-   TYPING EFFECT
-===================================================== */
-
-const openLetterBtn =
-document.getElementById("openLetterBtn");
-
-const letterContent =
-document.getElementById("letterContent");
-
-if(openLetterBtn && letterContent){
-
-    openLetterBtn.addEventListener("click",()=>{
-
-        document.querySelector(".message-intro").style.display="none";
-
-        letterContent.classList.remove("hidden-letter");
-
-        letterContent.classList.add("show");
-
-        startTyping();
+        /*
+           Always start the page at the top.
+        */
 
         window.scrollTo({
-            top:0,
-            behavior:"smooth"
+            top: 0,
+            left: 0,
+            behavior: "instant"
         });
+
+
+        updateCountdown();
+
+
+        countdownTimer =
+            setInterval(
+                updateCountdown,
+                1000
+            );
+
+    }
+
+
+    /* =================================================
+       🌷 SCRAPBOOK ELEMENTS
+    ================================================= */
+
+    const openButton =
+        document.getElementById(
+            "openScrapbook"
+        );
+
+    const cover =
+        document.querySelector(
+            ".cover-page"
+        );
+
+    const pages =
+        document.querySelectorAll(
+            ".scrapbook-page"
+        );
+
+    const envelope =
+        document.querySelector(
+            ".envelope"
+        );
+
+    const letter =
+        document.querySelector(
+            ".letter-container"
+        );
+
+    const photos =
+        document.querySelectorAll(
+            ".polaroid img"
+        );
+
+    const stickyNotes =
+        document.querySelectorAll(
+            ".sticky-note"
+        );
+
+
+    /* =================================================
+       INITIAL PAGE STATE
+    ================================================= */
+
+    pages.forEach(page => {
+
+        if (
+            page.classList.contains(
+                "cover-page"
+            )
+        ) {
+
+            page.classList.add(
+                "page-visible"
+            );
+
+        }
 
     });
 
-}
 
-function startTyping(){
+    /* =================================================
+       📖 OPEN SCRAPBOOK
+    ================================================= */
+
+    if (
+        openButton &&
+        cover
+    ) {
+
+        openButton.addEventListener(
+            "click",
+            () => {
+
+                console.log(
+                    "📖 Opening scrapbook..."
+                );
 
 
-/* =====================================================
-   MESSAGE PAGE
-   OPEN LETTER BUTTON
-===================================================== */
+                /*
+                   Close the cover
+                */
 
-const openLetterBtn =
-document.getElementById("openLetterBtn");
+                cover.classList.add(
+                    "scrapbook-opened"
+                );
 
-const letterContent =
-document.getElementById("letterContent");
 
-if(openLetterBtn && letterContent){
+                /*
+                   Reveal first page
+                */
 
-    openLetterBtn.addEventListener(
-    "click",
-    ()=>{
+                setTimeout(() => {
 
-        openLetterBtn.style.display="none";
+                    const firstPage =
+                        document.querySelector(
+                            ".memories-page"
+                        );
 
-        letterContent.classList.remove("hidden-letter");
 
-        letterContent.classList.add("show");
+                    if (firstPage) {
 
-        startTyping();
+                        firstPage.classList.add(
+                            "page-visible"
+                        );
 
-        window.scrollTo({
 
-            top:0,
+                        /*
+                           Scroll to Memories
+                        */
 
-            behavior:"smooth"
+                        firstPage.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
 
-        });
+                    }
+
+                }, 700);
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       📖 PAGE SCROLL REVEAL
+    ================================================= */
+
+    const pageObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "page-visible"
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+
+    pages.forEach(page => {
+
+        if (
+            !page.classList.contains(
+                "cover-page"
+            )
+        ) {
+
+            pageObserver.observe(page);
+
+        }
 
     });
 
-}
-const text =
-document.querySelector(
-".typing-text"
-);
 
+    /* =================================================
+       📸 PHOTO ENTRANCE
+    ================================================= */
 
+    const photoObserver =
+        new IntersectionObserver(
+            entries => {
 
-if(!text)return;
+                entries.forEach(
+                    entry => {
 
+                        if (
+                            entry.isIntersecting
+                        ) {
 
+                            entry.target.classList.add(
+                                "photo-visible"
+                            );
 
-const message =
-text.textContent.trim();
+                        }
 
+                    }
+                );
 
+            },
+            {
+                threshold: 0.2
+            }
+        );
 
-text.textContent="";
 
+    document
+        .querySelectorAll(".polaroid")
+        .forEach(photo => {
 
+            photoObserver.observe(
+                photo
+            );
 
-let i=0;
+        });
 
 
+    /* =================================================
+       📝 STICKY NOTE ENTRANCE
+    ================================================= */
 
-function typing(){
+    const noteObserver =
+        new IntersectionObserver(
+            entries => {
 
+                entries.forEach(
+                    entry => {
 
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-if(i < message.length){
+                            entry.target.classList.add(
+                                "note-visible"
+                            );
 
+                        }
 
+                    }
+                );
 
-text.textContent +=
-message.charAt(i);
+            },
+            {
+                threshold: 0.15
+            }
+        );
 
 
+    stickyNotes.forEach(note => {
 
-i++;
+        noteObserver.observe(
+            note
+        );
 
+    });
 
 
-setTimeout(
-typing,
-35
-);
+    /* =================================================
+       📸 PHOTO LIGHTBOX
+    ================================================= */
 
+    if (photos.length > 0) {
 
+        const lightbox =
+            document.createElement(
+                "div"
+            );
 
-}
+        lightbox.className =
+            "photo-lightbox";
 
 
+        const image =
+            document.createElement(
+                "img"
+            );
 
-}
+        image.className =
+            "lightbox-image";
 
 
+        const close =
+            document.createElement(
+                "button"
+            );
 
-typing();
+        close.className =
+            "lightbox-close";
 
+        close.type = "button";
 
+        close.setAttribute(
+            "aria-label",
+            "Close photo"
+        );
 
-}
+        close.textContent = "×";
 
 
+        lightbox.appendChild(
+            image
+        );
 
+        lightbox.appendChild(
+            close
+        );
 
+        document.body.appendChild(
+            lightbox
+        );
 
 
+        /* Open photo */
 
+        photos.forEach(photo => {
 
+            photo.addEventListener(
+                "click",
+                event => {
 
-/* =====================================================
-   FLOWER PAGE SPARKLES
-===================================================== */
+                    event.stopPropagation();
 
 
+                    image.src =
+                        photo.currentSrc ||
+                        photo.src;
 
-const flowerPage =
-document.querySelector(
-".flower-page"
-);
 
+                    image.alt =
+                        photo.alt ||
+                        "Scrapbook memory";
 
 
-if(flowerPage){
+                    lightbox.classList.add(
+                        "active"
+                    );
 
 
+                    document.body.style.overflow =
+                        "hidden";
 
-setInterval(()=>{
+                }
+            );
 
+        });
 
-const sparkle =
-document.createElement(
-"span"
-);
 
+        /* Close */
 
+        function closeLightbox() {
 
-sparkle.innerHTML="✨";
+            lightbox.classList.remove(
+                "active"
+            );
 
 
+            /*
+               Only unlock scrolling if
+               countdown is already finished.
+            */
 
-sparkle.style.position=
-"fixed";
+            if (countdownFinished) {
 
+                document.body.style.overflow =
+                    "";
 
+            }
 
-sparkle.style.left=
-Math.random()*100+"%";
 
+            setTimeout(() => {
 
+                if (
+                    !lightbox.classList.contains(
+                        "active"
+                    )
+                ) {
 
-sparkle.style.top=
-Math.random()*100+"%";
+                    image.src = "";
 
+                }
 
+            }, 300);
 
-sparkle.style.fontSize=
-"25px";
+        }
 
 
+        close.addEventListener(
+            "click",
+            closeLightbox
+        );
 
-sparkle.style.animation=
-"fadeSparkle 3s forwards";
 
+        lightbox.addEventListener(
+            "click",
+            event => {
 
+                if (
+                    event.target === lightbox
+                ) {
 
-sparkle.style.pointerEvents=
-"none";
+                    closeLightbox();
 
+                }
 
+            }
+        );
 
-document.body.appendChild(
-sparkle
-);
 
+        document.addEventListener(
+            "keydown",
+            event => {
 
+                if (
+                    event.key === "Escape" &&
+                    lightbox.classList.contains(
+                        "active"
+                    )
+                ) {
 
-setTimeout(()=>{
+                    closeLightbox();
 
+                }
 
-sparkle.remove();
+            }
+        );
 
+    }
 
-},3000);
 
+    /* =================================================
+       💌 ENVELOPE / LETTER
+    ================================================= */
 
+    if (
+        envelope &&
+        letter
+    ) {
 
-},1200);
+        let letterOpened = false;
 
 
+        envelope.addEventListener(
+            "click",
+            () => {
 
-}
+                if (letterOpened) {
+                    return;
+                }
 
 
+                letterOpened = true;
 
 
+                console.log(
+                    "💌 Opening letter..."
+                );
 
 
+                envelope.classList.add(
+                    "opened"
+                );
 
 
-/* =====================================================
-   IMAGE ERROR HANDLER
-===================================================== */
+                setTimeout(() => {
 
+                    letter.style.display =
+                        "block";
 
-document
-.querySelectorAll("img")
-.forEach(img=>{
 
+                    requestAnimationFrame(
+                        () => {
 
-img.onerror=()=>{
+                            requestAnimationFrame(
+                                () => {
 
+                                    letter.classList.add(
+                                        "letter-visible"
+                                    );
 
-img.style.display="none";
+                                }
+                            );
 
+                        }
+                    );
 
-};
 
+                    setTimeout(() => {
 
-});
+                        letter.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
 
+                    }, 350);
 
 
+                }, 500);
 
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       📝 DRAGGABLE STICKY NOTES
+    ================================================= */
+
+    stickyNotes.forEach(note => {
+
+        let dragging = false;
+
+        let startX = 0;
+        let startY = 0;
+
+        let currentX = 0;
+        let currentY = 0;
+
+
+        note.addEventListener(
+            "pointerdown",
+            event => {
+
+                if (
+                    event.target.closest(
+                        "button"
+                    ) ||
+                    event.target.closest(
+                        "a"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                dragging = true;
+
+
+                note.classList.add(
+                    "dragging"
+                );
+
+
+                note.setPointerCapture(
+                    event.pointerId
+                );
+
+
+                startX =
+                    event.clientX -
+                    currentX;
+
+                startY =
+                    event.clientY -
+                    currentY;
+
+            }
+        );
+
+
+        note.addEventListener(
+            "pointermove",
+            event => {
+
+                if (!dragging) {
+                    return;
+                }
+
+
+                currentX =
+                    event.clientX -
+                    startX;
+
+                currentY =
+                    event.clientY -
+                    startY;
+
+
+                let rotation = 0;
+
+
+                if (
+                    note.classList.contains(
+                        "note-one"
+                    )
+                ) {
+
+                    rotation = -3;
+
+                }
+
+
+                if (
+                    note.classList.contains(
+                        "note-two"
+                    )
+                ) {
+
+                    rotation = 4;
+
+                }
+
+
+                if (
+                    note.classList.contains(
+                        "note-three"
+                    )
+                ) {
+
+                    rotation = 2;
+
+                }
+
+
+                if (
+                    note.classList.contains(
+                        "note-four"
+                    )
+                ) {
+
+                    rotation = -4;
+
+                }
+
+
+                note.style.transform =
+                    `translate(${currentX}px, ${currentY}px) rotate(${rotation}deg)`;
+
+            }
+        );
+
+
+        function stopDragging() {
+
+            if (!dragging) {
+                return;
+            }
+
+
+            dragging = false;
+
+
+            note.classList.remove(
+                "dragging"
+            );
+
+        }
+
+
+        note.addEventListener(
+            "pointerup",
+            stopDragging
+        );
+
+
+        note.addEventListener(
+            "pointercancel",
+            stopDragging
+        );
+
+    });
+
+
+    /* =================================================
+       🚫 PREVENT IMAGE DRAGGING
+    ================================================= */
+
+    document
+        .querySelectorAll("img")
+        .forEach(img => {
+
+            img.addEventListener(
+                "dragstart",
+                event => {
+
+                    event.preventDefault();
+
+                }
+            );
+
+        });
+
+
+    /* =================================================
+       📱 MOBILE TAP HIGHLIGHT
+    ================================================= */
+
+    document
+        .querySelectorAll(
+            "button, .polaroid, .envelope, .sticky-note"
+        )
+        .forEach(element => {
+
+            element.style.webkitTapHighlightColor =
+                "transparent";
+
+        });
+
+
+    /* =================================================
+       ⌨️ KEYBOARD SUPPORT
+    ================================================= */
+
+    if (envelope) {
+
+        envelope.setAttribute(
+            "tabindex",
+            "0"
+        );
+
+
+        envelope.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    envelope.click();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (openButton) {
+
+        openButton.setAttribute(
+            "type",
+            "button"
+        );
+
+    }
+
+
+    /* =================================================
+       🌷 FINISHED
+    ================================================= */
+
+    console.log(
+        "🌷 Scrapbook ready!"
+    );
 
 });
