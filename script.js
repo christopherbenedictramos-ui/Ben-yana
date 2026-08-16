@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const targetDate =
         new Date(
             2026,
-            8,
+            7,
             23,
             0,
             0,
