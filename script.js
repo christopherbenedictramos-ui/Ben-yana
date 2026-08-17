@@ -131,21 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================================================= */
 
     const letterText =
-`Happy Birthday!
+`Happy Birthday My Love! 
 
-Today, I hope you remember
-how special you are.
+Thank you for all the memories, laughter, happiness, and little moments that made life more special. Thank you for existing. Thank you for simply being you. 
 
-You deserve happiness,
-beautiful moments,
-and wonderful memories.
+There is something about your presence that makes ordinary moments feel a little more special, and I'm truly grateful that I get to know someone as wonderful as you.
 
-Thank you for being part
-of my life.
+I hope you know how special you are, not just today, but every single day. You have a way of bringing warmth and happiness without even trying, and somehow, you've become someone who means more to me than I cannot easily put into words. Maybe that's why I'm so thankful, because out of all the people in this world, our paths crossed.
 
-With love,
+On your birthday, I just want you to know that I'll always be wishing for your happiness. I hope this new chapter brings you beautiful memories, endless reasons to smile, and everything your heart secretly wishes for. You deserve to be loved, appreciated, and reminded of just how amazing you are.
 
-Benny 🌷`;
+So today, I celebrate you for the person you are, for the smile you bring to others, and for the simple fact that you exist. Thank you for being here. Thank you for being you. And thank you for unknowingly making my world a little brighter just by being part of it.
+
+Happy Birthday, Allana. 🌷🎂💗
+May this year be as beautiful and unforgettable as the person you are.
+
+From your loving Ben`;
 
 
     /* =========================================================
